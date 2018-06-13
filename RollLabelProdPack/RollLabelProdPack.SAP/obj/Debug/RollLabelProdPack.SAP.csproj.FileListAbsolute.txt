@@ -1,0 +1,7 @@
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\bin\Debug\RollLabelProdPack.SAP.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\bin\Debug\RollLabelProdPack.SAP.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabelProdPack.SAP.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\Interop.SAPbobsCOM.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabelProdPack.SAP.csproj.ResolveComReference.cache
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabelProdPack.SAP.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabelProdPack.SAP.pdb

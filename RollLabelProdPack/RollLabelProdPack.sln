@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RollLabelProdPack", "RollLabelProdPack\RollLabelProdPack.csproj", "{62D4D0B6-EE53-4934-85F5-6BEBF5239C22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectListView2012", "..\ObjectListView\ObjectListView2012.csproj", "{18FEDA0C-D147-4286-B39A-01204808106A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RollLabelProdPack.Library", "RollLabelProdPack.Library\RollLabelProdPack.Library.csproj", "{7C645955-79D2-47E6-9D83-0B52A51EE646}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RollLabelProdPack.SAP", "RollLabelProdPack.SAP\RollLabelProdPack.SAP.csproj", "{4F013C36-C171-42BF-9A12-270006F5BA41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62D4D0B6-EE53-4934-85F5-6BEBF5239C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D4D0B6-EE53-4934-85F5-6BEBF5239C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D4D0B6-EE53-4934-85F5-6BEBF5239C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D4D0B6-EE53-4934-85F5-6BEBF5239C22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18FEDA0C-D147-4286-B39A-01204808106A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C645955-79D2-47E6-9D83-0B52A51EE646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C645955-79D2-47E6-9D83-0B52A51EE646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C645955-79D2-47E6-9D83-0B52A51EE646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C645955-79D2-47E6-9D83-0B52A51EE646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F013C36-C171-42BF-9A12-270006F5BA41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F013C36-C171-42BF-9A12-270006F5BA41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F013C36-C171-42BF-9A12-270006F5BA41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F013C36-C171-42BF-9A12-270006F5BA41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

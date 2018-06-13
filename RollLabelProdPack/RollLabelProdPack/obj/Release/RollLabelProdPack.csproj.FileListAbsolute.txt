@@ -1,0 +1,15 @@
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\RollLabelProdPack.exe.config
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\RollLabelProdPack.exe
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\RollLabelProdPack.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\ObjectListView.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\RollLabelProdPack.Library.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\ObjectListView.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\ObjectListView.xml
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Release\RollLabelProdPack.Library.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmCreateRollLabels.resources
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmMain.resources
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.Properties.Resources.resources
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.csproj.GenerateResource.Cache
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.exe
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.pdb
