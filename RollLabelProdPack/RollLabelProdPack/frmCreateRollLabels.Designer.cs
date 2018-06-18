@@ -69,6 +69,7 @@
             this.btnPrintPackLabel = new System.Windows.Forms.Button();
             this.nudMachNo = new System.Windows.Forms.NumericUpDown();
             this.txtMtlCode = new System.Windows.Forms.TextBox();
+            this.pnlBody = new System.Windows.Forms.Panel();
             this.olvRowLabels = new BrightIdeasSoftware.ObjectListView();
             this.olvColProdYr = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColProdMo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -84,13 +85,22 @@
             this.olvColBatchNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColItem = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColIRMS = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.pnlBody = new System.Windows.Forms.Panel();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.nudCopies1x6 = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.nud4x6Copies = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.chkReprint = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtProductionDateFull = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txtDefaultItemDesc = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
+            this.nudPalletNo = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
+            this.nudCopiesPack = new System.Windows.Forms.NumericUpDown();
+            this.label20 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tstbResults = new System.Windows.Forms.ToolStripTextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -100,10 +110,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudJumboRollNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSlitPositions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMachNo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).BeginInit();
             this.pnlBody.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).BeginInit();
             this.pnlHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCopies1x6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud4x6Copies)).BeginInit();
             this.pnlFooter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPalletNo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCopiesPack)).BeginInit();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderProdOrder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderQty)).BeginInit();
@@ -264,8 +278,10 @@
             // 
             // nudJumboRollNo
             // 
+            this.nudJumboRollNo.Enabled = false;
             this.nudJumboRollNo.Location = new System.Drawing.Point(290, 183);
             this.nudJumboRollNo.Name = "nudJumboRollNo";
+            this.nudJumboRollNo.ReadOnly = true;
             this.nudJumboRollNo.Size = new System.Drawing.Size(76, 20);
             this.nudJumboRollNo.TabIndex = 23;
             this.nudJumboRollNo.Value = new decimal(new int[] {
@@ -413,7 +429,7 @@
             // 
             // txtQty
             // 
-            this.txtQty.Location = new System.Drawing.Point(93, 28);
+            this.txtQty.Location = new System.Drawing.Point(202, 28);
             this.txtQty.Name = "txtQty";
             this.txtQty.Size = new System.Drawing.Size(67, 20);
             this.txtQty.TabIndex = 41;
@@ -421,7 +437,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(90, 12);
+            this.label14.Location = new System.Drawing.Point(199, 12);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(68, 13);
             this.label14.TabIndex = 40;
@@ -429,7 +445,7 @@
             // 
             // btnPrintPackLabel
             // 
-            this.btnPrintPackLabel.Location = new System.Drawing.Point(177, 25);
+            this.btnPrintPackLabel.Location = new System.Drawing.Point(336, 25);
             this.btnPrintPackLabel.Name = "btnPrintPackLabel";
             this.btnPrintPackLabel.Size = new System.Drawing.Size(133, 23);
             this.btnPrintPackLabel.TabIndex = 42;
@@ -455,6 +471,17 @@
             this.txtMtlCode.Name = "txtMtlCode";
             this.txtMtlCode.Size = new System.Drawing.Size(54, 20);
             this.txtMtlCode.TabIndex = 43;
+            // 
+            // pnlBody
+            // 
+            this.pnlBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlBody.Controls.Add(this.olvRowLabels);
+            this.pnlBody.Location = new System.Drawing.Point(0, 226);
+            this.pnlBody.Name = "pnlBody";
+            this.pnlBody.Size = new System.Drawing.Size(934, 227);
+            this.pnlBody.TabIndex = 45;
             // 
             // olvRowLabels
             // 
@@ -576,19 +603,14 @@
             this.olvColIRMS.IsVisible = false;
             this.olvColIRMS.Text = "IRMS#";
             // 
-            // pnlBody
-            // 
-            this.pnlBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlBody.Controls.Add(this.olvRowLabels);
-            this.pnlBody.Location = new System.Drawing.Point(0, 226);
-            this.pnlBody.Name = "pnlBody";
-            this.pnlBody.Size = new System.Drawing.Size(934, 227);
-            this.pnlBody.TabIndex = 45;
-            // 
             // pnlHeader
             // 
+            this.pnlHeader.Controls.Add(this.nudCopies1x6);
+            this.pnlHeader.Controls.Add(this.label19);
+            this.pnlHeader.Controls.Add(this.nud4x6Copies);
+            this.pnlHeader.Controls.Add(this.label18);
+            this.pnlHeader.Controls.Add(this.label17);
+            this.pnlHeader.Controls.Add(this.chkReprint);
             this.pnlHeader.Controls.Add(this.label16);
             this.pnlHeader.Controls.Add(this.txtProductionDateFull);
             this.pnlHeader.Controls.Add(this.label15);
@@ -636,6 +658,67 @@
             this.pnlHeader.Size = new System.Drawing.Size(934, 220);
             this.pnlHeader.TabIndex = 46;
             // 
+            // nudCopies1x6
+            // 
+            this.nudCopies1x6.Location = new System.Drawing.Point(691, 137);
+            this.nudCopies1x6.Name = "nudCopies1x6";
+            this.nudCopies1x6.Size = new System.Drawing.Size(47, 20);
+            this.nudCopies1x6.TabIndex = 53;
+            this.nudCopies1x6.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(620, 141);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(65, 13);
+            this.label19.TabIndex = 52;
+            this.label19.Text = "Copies (1x6)";
+            // 
+            // nud4x6Copies
+            // 
+            this.nud4x6Copies.Location = new System.Drawing.Point(554, 137);
+            this.nud4x6Copies.Name = "nud4x6Copies";
+            this.nud4x6Copies.Size = new System.Drawing.Size(47, 20);
+            this.nud4x6Copies.TabIndex = 51;
+            this.nud4x6Copies.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(483, 141);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(65, 13);
+            this.label18.TabIndex = 50;
+            this.label18.Text = "Copies (4x6)";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(425, 141);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(41, 13);
+            this.label17.TabIndex = 49;
+            this.label17.Text = "Reprint";
+            // 
+            // chkReprint
+            // 
+            this.chkReprint.AutoSize = true;
+            this.chkReprint.Location = new System.Drawing.Point(409, 141);
+            this.chkReprint.Name = "chkReprint";
+            this.chkReprint.Size = new System.Drawing.Size(15, 14);
+            this.chkReprint.TabIndex = 48;
+            this.chkReprint.UseVisualStyleBackColor = true;
+            this.chkReprint.CheckedChanged += new System.EventHandler(this.chkReprint_CheckedChanged);
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -670,6 +753,10 @@
             // 
             // pnlFooter
             // 
+            this.pnlFooter.Controls.Add(this.nudPalletNo);
+            this.pnlFooter.Controls.Add(this.label21);
+            this.pnlFooter.Controls.Add(this.nudCopiesPack);
+            this.pnlFooter.Controls.Add(this.label20);
             this.pnlFooter.Controls.Add(this.toolStrip1);
             this.pnlFooter.Controls.Add(this.label12);
             this.pnlFooter.Controls.Add(this.txtProdOrder);
@@ -681,6 +768,54 @@
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(934, 150);
             this.pnlFooter.TabIndex = 47;
+            // 
+            // nudPalletNo
+            // 
+            this.nudPalletNo.Enabled = false;
+            this.nudPalletNo.Location = new System.Drawing.Point(86, 28);
+            this.nudPalletNo.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudPalletNo.Name = "nudPalletNo";
+            this.nudPalletNo.Size = new System.Drawing.Size(110, 20);
+            this.nudPalletNo.TabIndex = 55;
+            this.nudPalletNo.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(83, 12);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(53, 13);
+            this.label21.TabIndex = 54;
+            this.label21.Text = "Pallet No.";
+            // 
+            // nudCopiesPack
+            // 
+            this.nudCopiesPack.Location = new System.Drawing.Point(278, 28);
+            this.nudCopiesPack.Name = "nudCopiesPack";
+            this.nudCopiesPack.Size = new System.Drawing.Size(47, 20);
+            this.nudCopiesPack.TabIndex = 53;
+            this.nudCopiesPack.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(275, 12);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 13);
+            this.label20.TabIndex = 52;
+            this.label20.Text = "Copies";
             // 
             // toolStrip1
             // 
@@ -737,12 +872,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudJumboRollNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSlitPositions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMachNo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).EndInit();
             this.pnlBody.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCopies1x6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud4x6Copies)).EndInit();
             this.pnlFooter.ResumeLayout(false);
             this.pnlFooter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPalletNo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCopiesPack)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderProdOrder)).EndInit();
@@ -821,5 +960,15 @@
         private System.Windows.Forms.TextBox txtDefaultItemDesc;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtProductionDateFull;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox chkReprint;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown nudCopies1x6;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.NumericUpDown nud4x6Copies;
+        private System.Windows.Forms.NumericUpDown nudCopiesPack;
+        private System.Windows.Forms.NumericUpDown nudPalletNo;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
     }
 }

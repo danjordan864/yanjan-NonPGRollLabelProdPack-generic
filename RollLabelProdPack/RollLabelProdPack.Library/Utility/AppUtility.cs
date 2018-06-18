@@ -160,6 +160,10 @@ namespace RollLabelProdPack.Library.Utility
             return ConfigurationManager.AppSettings["LastRoll"];
         }
 
+        public static string GetLastPalletNo()
+        {
+            return ConfigurationManager.AppSettings["LastPalletNo"];
+        }
         public static string GetDefaultIMRS()
         {
             return ConfigurationManager.AppSettings["DefaultIMRS"];

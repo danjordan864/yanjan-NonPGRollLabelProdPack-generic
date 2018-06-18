@@ -17,6 +17,7 @@ namespace RollLabelProdPack
 {
     public partial class FrmCreateRollLabels : Form
     {
+        decimal _lastJumboRoll;
         public FrmCreateRollLabels()
         {
             InitializeComponent();
@@ -35,13 +36,15 @@ namespace RollLabelProdPack
             nudMachNo.Value = int.Parse(AppUtility.GetDefaultMacineNo());
             nudSlitPositions.Value = int.Parse(AppUtility.GetDefaultNoOfSlitPositions());
             txtBatchNo.Text = AppUtility.GetLastBatch();
-            nudJumboRollNo.Value = Convert.ToDecimal(AppUtility.GetLastRoll());
+            _lastJumboRoll = Convert.ToDecimal(AppUtility.GetLastRoll());
+            nudJumboRollNo.Value = _lastJumboRoll;
             txtMtlCode.Text = AppUtility.GetDefaultMaterialCode();
             txtRnShift.Text = AppUtility.GetDefaultShift();
             txtRnDie.Text = AppUtility.GetDefaultDie();
             txtPrdName.Text = AppUtility.GetDefaultProdName();
             txtDefaultItemDesc.Text = AppUtility.GetDefaultItemDesc();
             txtProductionDateFull.Text = DateTime.Now.ToShortDateString();
+            nudPalletNo.Value = Convert.ToDecimal(AppUtility.GetLastPalletNo());
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -81,47 +84,76 @@ namespace RollLabelProdPack
             var labels = olvRowLabels.Objects as List<RollLabelData>;
             if (labels != null)
             {
-                var sb = new StringBuilder(1000);
-                sb.Append("Production Year, Production Month, Production date, Aperature die No., Production Shift, Jumbo Roll No.,");
-                sb.AppendLine("Slit Position, ItemCode, IRMS#, Factory Code, Production Machine No., Material Code, Product Name, Batch No");
-                foreach (var label in labels)
+                var sb4x6 = new StringBuilder(5000);
+                sb4x6.Append("Production Year, Production Month, Production date, Aperature die No., Production Shift, Jumbo Roll No.,");
+                sb4x6.AppendLine("Slit Position, ItemCode, IRMS#, Factory Code, Production Machine No., Material Code, Product Name, Batch No");
+                for (int i = 0; i < nud4x6Copies.Value; i++)
                 {
-                    sb.AppendFormat("{0},{1},{2},{3},{4}", label.ProductionYear, label.ProductionMonth, label.ProductionDate, label.AperatureDieNo, label.ProductionShift);
-                    sb.AppendFormat(",{0},{1},{2},{3},{4}", label.JumboRollNo, label.SlitPosition, label.ItemCode, label.IRMS, label.FactoryCode);
-                    sb.AppendFormat(",{0},{1},{2},{3}", label.ProductionMachineNo, label.MaterialCode, label.ProductName, label.BatchNo);
-                    sb.AppendLine();
+                    foreach (var label in labels)
+                    {
+                        sb4x6.AppendFormat("{0},{1},{2},{3},{4}", label.ProductionYear, label.ProductionMonth, label.ProductionDate, label.AperatureDieNo, label.ProductionShift);
+                        sb4x6.AppendFormat(",{0},{1},{2},{3},{4}", label.JumboRollNo, label.SlitPosition, label.ItemCode, label.IRMS, label.FactoryCode);
+                        sb4x6.AppendFormat(",{0},{1},{2},{3}", label.ProductionMachineNo, label.MaterialCode, label.ProductName, label.BatchNo);
+                        sb4x6.AppendLine();
+                    }
                 }
                 using (StreamWriter sw = File.CreateText(fileNameRollLabels4x6))
                 {
-                    sw.Write(sb.ToString());
+                    sw.Write(sb4x6.ToString());
+                }
+                var sb1x6 = new StringBuilder(5000);
+                sb1x6.Append("Production Year, Production Month, Production date, Aperature die No., Production Shift, Jumbo Roll No.,");
+                sb1x6.AppendLine("Slit Position, ItemCode, IRMS#, Factory Code, Production Machine No., Material Code, Product Name, Batch No");
+                for (int i = 0; i < nudCopies1x6.Value; i++)
+                {
+                    foreach (var label in labels)
+                    {
+                        sb1x6.AppendFormat("{0},{1},{2},{3},{4}", label.ProductionYear, label.ProductionMonth, label.ProductionDate, label.AperatureDieNo, label.ProductionShift);
+                        sb1x6.AppendFormat(",{0},{1},{2},{3},{4}", label.JumboRollNo, label.SlitPosition, label.ItemCode, label.IRMS, label.FactoryCode);
+                        sb1x6.AppendFormat(",{0},{1},{2},{3}", label.ProductionMachineNo, label.MaterialCode, label.ProductName, label.BatchNo);
+                        sb1x6.AppendLine();
+                    }
                 }
                 using (StreamWriter sw = File.CreateText(fileNameRollLabels1x6))
                 {
-                    sw.Write(sb.ToString());
+                    sw.Write(sb1x6.ToString());
                 }
                 tstbResults.Text = "4x6 and 1 inch roll labels printed. Please check printer.";
                 olvRowLabels.Objects = null;
-                nudJumboRollNo.Value += 1;
+                if (chkReprint.Checked)
+                {
+                    nudJumboRollNo.Value = _lastJumboRoll;
+                }
+                {
+                    _lastJumboRoll += 1;
+                    nudJumboRollNo.Value = _lastJumboRoll;
+                }
+                chkReprint.Checked = false;
             }
 
         }
 
         private void btnPrintPackLabel_Click(object sender, EventArgs e)
         {
-            var qty = Decimal.Parse(txtQty.Text).ToString("0.00");
-            var qtyNoDecmial = qty.Replace(".","");
             if (PackLabelIsValid())
             {
+                var qty = Decimal.Parse(txtQty.Text).ToString("0.00");
+                var qtyNoDecmial = qty.Replace(".", "");
                 var labelPrintLocPack = AppUtility.GetPrintLocPack();
                 var labelPrintExtension = AppUtility.GetLabelPrintExtension();
                 var fileNamePackLabel = Path.Combine(labelPrintLocPack, "PackLabel" + labelPrintExtension);
                 var customerShippingLot = $"{txtFactoryCode.Text}{nudMachNo.Value.ToString()}{txtMtlCode.Text}{txtPrdName.Text}{txtPrdYr.Text}{txtPrdMo.Text}{txtBatchNo.Text}";
                 var lotWithPrefix = AppUtility.GetSupplierId() + customerShippingLot;
+                var palletId = nudPalletNo.Value.ToString("0");
                 var sb = new StringBuilder(1000);
-                sb.Append("Supplier Product, Production Date, Item Desc., Order No., Cust. Part No.(IRMS), Qty, QtyNoDecimal, Customer Shipping Lot, LotWithPrefix");
+                sb.Append("Supplier Product, Production Date, Item Desc., Order No., Cust. Part No.(IRMS), Qty, QtyNoDecimal, Customer Shipping Lot, LotWithPrefix, PalletId");
                 sb.AppendLine();
-                sb.AppendFormat("{0},{1},{2},{3},{4}", txtItem.Text, txtProductionDateFull.Text, txtDefaultItemDesc.Text, txtProdOrder.Text, txtIRMS.Text);
-                sb.AppendFormat(",{0},{1},{2},{3}", qty,  qtyNoDecmial, customerShippingLot, lotWithPrefix);
+                for (int i = 0; i < nudCopiesPack.Value; i++)
+                {
+                    sb.AppendFormat("{0},{1},{2},{3},{4}", txtItem.Text, txtProductionDateFull.Text, txtDefaultItemDesc.Text, txtProdOrder.Text, txtIRMS.Text);
+                    sb.AppendFormat(",{0},{1},{2},{3},{4}", qty, qtyNoDecmial, customerShippingLot, lotWithPrefix,palletId);
+                    sb.AppendLine();
+                }
                 using (StreamWriter sw = File.CreateText(fileNamePackLabel))
                 {
                     sw.Write(sb.ToString());
@@ -129,8 +161,9 @@ namespace RollLabelProdPack
                 tstbResults.Text = "Pack label printed. Please check printer.";
                 txtProdOrder.Text = string.Empty;
                 txtQty.Text = string.Empty;
+                nudPalletNo.Value += 1;
             }
-           
+
         }
 
         private bool PackLabelIsValid()
@@ -147,7 +180,7 @@ namespace RollLabelProdPack
             }
             decimal qtyDec;
 
-            if (!decimal.TryParse(txtQty.Text,out qtyDec))
+            if (!decimal.TryParse(txtQty.Text, out qtyDec))
             {
                 errorProviderQty.SetError(txtQty, "Please specify a numeric value.");
                 valid = false;
@@ -162,9 +195,23 @@ namespace RollLabelProdPack
         private void FrmCreateRollLabels_FormClosing(object sender, FormClosingEventArgs e)
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings["LastRoll"].Value = nudJumboRollNo.Value.ToString("0");
-            config.AppSettings.Settings["LastBatch"].Value = txtBatchNo.Text; 
+            config.AppSettings.Settings["LastRoll"].Value = _lastJumboRoll.ToString("0");
+            config.AppSettings.Settings["LastBatch"].Value = txtBatchNo.Text;
+            config.AppSettings.Settings["LastPalletNo"].Value = nudPalletNo.Value.ToString("0");
             config.Save(ConfigurationSaveMode.Modified);
+        }
+
+        private void chkReprint_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkReprint.Checked)
+            {
+                nudJumboRollNo.Enabled = true;
+            }
+            else
+            {
+                nudJumboRollNo.Value = _lastJumboRoll;
+                nudJumboRollNo.Enabled = false;
+            }
         }
     }
 }
