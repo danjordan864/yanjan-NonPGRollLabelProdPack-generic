@@ -12,11 +12,24 @@ namespace RollLabelProdPack
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmCreateRollLabels());
+            //valid input values are pack, production or manual
+            if (args.Length > 0 && args[0] != null && args[0] == "pack")
+            {
+                Application.Run(new FrmPack());
+            }
+            else if (args.Length > 0 && args[0] != null && args[0] == "manual")
+            {
+                Application.Run(new FrmCreateRollLabels());
+            }
+            else
+            {
+                Application.Run(new FrmMain());
+            }
+           
         }
     }
 }

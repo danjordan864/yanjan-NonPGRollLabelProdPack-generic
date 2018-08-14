@@ -70,21 +70,6 @@
             this.nudMachNo = new System.Windows.Forms.NumericUpDown();
             this.txtMtlCode = new System.Windows.Forms.TextBox();
             this.pnlBody = new System.Windows.Forms.Panel();
-            this.olvRowLabels = new BrightIdeasSoftware.ObjectListView();
-            this.olvColProdYr = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColProdMo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColProdDate = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColApertureDie = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColProdShift = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColJumboRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColSlitPos = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColFactoryCode = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColMachNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColMtlCode = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColProdName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColBatchNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColItem = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColIRMS = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.nudCopies1x6 = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
@@ -107,11 +92,25 @@
             this.txtProdOrder = new System.Windows.Forms.TextBox();
             this.errorProviderProdOrder = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProviderQty = new System.Windows.Forms.ErrorProvider(this.components);
+            this.olvRowLabels = new BrightIdeasSoftware.ObjectListView();
+            this.olvColProdYr = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColProdMo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColProdDate = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColApertureDie = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColProdShift = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColJumboRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColSlitPos = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColFactoryCode = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColMachNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColMtlCode = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColProdName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColBatchNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColItem = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColIRMS = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.nudJumboRollNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSlitPositions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMachNo)).BeginInit();
             this.pnlBody.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).BeginInit();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCopies1x6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud4x6Copies)).BeginInit();
@@ -121,6 +120,7 @@
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderProdOrder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderQty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).BeginInit();
             this.SuspendLayout();
             // 
             // lblFactoryCode
@@ -220,6 +220,7 @@
             this.txtBatchNo.Name = "txtBatchNo";
             this.txtBatchNo.Size = new System.Drawing.Size(52, 20);
             this.txtBatchNo.TabIndex = 13;
+            this.txtBatchNo.TextChanged += new System.EventHandler(this.txtBatchNo_TextChanged);
             // 
             // lblShippingLotNo
             // 
@@ -483,126 +484,6 @@
             this.pnlBody.Size = new System.Drawing.Size(934, 227);
             this.pnlBody.TabIndex = 45;
             // 
-            // olvRowLabels
-            // 
-            this.olvRowLabels.AllColumns.Add(this.olvColProdYr);
-            this.olvRowLabels.AllColumns.Add(this.olvColProdMo);
-            this.olvRowLabels.AllColumns.Add(this.olvColProdDate);
-            this.olvRowLabels.AllColumns.Add(this.olvColApertureDie);
-            this.olvRowLabels.AllColumns.Add(this.olvColProdShift);
-            this.olvRowLabels.AllColumns.Add(this.olvColJumboRollNo);
-            this.olvRowLabels.AllColumns.Add(this.olvColSlitPos);
-            this.olvRowLabels.AllColumns.Add(this.olvColFactoryCode);
-            this.olvRowLabels.AllColumns.Add(this.olvColMachNo);
-            this.olvRowLabels.AllColumns.Add(this.olvColMtlCode);
-            this.olvRowLabels.AllColumns.Add(this.olvColProdName);
-            this.olvRowLabels.AllColumns.Add(this.olvColBatchNo);
-            this.olvRowLabels.AllColumns.Add(this.olvColItem);
-            this.olvRowLabels.AllColumns.Add(this.olvColIRMS);
-            this.olvRowLabels.CellEditUseWholeCell = false;
-            this.olvRowLabels.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColProdYr,
-            this.olvColProdMo,
-            this.olvColProdDate,
-            this.olvColApertureDie,
-            this.olvColProdShift,
-            this.olvColJumboRollNo,
-            this.olvColSlitPos});
-            this.olvRowLabels.Cursor = System.Windows.Forms.Cursors.Default;
-            this.olvRowLabels.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.olvRowLabels.Location = new System.Drawing.Point(0, 0);
-            this.olvRowLabels.Name = "olvRowLabels";
-            this.olvRowLabels.ShowGroups = false;
-            this.olvRowLabels.Size = new System.Drawing.Size(934, 227);
-            this.olvRowLabels.TabIndex = 44;
-            this.olvRowLabels.UseCompatibleStateImageBehavior = false;
-            this.olvRowLabels.View = System.Windows.Forms.View.Details;
-            // 
-            // olvColProdYr
-            // 
-            this.olvColProdYr.AspectName = "ProductionYear";
-            this.olvColProdYr.Text = "Prd. Yr.";
-            // 
-            // olvColProdMo
-            // 
-            this.olvColProdMo.AspectName = "ProductionMonth";
-            this.olvColProdMo.Text = "Prd. Mo.";
-            // 
-            // olvColProdDate
-            // 
-            this.olvColProdDate.AspectName = "ProductionDate";
-            this.olvColProdDate.Text = "Prd. Dt";
-            // 
-            // olvColApertureDie
-            // 
-            this.olvColApertureDie.AspectName = "AperatureDieNo";
-            this.olvColApertureDie.Text = "Die";
-            // 
-            // olvColProdShift
-            // 
-            this.olvColProdShift.AspectName = "ProductionShift";
-            this.olvColProdShift.Text = "Shift";
-            // 
-            // olvColJumboRollNo
-            // 
-            this.olvColJumboRollNo.AspectName = "JumboRollNo";
-            this.olvColJumboRollNo.Text = "Roll No.";
-            // 
-            // olvColSlitPos
-            // 
-            this.olvColSlitPos.AspectName = "SlitPosition";
-            this.olvColSlitPos.Text = "Slit Pos.";
-            // 
-            // olvColFactoryCode
-            // 
-            this.olvColFactoryCode.AspectName = "FactoryCode";
-            this.olvColFactoryCode.DisplayIndex = 7;
-            this.olvColFactoryCode.IsVisible = false;
-            this.olvColFactoryCode.Text = "Fact. Code";
-            // 
-            // olvColMachNo
-            // 
-            this.olvColMachNo.AspectName = "ProductionMachineNo";
-            this.olvColMachNo.DisplayIndex = 8;
-            this.olvColMachNo.IsVisible = false;
-            this.olvColMachNo.Text = "Mach. No.";
-            this.olvColMachNo.Width = 80;
-            // 
-            // olvColMtlCode
-            // 
-            this.olvColMtlCode.AspectName = "MaterialCode";
-            this.olvColMtlCode.DisplayIndex = 9;
-            this.olvColMtlCode.IsVisible = false;
-            this.olvColMtlCode.Text = "Mtl. Code";
-            // 
-            // olvColProdName
-            // 
-            this.olvColProdName.AspectName = "ProductName";
-            this.olvColProdName.DisplayIndex = 10;
-            this.olvColProdName.IsVisible = false;
-            this.olvColProdName.Text = "Prod. Name";
-            // 
-            // olvColBatchNo
-            // 
-            this.olvColBatchNo.AspectName = "BatchNo";
-            this.olvColBatchNo.DisplayIndex = 11;
-            this.olvColBatchNo.IsVisible = false;
-            this.olvColBatchNo.Text = "Batch No.";
-            // 
-            // olvColItem
-            // 
-            this.olvColItem.AspectName = "ItemCode";
-            this.olvColItem.DisplayIndex = 12;
-            this.olvColItem.IsVisible = false;
-            this.olvColItem.Text = "Item";
-            // 
-            // olvColIRMS
-            // 
-            this.olvColIRMS.AspectName = "IRMS";
-            this.olvColIRMS.DisplayIndex = 13;
-            this.olvColIRMS.IsVisible = false;
-            this.olvColIRMS.Text = "IRMS#";
-            // 
             // pnlHeader
             // 
             this.pnlHeader.Controls.Add(this.nudCopies1x6);
@@ -857,6 +738,126 @@
             // 
             this.errorProviderQty.ContainerControl = this;
             // 
+            // olvRowLabels
+            // 
+            this.olvRowLabels.AllColumns.Add(this.olvColProdYr);
+            this.olvRowLabels.AllColumns.Add(this.olvColProdMo);
+            this.olvRowLabels.AllColumns.Add(this.olvColProdDate);
+            this.olvRowLabels.AllColumns.Add(this.olvColApertureDie);
+            this.olvRowLabels.AllColumns.Add(this.olvColProdShift);
+            this.olvRowLabels.AllColumns.Add(this.olvColJumboRollNo);
+            this.olvRowLabels.AllColumns.Add(this.olvColSlitPos);
+            this.olvRowLabels.AllColumns.Add(this.olvColFactoryCode);
+            this.olvRowLabels.AllColumns.Add(this.olvColMachNo);
+            this.olvRowLabels.AllColumns.Add(this.olvColMtlCode);
+            this.olvRowLabels.AllColumns.Add(this.olvColProdName);
+            this.olvRowLabels.AllColumns.Add(this.olvColBatchNo);
+            this.olvRowLabels.AllColumns.Add(this.olvColItem);
+            this.olvRowLabels.AllColumns.Add(this.olvColIRMS);
+            this.olvRowLabels.CellEditUseWholeCell = false;
+            this.olvRowLabels.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvColProdYr,
+            this.olvColProdMo,
+            this.olvColProdDate,
+            this.olvColApertureDie,
+            this.olvColProdShift,
+            this.olvColJumboRollNo,
+            this.olvColSlitPos});
+            this.olvRowLabels.Cursor = System.Windows.Forms.Cursors.Default;
+            this.olvRowLabels.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.olvRowLabels.Location = new System.Drawing.Point(0, 0);
+            this.olvRowLabels.Name = "olvRowLabels";
+            this.olvRowLabels.ShowGroups = false;
+            this.olvRowLabels.Size = new System.Drawing.Size(934, 227);
+            this.olvRowLabels.TabIndex = 44;
+            this.olvRowLabels.UseCompatibleStateImageBehavior = false;
+            this.olvRowLabels.View = System.Windows.Forms.View.Details;
+            // 
+            // olvColProdYr
+            // 
+            this.olvColProdYr.AspectName = "ProductionYear";
+            this.olvColProdYr.Text = "Prd. Yr.";
+            // 
+            // olvColProdMo
+            // 
+            this.olvColProdMo.AspectName = "ProductionMonth";
+            this.olvColProdMo.Text = "Prd. Mo.";
+            // 
+            // olvColProdDate
+            // 
+            this.olvColProdDate.AspectName = "ProductionDate";
+            this.olvColProdDate.Text = "Prd. Dt";
+            // 
+            // olvColApertureDie
+            // 
+            this.olvColApertureDie.AspectName = "AperatureDieNo";
+            this.olvColApertureDie.Text = "Die";
+            // 
+            // olvColProdShift
+            // 
+            this.olvColProdShift.AspectName = "ProductionShift";
+            this.olvColProdShift.Text = "Shift";
+            // 
+            // olvColJumboRollNo
+            // 
+            this.olvColJumboRollNo.AspectName = "JumboRollNo";
+            this.olvColJumboRollNo.Text = "Roll No.";
+            // 
+            // olvColSlitPos
+            // 
+            this.olvColSlitPos.AspectName = "SlitPosition";
+            this.olvColSlitPos.Text = "Slit Pos.";
+            // 
+            // olvColFactoryCode
+            // 
+            this.olvColFactoryCode.AspectName = "FactoryCode";
+            this.olvColFactoryCode.DisplayIndex = 7;
+            this.olvColFactoryCode.IsVisible = false;
+            this.olvColFactoryCode.Text = "Fact. Code";
+            // 
+            // olvColMachNo
+            // 
+            this.olvColMachNo.AspectName = "ProductionMachineNo";
+            this.olvColMachNo.DisplayIndex = 8;
+            this.olvColMachNo.IsVisible = false;
+            this.olvColMachNo.Text = "Mach. No.";
+            this.olvColMachNo.Width = 80;
+            // 
+            // olvColMtlCode
+            // 
+            this.olvColMtlCode.AspectName = "MaterialCode";
+            this.olvColMtlCode.DisplayIndex = 9;
+            this.olvColMtlCode.IsVisible = false;
+            this.olvColMtlCode.Text = "Mtl. Code";
+            // 
+            // olvColProdName
+            // 
+            this.olvColProdName.AspectName = "ProductName";
+            this.olvColProdName.DisplayIndex = 10;
+            this.olvColProdName.IsVisible = false;
+            this.olvColProdName.Text = "Prod. Name";
+            // 
+            // olvColBatchNo
+            // 
+            this.olvColBatchNo.AspectName = "BatchNo";
+            this.olvColBatchNo.DisplayIndex = 11;
+            this.olvColBatchNo.IsVisible = false;
+            this.olvColBatchNo.Text = "Batch No.";
+            // 
+            // olvColItem
+            // 
+            this.olvColItem.AspectName = "ItemCode";
+            this.olvColItem.DisplayIndex = 12;
+            this.olvColItem.IsVisible = false;
+            this.olvColItem.Text = "Item";
+            // 
+            // olvColIRMS
+            // 
+            this.olvColIRMS.AspectName = "IRMS";
+            this.olvColIRMS.DisplayIndex = 13;
+            this.olvColIRMS.IsVisible = false;
+            this.olvColIRMS.Text = "IRMS#";
+            // 
             // FrmCreateRollLabels
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -873,7 +874,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudSlitPositions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMachNo)).EndInit();
             this.pnlBody.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCopies1x6)).EndInit();
@@ -886,6 +886,7 @@
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderProdOrder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderQty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.olvRowLabels)).EndInit();
             this.ResumeLayout(false);
 
         }

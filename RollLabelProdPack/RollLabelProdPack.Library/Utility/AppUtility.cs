@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,12 +16,50 @@ namespace RollLabelProdPack.Library.Utility
         #region get connections
 
         /// <summary></summary>
-        public static string GetSQLDatabaseConnectionString()
+        public static string GetSAPConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["SQLConnection"].ConnectionString;
+            return ConfigurationManager.ConnectionStrings["SAPConnection"].ConnectionString;
+        }
+        public static string GetPMXConnectionString()
+        {
+            return ConfigurationManager.ConnectionStrings["PMXConnection"].ConnectionString;
         }
 
+        public static int GetSqlCommandTimeOut()
+        {
+            var commandTimeout = 30;
+            try { commandTimeout = int.Parse(ConfigurationManager.AppSettings["SQLCommandTimeout"]); }
+            catch { }
+            return commandTimeout;
+        }
+        public static string TestSQLConnection()
+        {
+            try
+            {
+                var databaseConnection = GetSAPConnectionString();
+                using (SqlConnection cnx = new SqlConnection(databaseConnection)) { cnx.Open(); }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message.ToString();
+            }
+        }
         /// <summary></summary>
+
+        #endregion
+        #region datasets
+
+        /// <summary></summary>
+        public static DataSet PopulateDataSet(SqlCommand MyCmd)
+        {
+            using (SqlDataAdapter sqlAdapter = new SqlDataAdapter(MyCmd))
+            {
+                DataSet returnSet = new DataSet();
+                sqlAdapter.Fill(returnSet);
+                return returnSet;
+            }
+        }
 
         #endregion
 
@@ -110,6 +151,29 @@ namespace RollLabelProdPack.Library.Utility
             catch { return ""; }
         }
 
+        public static string GetSAPUserLine1()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_LINE1"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassLine1()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_LINE1"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPUserLine2()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_LINE2"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassLine2()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_LINE2"]; }
+            catch { return ""; }
+        }
         /// <summary></summary>
         public static string GetSAPLicenseServer()
         {
@@ -203,23 +267,46 @@ namespace RollLabelProdPack.Library.Utility
         {
             return ConfigurationManager.AppSettings["PrintLocRollLabel1by6"];
         }
+        public static string GetBTTriggerLoc()
+        {
+            return ConfigurationManager.AppSettings["BTTriggerLoc"];
+        }
         public static string GetPrintLocPack()
         {
             return ConfigurationManager.AppSettings["PrintLocPack"];
+        }
+        public static string GetPackPrinterName()
+        {
+            return ConfigurationManager.AppSettings["PackPrinterName"];
         }
 
         public static string GetLabelPrintExtension()
         {
             return ConfigurationManager.AppSettings["LabelPrintExtension"];
         }
-
+        public static string GetPGDefault4InchLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefault4InchLabelFormat"];
+        }
+        public static string GetPGDefault1InchLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefault1InchLabelFormat"];
+        }
+        public static string GetPGDefaultCombLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefaultCombLabelFormat"];
+        }
+        public static string GetPGDefaultPackLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefaultPackLabelFormat"];
+        }
         public static string GetSupplierId()
         {
             return ConfigurationManager.AppSettings["SupplierId"];
         }
-        public static string GetYanJanProdMo()
+        public static string GetYanJanProdMo(DateTime orderStartDate)
         {
-            string mo = DateTime.Now.Month.ToString();
+            string mo = orderStartDate.Month.ToString();
             string yjMoCode = null;
             switch (mo)
             {
@@ -235,7 +322,7 @@ namespace RollLabelProdPack.Library.Utility
                     yjMoCode = mo;
                     break;
                 case "10":
-                    yjMoCode = "0";
+                    yjMoCode = "O";
                     break;
                 case "11":
                     yjMoCode = "N";
@@ -247,6 +334,14 @@ namespace RollLabelProdPack.Library.Utility
             return yjMoCode;
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static string GetCurrentMethod()
+        {
+            StackTrace st = new StackTrace();
+            StackFrame sf = st.GetFrame(1);
+
+            return sf.GetMethod().Name;
+        }
         #endregion
 
 

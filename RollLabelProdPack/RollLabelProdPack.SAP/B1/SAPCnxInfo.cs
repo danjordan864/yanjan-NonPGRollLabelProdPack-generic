@@ -18,7 +18,7 @@ namespace RollLabelProdPack.SAP.B1
 
         public SAPCnxInfo()
         {
-            ServerName = ConfigurationManager.AppSettings["SERVERNAME"];
+            ServerName = ConfigurationManager.AppSettings["SAPSERVERNAME"];
             DatabaseVersion = ConfigurationManager.AppSettings["SAPDBTYPE"];
             LicenseServer = ConfigurationManager.AppSettings["SAPLICENSESERVER"];
             SAPUserName = ConfigurationManager.AppSettings["SAPUSER"];

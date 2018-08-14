@@ -13,15 +13,25 @@ namespace RollLabelProdPack.Library.Entities
         public string ProductionDate { get; set; }
         public string AperatureDieNo { get; set; }
         public string ProductionShift { get; set; }
-        public string JumboRollNo { get; set; }
-        public string SlitPosition { get; set; }
+        public int JumboRollNo { get; set; }
+        public int SlitPosition { get; set; }
         public string ItemCode { get; set; }
         public string ItemDescription { get; set; }
         public string IRMS { get; set; }
         public string FactoryCode { get; set; }
         public string ProductionMachineNo { get; set; }
+        public string ProductionLine { get; set; }
         public string MaterialCode { get; set; }
         public string ProductName { get; set; }
         public string BatchNo { get; set; }
+        public int SAPOrderNo { get; set; }
+        public int SAPDocEntry { get; set; }
+        public string YJNOrder { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime DueDate { get; set; }
+        public int NoOfSlits { get; set; }
+        public string Employee { get; set; }
+        public string Shift { get; set; }
+        public string RollNo { get; set; }
     }
 }

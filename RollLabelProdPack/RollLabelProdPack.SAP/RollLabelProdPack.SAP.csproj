@@ -41,9 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="B1\DocumentObjects\InventoryIssue.cs" />
+    <Compile Include="B1\DocumentObjects\InventoryIssueLine.cs" />
+    <Compile Include="B1\DocumentObjects\InventoryReceipt.cs" />
+    <Compile Include="B1\DocumentObjects\InventoryReceiptLine.cs" />
     <Compile Include="B1\DocumentObjects\SAPDocument.cs" />
     <Compile Include="B1\DocumentObjects\SAPDocumentLine.cs" />
     <Compile Include="B1\IB1Object.cs" />
+    <Compile Include="B1\ProductionOrder.cs" />
+    <Compile Include="B1\ProductionOrderLine.cs" />
     <Compile Include="B1\SAPB1.cs" />
     <Compile Include="B1\SAPCnxInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

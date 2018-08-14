@@ -43,6 +43,10 @@
   <ItemGroup>
     <Compile Include="Data\AppData.cs" />
     <Compile Include="Data\ServiceOutput.cs" />
+    <Compile Include="Entities\InventoryDetail.cs" />
+    <Compile Include="Entities\InventoryIssueDetail.cs" />
+    <Compile Include="Entities\ProdLine.cs" />
+    <Compile Include="Entities\Roll.cs" />
     <Compile Include="Entities\RollLabelData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AppUtility.cs" />
