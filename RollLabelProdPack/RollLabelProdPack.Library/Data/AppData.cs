@@ -100,6 +100,7 @@ namespace RollLabelProdPack.Library.Data
             return serviceOutput;
         }
 
+       
         public static ServiceOutput GetProdLineInputMaterial(string prodLine)
         {
             var serviceOutput = new ServiceOutput();
@@ -122,7 +123,7 @@ namespace RollLabelProdPack.Library.Data
                        ItemName = row.Field<string>("ItemName"),
                        Warehouse = row.Field<string>("Warehouse"),
                        StorageLocation = row.Field<string>("StorLocCode"),
-                       QualityStatus = row.Field<string>("SSCC"),
+                       QualityStatus = row.Field<string>("QualityStatus"),
                        Batch = row.Field<string>("BatchNumber1"),
                        Lot = row.Field<string>("LotNumber"),
                        UOM = row.Field<string>("InvntryUom"),
@@ -143,25 +144,40 @@ namespace RollLabelProdPack.Library.Data
             }
             return serviceOutput;
         }
-        public static ServiceOutput NewSSCC()
+        public static ServiceOutput CreateSSCC()
         {
             var serviceOutput = new ServiceOutput();
             var databaseConnection = AppUtility.GetPMXConnectionString();
             var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            int luid;
+            string sscc;
             try
             {
                 using (SqlConnection cnx = new SqlConnection(databaseConnection))
-                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getFGProdOrders", cnx))
+                using (SqlCommand cmd = new SqlCommand("PMX_SP_CreateSSCC", cnx))
                 {
                     cnx.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandTimeout = commandTimeOut;
-                    //cmd.Parameters.AddWithValue("@productionLine", prodLine);
-                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
-                   
-                    //serviceOutput.ReturnValue = openProdOrders;
-                    serviceOutput.SuccessFlag = true;
+                    cmd.Parameters.AddWithValue("@supplierPalletNumber", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@userSign", 1);
+                    var parm = new SqlParameter("@luid", SqlDbType.Int);
+                    parm.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(parm);
+                    cmd.ExecuteNonQuery();
+                    luid = (int)cmd.Parameters["@luid"].Value;
                 }
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand($"SELECT SSCC FROM PMX_LUID WHERE InternalKey = {luid}", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandTimeout = commandTimeOut;
+                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
+                    sscc = serviceOutput.ResultSet.Tables[0].Rows[0]["SSCC"].ToString();
+                }
+                serviceOutput.SuccessFlag = true;
+                serviceOutput.ReturnValue = new KeyValuePair<int, string>(luid, sscc);
             }
             catch (Exception ex)
             {

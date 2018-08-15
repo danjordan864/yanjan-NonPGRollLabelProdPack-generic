@@ -2,6 +2,7 @@
 using RollLabelProdPack.Library.Entities;
 using RollLabelProdPack.Library.Utility;
 using RollLabelProdPack.SAP.B1;
+using RollLabelProdPack.SAP.B1.DocumentObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -118,6 +119,7 @@ namespace RollLabelProdPack
                 var slitPosCheckBox = this.splitContainer1.Panel1.Controls.OfType<CheckBox>().Where(c => c.Tag.ToString() == i.ToString()).FirstOrDefault();
                 if (slitPosCheckBox.Visible && slitPosCheckBox.Checked)
                 {
+
                     var roll = new Roll
                     {
                         RollNo = $"{_selectOrder.ProductionYear}{_selectOrder.ProductionMonth}{_selectOrder.ProductionDate}{_selectOrder.AperatureDieNo}" +
@@ -126,13 +128,13 @@ namespace RollLabelProdPack
                         ItemCode = _selectOrder.ItemCode,
                         ItemName = _selectOrder.ItemDescription,
                         IRMS = _selectOrder.IRMS,
-                        SSCC = "",
                         Kgs = Convert.ToDecimal(txtWeightKgs.Text)
                     };
                     _rolls.Add(roll);
                 }
             }
             olvRolls.SetObjects(_rolls);
+
         }
 
         private void ChangeOrder()
@@ -261,93 +263,24 @@ namespace RollLabelProdPack
         {
             try
             {
+                ServiceOutput so = null;
 
-
-                //if (EnableProduce())
-                //{
-
-                //}
-                //if (IssueQtyAvailableInInputLoc(_selectOrder.ProductionLine, Convert.ToDouble(txtWeightKgs.Text) * Convert.ToDouble(txtNoOfSlits.Text)))
-                //{
-                //    Produce();
-                //    //PrintRollLabels();
-                //    so = AppData.UpdateJumboRoll(_selectOrder.SAPOrderNo);
-                //    if (!so.SuccessFlag) throw new ApplicationException($"Error updating jumbo roll. Error:{so.ServiceException}");
-                //    _selectOrder.JumboRollNo = (int)so.ReturnValue;
-                //    txtJumboRoll.Text = _selectOrder.JumboRollNo.ToString();
-                //    olvRolls.Objects = null;
-                //    _rolls = null;
-                //}
-                //else
-                //{
-                //    DisplayToastNotification(WinFormUtils.ToastNotificationType.Warning, "Inventory Check", $"Insufficient material in {_selectOrder.ProductionLine} input location.  {invCheckMsg}");
-                //}
-
-
+                Produce();
+                PrintRollLabels();
+                so = AppData.UpdateJumboRoll(_selectOrder.SAPOrderNo);
+                if (!so.SuccessFlag) throw new ApplicationException($"Error updating jumbo roll. Error:{so.ServiceException}");
+                _selectOrder.JumboRollNo = (int)so.ReturnValue;
+                txtJumboRoll.Text = _selectOrder.JumboRollNo.ToString();
+                olvRolls.Objects = null;
+                _rolls = null;
             }
             catch (Exception ex)
             {
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Exception has occurred in {AppUtility.GetLoggingText()} Create Click.\n\n{ex.Message}");
                 AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} Create Click.\n\n{ex.Message}", EventLogEntryType.Error, true);
             }
-
-
-
-
-            //    SIIProductionOrder order = null;
-            //    DataView productionOrders = new DataView(ds.Tables[0]);
-            //    var processed = 0;
-            //    var processMessage = "";
-
-            //    try
-            //    {
-            //        Utilities.WriteToEventLog($"[ {productionOrders.Count} ] production orders are ready to be updated", EventLogEntryType.Information, false);
-            //        using (PostedXMLDoc _postedOrders = new PostedXMLDoc("UpdatedProdcutionOrders"))
-            //        {
-            //            foreach (DataRowView rv in productionOrders)
-            //            {
-            //                try
-            //                {
-            //                    DataRow row = rv.Row;
-            //                    order = new SIIProductionOrder(row);
-
-            //                    // create production order
-            //                    // ------------------------------------------------------------------------------------------------------------------------
-            //                    using (ProductionOrder productionOrder = (ProductionOrder)_sap.B1Factory(SAPbobsCOM.BoObjectTypes.oProductionOrders, order.DocEntry))
-            //                    {
-            //                        try
-            //                        {
-            //                            if (order.UpdatePriority == 1) { productionOrder.SetUDFValue("U_NBS_Priority", order.Priority); }
-            //                            if (order.UpdateDocDueDate == 1) { productionOrder.DueDate = order.DueDate; }
-            //                            if (order.UpdateStartDate == 1) { productionOrder.StartDate = order.DueDate; }
-            //                            if (productionOrder.Save() == false) { throw new B1Exception(_sap.SapCompany, _sap.GetLastExceptionMessage()); }
-            //                            processed = 1;
-            //                            processMessage = $"Production Order: {order.DocNum} was updated in SAP B1.";
-            //                            if (order.UpdatePriority == 1) { processMessage = $"{processMessage} | Priority was updated"; }
-            //                            if (order.UpdateDocDueDate == 1) { processMessage = $"{processMessage} | Due Date was updated"; }
-            //                            if (order.UpdateStartDate == 1) { processMessage = $"{processMessage} | Start Date was updated"; }
-            //                        }
-            //                        catch (B1Exception ex) { processed = -1; processMessage = ex.Message.ToString(); }
-            //                        catch (Exception ex) { processed = -1; processMessage = ex.Message.ToString(); }
-            //                        _postedOrders.AppendUpdateProductionOrder(order.DocEntry, order.DocNum, order.Priority, order.DueDate, processed, processMessage);
-            //                        order = null;
-            //                    }
-            //                }
-            //                catch (Exception ex)
-            //                {
-            //                    _postedOrders.AppendPostedSalesOrder(order.DocEntry, order.DocNum, order.Id, order.LineNum, order.ItemCode, order.Country, order.Quantity, order.QuantityNeeded, order.MaxOrder, order.Commited, order.OnHand, order.OnOrder, order.Priority, order.DocDate, order.DueDate, order.ProductionOrderDocEntry, -1, ex.Message.ToString(), order.OpenQty, order.CalcQty);
-            //                    _postedOrders.AppendUpdateProductionOrder(order.DocEntry, order.DocNum, order.Priority, order.DueDate, -1, ex.Message.ToString());
-            //                }
-            //            }
-            //            _postedOrders.SaveUpdateProductionOrdersXML();
-            //        }
-
-
-            //    }
-            //    catch (Exception ex) { Utilities.WriteToEventLog($"{Utilities.GetLoggingText()} failed to Update Prodcution Orders.\n\n{ex.Message}", EventLogEntryType.Error, true); }
-            //}
-
         }
+
         /// <summary>
         /// Calculates the planned issue based on available inventory
         /// </summary>
@@ -379,21 +312,21 @@ namespace RollLabelProdPack
                                     {
                                         if (item.Quantity > qtyReq)
                                         {
-                                            AddPlannedIssueDetail(item.ItemCode, line.LineNumber, item.StorageLocation, item.LUID, item.SSCC, qtyReq, qtyReq, item.Batch, 0);
+                                            AddPlannedIssueDetail(item.ItemCode, item.UOM, line.DocEntry, line.LineNumber, item.StorageLocation, item.QualityStatus, item.LUID, item.SSCC, qtyReq, qtyReq, item.Batch, 0);
                                             qtyReq = 0;
                                         }
                                         else
                                         {
-                                            AddPlannedIssueDetail(item.ItemCode, line.LineNumber, item.StorageLocation, item.LUID, item.SSCC, qtyReq, item.Quantity, item.Batch, 0);
+                                            AddPlannedIssueDetail(item.ItemCode, item.UOM, line.DocEntry, line.LineNumber, item.StorageLocation, item.QualityStatus, item.LUID, item.SSCC, qtyReq, item.Quantity, item.Batch, 0);
                                             qtyReq = qtyReq - item.Quantity;
                                         }
                                     }
-                                    
+
                                 }
                             }
                             if (qtyReq > 0)
                             {
-                                AddPlannedIssueDetail(line.ItemCode, line.LineNumber, string.Empty, 0, string.Empty, qtyReq, 0, string.Empty, qtyReq);
+                                AddPlannedIssueDetail(line.ItemCode, itemAvail.First().UOM, line.DocEntry, line.LineNumber, string.Empty, string.Empty, 0, string.Empty, qtyReq, 0, string.Empty, qtyReq);
                             }
                         }
                     }
@@ -401,11 +334,12 @@ namespace RollLabelProdPack
             }
         }
 
-        private void AddPlannedIssueDetail(string itemCode, int baseLine, string storageLocation, int luid, string sscc, double availableQty, double plannedIssueqty, string batch, double shortQty)
+        private void AddPlannedIssueDetail(string itemCode, string uom, int baseEntry, int baseLine, string storageLocation, string qualityStatus, int luid, string sscc, double availableQty, double plannedIssueqty, string batch, double shortQty)
         {
             var issueDetail = new InventoryIssueDetail
             {
                 ItemCode = itemCode,
+                BaseEntry = baseEntry,
                 BaseLine = baseLine,
                 StorageLocation = storageLocation,
                 LUID = luid,
@@ -413,7 +347,9 @@ namespace RollLabelProdPack
                 Quantity = availableQty,
                 PlannedIssueQty = plannedIssueqty,
                 Batch = batch,
-                ShortQty = shortQty
+                ShortQty = shortQty,
+                UOM = uom,
+                QualityStatus = qualityStatus
             };
             _plannedIssue.Add(issueDetail);
         }
@@ -421,38 +357,47 @@ namespace RollLabelProdPack
         private void Produce()
         {
             ServiceOutput so;
-            try
+            foreach (var roll in _rolls)
             {
-                var userName = Convert.ToInt32(_selectOrder.ProductionMachineNo) == 1 ? AppUtility.GetSAPUserLine1() : AppUtility.GetSAPUserLine2();
-                var password = Convert.ToInt32(_selectOrder.ProductionMachineNo) == 1 ? AppUtility.GetSAPPassLine1() : AppUtility.GetSAPPassLine2();
-                using (SAPB1 sapB1 = new SAPB1(userName, password))
+                so = AppData.CreateSSCC();
+                if (!so.SuccessFlag) throw new ApplicationException($"Error Creating SSCC. Error:{so.ServiceException}");
+                var luid_sscc = (KeyValuePair<int, string>)so.ReturnValue;
+                roll.LUID = luid_sscc.Key;
+                roll.SSCC = luid_sscc.Value;
+            }
+            var userName = Convert.ToInt32(_selectOrder.ProductionMachineNo) == 1 ? AppUtility.GetSAPUserLine1() : AppUtility.GetSAPUserLine2();
+            var password = Convert.ToInt32(_selectOrder.ProductionMachineNo) == 1 ? AppUtility.GetSAPPassLine1() : AppUtility.GetSAPPassLine2();
+            using (SAPB1 sapB1 = new SAPB1(userName, password))
+            {
+                //perform issue
+                //using (ProductionOrder productionOrder = (ProductionOrder)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oProductionOrders, _selectOrder.SAPOrderNo))
+                //{
+                //    productionOrder.
+                //    if (productionOrder.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
+                //}
+                using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
                 {
-                    foreach (var roll in _rolls)
+                    foreach (var plIssue in _plannedIssue)
                     {
-                        using (ProductionOrder productionOrder = (ProductionOrder)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oProductionOrders, _selectOrder.SAPOrderNo))
-                        {
-                            //productionOrder.
-                            if (productionOrder.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
-                        }
-                        so = AppData.AddRoll(roll.RollNo, _selectOrder.SAPOrderNo, roll.YJNOrder, roll.SSCC, 0, _selectOrder.Employee);
-
-                        if (!so.SuccessFlag) throw new ApplicationException($"Error producing roll#: {roll.RollNo}. Error:{so.ServiceException}");
+                        invIssue.AddLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.YJNOrder);
                     }
+                    if (invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                 }
-                so = AppData.UpdateJumboRoll(_selectOrder.SAPOrderNo);
-                if (!so.SuccessFlag) throw new ApplicationException($"Error updating jumbo roll. Error:{so.ServiceException}");
-                _selectOrder.JumboRollNo = (int)so.ReturnValue;
-                txtJumboRoll.Text = _selectOrder.JumboRollNo.ToString();
-                olvRolls.Objects = null;
-                _rolls = null;
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Rolls Produced", $"#{_rolls.Count.ToString()} rolls produced. Order: {txtYJNProdOrder.Text}, Roll No. {txtJumboRoll.Text}");
-            }
-            catch (Exception ex)
-            {
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Exception has occurred in {AppUtility.GetLoggingText()} Create Click.\n\n{ex.Message}");
-                AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} Create Click.\n\n{ex.Message}", EventLogEntryType.Error, true);
-            }
+                //foreach (var roll in _rolls)
+                //{
+                //    //receive each roll
+                //    so = AppData.AddRoll(roll.RollNo, _selectOrder.SAPOrderNo, roll.YJNOrder, roll.SSCC, 0, _selectOrder.Employee);
 
+                //    if (!so.SuccessFlag) throw new ApplicationException($"Error producing roll#: {roll.RollNo}. Error:{so.ServiceException}");
+                //}
+            }
+            so = AppData.UpdateJumboRoll(_selectOrder.SAPOrderNo);
+            if (!so.SuccessFlag) throw new ApplicationException($"Error updating jumbo roll. Error:{so.ServiceException}");
+            _selectOrder.JumboRollNo = (int)so.ReturnValue;
+            txtJumboRoll.Text = _selectOrder.JumboRollNo.ToString();
+            DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Rolls Produced", $"#{_rolls.Count.ToString()} rolls produced. Order: {txtYJNProdOrder.Text}, Roll No. {txtJumboRoll.Text}");
+            olvRolls.Objects = null;
+            _rolls = null;
         }
 
         private void txtNoOfSlits_KeyPress(object sender, KeyPressEventArgs e)
@@ -487,16 +432,26 @@ namespace RollLabelProdPack
 
         private void btnGenerateRolls_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (!string.IsNullOrEmpty(txtNoOfSlits.Text) && txtNoOfSlits.Text != "0" && !string.IsNullOrEmpty(txtDie.Text))
+                {
+                    GenerateRolls();
+                    EnableProduce();
+                }
+                else
+                {
+                    DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Invalied Values", "Input values for weight, No. of Slits and Die No.");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Exception has occurred in {AppUtility.GetLoggingText()} GenerateRolls Click.\n\n{ex.Message}");
+                AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} GenerateRolls Click.\n\n{ex.Message}", EventLogEntryType.Error, true);
+            }
             RefreshProdDate();
-            if (!string.IsNullOrEmpty(txtWeightKgs.Text) && !string.IsNullOrEmpty(txtNoOfSlits.Text) && !string.IsNullOrEmpty(txtDie.Text))
-            {
-                GenerateRolls();
-                EnableProduce();
-            }
-            else
-            {
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Invalied Values", "Input values for weight, No. of Slits and Die No.");
-            }
+
         }
 
         private void RefreshProdDate()
@@ -523,9 +478,6 @@ namespace RollLabelProdPack
                 var labelPrintLoc = AppUtility.GetBTTriggerLoc();
                 var labelPrintExtension = AppUtility.GetLabelPrintExtension();
                 var fileNameRollLabels = Path.Combine(labelPrintLoc, "RollLabels" + labelPrintExtension);
-                //var fileNameRollLabels1x6 = Path.Combine(labelPrintLoc, "RollLabels_1by6" + labelPrintExtension);
-                //var formatFilePath4x6RollLabel = AppUtility.GetPGDefault4InchLabelFormat();
-                //var formatFilePath1x6RollLabel = AppUtility.GetPGDefault1InchLabelFormat();
                 var formatFilePathCombRollLabel = AppUtility.GetPGDefaultCombLabelFormat();
 
                 var sbRollLabel = new StringBuilder(5000);
@@ -547,24 +499,8 @@ namespace RollLabelProdPack
                 {
                     sw.Write(sbRollLabel.ToString());
                 }
-                //var sb1x6 = new StringBuilder(5000);
-                //sb1x6.AppendFormat(@"%BTW% /AF=""{0}"" /D=""%Trigger File Name%"" /PRN=""{1}"" /R=3 /P /DD", formatFilePath1x6RollLabel, prodLine.Printer2);
-                //sb1x6.AppendLine();
-                //sb1x6.Append(@"%END%");
-                //sb1x6.Append("Item, ItemName, IRMS, LotNo, RollNo, SSCC, Qty");
-                //for (int i = 0; i < nudCopies1x6.Value; i++)
-                //{
-                //    foreach (var roll in _rolls)
-                //    {
-                //        sb1x6.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", roll.ItemCode, roll.ItemName, roll.IRMS, roll.YJNOrder, roll.RollNo, roll.SSCC,roll.Kgs);
-                //        sb1x6.AppendLine();
-                //    }
-                //}
-                //using (StreamWriter sw = File.CreateText(fileNameRollLabels1x6))
-                //{
-                //    sw.Write(sb1x6.ToString());
-                //}
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "4x6 and 1 inch roll labels printed. Please check printer.");
+
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "Roll labels printed. Please check printer.");
 
             }
             catch (Exception ex)
@@ -601,11 +537,15 @@ namespace RollLabelProdPack
 
         private void txtWeightKgs_Validated(object sender, EventArgs e)
         {
-            var so = AppData.GetProdLine(_selectOrder.ProductionLine);
-            if (!so.SuccessFlag) throw new ApplicationException($"Error getting Prod. Line Printers. Error:{so.ServiceException}");
-            var prodLine = so.ReturnValue as ProdLine;
-            RefreshIssueQty(_selectOrder.ProductionLine, Convert.ToDouble(txtWeightKgs.Text) * Convert.ToDouble(txtNoOfSlits.Text));
-            EnableGenerate();
+            if (EnableGenerate())
+            {
+                var so = AppData.GetProdLine(_selectOrder.ProductionLine);
+                if (!so.SuccessFlag) throw new ApplicationException($"Error getting Prod. Line Printers. Error:{so.ServiceException}");
+                var prodLine = so.ReturnValue as ProdLine;
+                RefreshIssueQty(_selectOrder.ProductionLine, Convert.ToDouble(txtWeightKgs.Text) * Convert.ToDouble(txtNoOfSlits.Text));
+            }
+
+
         }
 
         private void txtDie_Validated(object sender, EventArgs e)

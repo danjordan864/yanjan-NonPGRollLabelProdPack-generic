@@ -33,5 +33,7 @@ namespace RollLabelProdPack.Library.Entities
         public string Employee { get; set; }
         public string Shift { get; set; }
         public string RollNo { get; set; }
+        public int LUID { get; set; }
+        public string SSCC { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 {
     public class InventoryIssue : IDisposable, IB1Object
     {
+        #region Variables
         private BoObjectTypes _objectType = BoObjectTypes.oInventoryGenExit;
         private Company _sapCompany;
         /// <summary></summary>
@@ -24,7 +25,30 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             _sapCompany = sapCompany;
             _issue = (SAPbobsCOM.IDocuments)_sapCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
         }
+        #endregion Variables
 
+        #region Properties
+        /// <summary>
+        /// Returns the root SAP B1 object's User Defined Fields object based on the SAP DI API UserFields interface.
+        /// </summary>
+        public UserFields UserDefinedFields { get { return _issue.UserFields; } }
+
+        /// <summary>
+        /// Returns a dictionary of the User Defined Fields (UDF) used by the root SAP B1 object in the class.  The dictionary is based on the 
+        /// string name of the UDF and returns the given UDF's index position as known by the UserDefinedFields property.
+        /// </summary>
+        public Dictionary<string, int> UserDefinedFieldsDictionary { get { return _userDefinedFieldsDictionary; } set { _userDefinedFieldsDictionary = value; } }
+
+        /// <summary>
+        /// Returns the underlying SAP B1 Item object.
+        /// </summary>
+        public IDocuments Issue { get { return _issue; } set { _issue = value; } }
+
+        /// <summary>
+        /// List of line items associated with the given SAP B1 document object
+        /// </summary>
+        public List<InventoryIssueLine> IssueLines { get { return _issueLines; } set { _issueLines = value; } }
+        #endregion Properties
         /// <summary>
         /// Creates an _issue of the wrapper class for the SAP B1 Production Order Object (oItems)
         /// </summary>
@@ -36,7 +60,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             if (docEntry > 0)
             {
                 if (_issue.GetByKey(docEntry) == false)
-                    throw new B1Exception(sapCompany, $"Unable to retrieve Production Order {docEntry} from {sapCompany.CompanyName}");
+                    throw new B1Exception(sapCompany, $"Unable to retrieve Issue {docEntry} from {sapCompany.CompanyName}");
                 _isNew = false;
 
                 // lines
@@ -51,89 +75,10 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                     }
             }
         }
-        public InventoryIssue(Company sapCompany, int baseEntry, int baseLine, string whCode, string batch, double qty)
+
+        public void AddLine(int baseEntry, int baseLine, string itemCode, double quantity, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber)
         {
-            _sapCompany = sapCompany;
-            _issue = (SAPbobsCOM.IDocuments)_sapCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
-            _issue.Lines.BaseEntry = baseEntry;
-            _issue.Lines.BaseLine = baseLine;
-            _issue.Lines.BaseType = 202;
-            _issue.Lines.Quantity = qty;
-        }
-        //public void IssueConvertFrom(Entities.StockTransfer convertToScrap, string offsetAcctCode)
-        //{
-        //    try
-        //    {
-        //        _issue = (SAPbobsCOM.IDocuments)_sapCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
-
-        //        _issue.DocDate = convertToScrap.DateCreated;
-        //        _issue.Comments = "Converted To Scrap Item: " + convertToScrap.ConvertToItem + " Batch: " + convertToScrap.ConvertToBatch;
-        //        _issue.Lines.SetCurrentLine(0);
-        //        _issue.Lines.ItemCode = convertToScrap.ItemCode;
-        //        _issue.Lines.WarehouseCode = convertToScrap.FromWhsCode;
-        //        _issue.Lines.AccountCode = offsetAcctCode;
-        //        _issue.Lines.Quantity = Convert.ToDouble(convertToScrap.TransferQty);
-
-        //        _issue.Lines.BatchNumbers.BatchNumber = convertToScrap.Batch;
-        //        _issue.Lines.BatchNumbers.Quantity = Convert.ToDouble(convertToScrap.TransferQty);
-        //        _issue.Lines.BatchNumbers.UserFields.Fields.Item("U_SII_Lot").Value = convertToScrap.Lot == null ? "" : convertToScrap.Lot;
-        //        _issue.Lines.BinAllocations.SetCurrentLine(0);
-        //        _issue.Lines.BinAllocations.BinAbsEntry = convertToScrap.FromBinAbs;
-        //        _issue.Lines.BinAllocations.SerialAndBatchNumbersBaseLine = 0;
-        //        _issue.Lines.BinAllocations.Quantity = Convert.ToDouble(convertToScrap.TransferQty);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(string.Format("(APIs.InventoryTransfer)ERROR: {0}", ex.Message));
-        //    }
-        //}
-
-        //public void WriteOff(Batch batch, string offsetAcctCode)
-        //{
-        //    try
-        //    {
-        //        _issue = (SAPbobsCOM.IDocuments)_sapCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenExit);
-
-        //        _issue.DocDate = DateTime.Now;
-        //        _issue.Comments = "Write off quantity under .001: " + batch.ItemCode + " Batch: " + batch.BatchNo + " OffsetAcctCode: " + offsetAcctCode;
-        //        _issue.Lines.SetCurrentLine(0);
-        //        _issue.Lines.ItemCode = batch.ItemCode;
-        //        _issue.Lines.WarehouseCode = batch.WhsCode;
-        //        _issue.Lines.AccountCode = offsetAcctCode;
-        //        _issue.Lines.Quantity = Convert.ToDouble(batch.Qty);
-
-        //        _issue.Lines.BatchNumbers.BatchNumber = batch.BatchNo;
-        //        _issue.Lines.BatchNumbers.Quantity = Convert.ToDouble(batch.Qty);
-        //        _issue.Lines.BatchNumbers.UserFields.Fields.Item("U_SII_Lot").Value = batch.Lot == null ? "" : batch.Lot;
-        //        _issue.Lines.BinAllocations.SetCurrentLine(0);
-        //        _issue.Lines.BinAllocations.BinAbsEntry = batch.BinAbs;
-        //        _issue.Lines.BinAllocations.SerialAndBatchNumbersBaseLine = 0;
-        //        _issue.Lines.BinAllocations.Quantity = Convert.ToDouble(batch.Qty);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(string.Format("(APIs.WriteOff)ERROR: {0}", ex.Message));
-        //    }
-        //}
-        public Dictionary<string, int> UserDefinedFieldsDictionary
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public UserFields UserDefinedFields
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            _issueLines.Add(new InventoryIssueLine(_issue, baseEntry,baseLine,itemCode,quantity,storageLoc,qualityStatus,batchNo,luid,sscc,uom,lotNumber));
         }
 
         public BoObjectTypes SAPObjectType
@@ -153,7 +98,8 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
         public void LoadUDFDictionary()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < _issue.UserFields.Fields.Count; i++)
+                _userDefinedFieldsDictionary.Add(_issue.UserFields.Fields.Item(i).Name, i);
         }
 
         public void SetUDFValue(string key, dynamic value)
@@ -163,17 +109,17 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
         public void SetUDFValue(int key, dynamic value)
         {
-            throw new NotImplementedException();
+            _issue.UserFields.Fields.Item(key).Value = value;
         }
 
         public dynamic GetUDFValue(string key)
         {
-            throw new NotImplementedException();
+            return _issue.UserFields.Fields.Item(_userDefinedFieldsDictionary[key]).Value;
         }
 
         public dynamic GetUDFValue(int key)
         {
-            throw new NotImplementedException();
+            return _issue.UserFields.Fields.Item(key).Value;
         }
 
         public bool Save()

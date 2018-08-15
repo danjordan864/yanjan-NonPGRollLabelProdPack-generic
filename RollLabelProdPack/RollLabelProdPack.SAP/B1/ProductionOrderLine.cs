@@ -42,6 +42,9 @@ namespace RollLabelProdPack.SAP.B1
 
         public double BaseQty { get { return _line.BaseQuantity; }}
 
+        public string UomCode { get { return _line.UoMCode; } }
+
+
 
         #endregion
 

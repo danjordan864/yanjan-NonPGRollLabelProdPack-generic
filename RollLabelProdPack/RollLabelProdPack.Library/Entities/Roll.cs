@@ -17,6 +17,7 @@ namespace RollLabelProdPack.Library.Entities
         public decimal Kgs { get; set; }
         public bool Scrap { get; set; }
         public bool Print { get; set; }
-        
+        public int LUID { get; set; }
+
     }
 }
