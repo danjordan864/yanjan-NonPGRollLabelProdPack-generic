@@ -46,7 +46,13 @@ namespace RollLabelProdPack.Library.Data
                        YJNOrder = row.Field<string>("YJNOrder"),
                        JumboRollNo = row.Field<int>("JumboRoll"),
                        AperatureDieNo = row.Field<string>("AperatureDieNo"),
-                       SAPDocEntry = row.Field<int>("DocEntry")
+                       SAPDocEntry = row.Field<int>("DocEntry"),
+                       InputLoc = row.Field<string>("InputLoc"),
+                       OutputLoc = row.Field<string>("OutputLoc"),
+                       Printer = row.Field<string>("Printer"),
+                       DefaultQualityStatus = row.Field<string>("DefaultQualityStatus"),
+                       ScrapItem = row.Field<string>("ScrapItem"),
+                       ScrapLine = row.Field<int>("ScrapLine")
                    }).ToList();
                     serviceOutput.ReturnValue = openProdOrders;
                     serviceOutput.SuccessFlag = true;
@@ -100,7 +106,7 @@ namespace RollLabelProdPack.Library.Data
             return serviceOutput;
         }
 
-       
+      
         public static ServiceOutput GetProdLineInputMaterial(string prodLine)
         {
             var serviceOutput = new ServiceOutput();
@@ -270,43 +276,6 @@ namespace RollLabelProdPack.Library.Data
                     cmd.ExecuteNonQuery();
 
                     serviceOutput.ReturnValue = (int)cmd.Parameters["@nextJumboRoll"].Value;
-                    serviceOutput.SuccessFlag = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                serviceOutput.CallStack = ex.StackTrace;
-                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
-                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
-            }
-            return serviceOutput;
-        }
-
-        public static ServiceOutput GetProdLine(string productionLine)
-        {
-            var serviceOutput = new ServiceOutput();
-            var databaseConnection = AppUtility.GetSAPConnectionString();
-            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
-            try
-            {
-                using (SqlConnection cnx = new SqlConnection(databaseConnection))
-                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getProdLinePrinters", cnx))
-                {
-                    cnx.Open();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandTimeout = commandTimeOut;
-                    cmd.Parameters.AddWithValue("@prodLine", productionLine);
-                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
-
-                    ProdLine prodLine = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
-                 new ProdLine
-                 {
-                     Code = row.Field<string>("Code"),
-                     MachineNo = Convert.ToInt32(row.Field<string>("MachineNo")),
-                     Printer1 = row.Field<string>("Printer1"),
-                     Printer2 = row.Field<string>("Printer2"),
-                 }).FirstOrDefault();
-                    serviceOutput.ReturnValue = prodLine;
                     serviceOutput.SuccessFlag = true;
                 }
             }

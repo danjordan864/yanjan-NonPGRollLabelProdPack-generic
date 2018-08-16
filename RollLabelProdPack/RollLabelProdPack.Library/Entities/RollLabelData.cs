@@ -35,5 +35,11 @@ namespace RollLabelProdPack.Library.Entities
         public string RollNo { get; set; }
         public int LUID { get; set; }
         public string SSCC { get; set; }
+        public string InputLoc { get; set; }
+        public string OutputLoc { get; set; }
+        public string Printer { get; set; }
+        public string DefaultQualityStatus { get; set; }
+        public string ScrapItem { get; set; }
+        public int ScrapLine { get; set; }
     }
 }

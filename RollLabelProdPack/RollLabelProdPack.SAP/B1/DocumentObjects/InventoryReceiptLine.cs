@@ -29,10 +29,19 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// </summary>
         public int LineNumber { get { return _line.LineNum; } }
 
+
+        public int BaseEntry { get { return _line.BaseEntry; } }
+
+
+        public int BaseLine { get { return _line.BaseLine; } }
+        
+
         /// <summary>
         /// Line item code (item Primary key)
         /// </summary>
-        public string ItemCode { get { return _line.ItemCode; } set { _line.ItemCode = value; } }
+        //public string ItemCode { get { return _line.ItemCode; } set { _line.ItemCode = value; } }
+
+
 
         #endregion
 
@@ -52,41 +61,72 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// </summary>
         /// <param name="productionOrder">The SAP B1 document object that owns the line item.</param>
         /// <param name="itemCode">Line item code (item Primary key)</param>
-        public InventoryReceiptLine(IDocuments inventoryIssue, string itemCode, double quantity, string issueMethod, string warehouse, int opSeq, string medFile, double scrapPct, string wrkInstr, double qNeed)
+        public InventoryReceiptLine(IDocuments receipt, int baseEntry, string itemCode, double quantity, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber, bool isScrap, int scrapLine)
         {
+            int index = -1;
+            receipt.Lines.BaseEntry = baseEntry;
+            receipt.Lines.Quantity = quantity;
+            receipt.Lines.BaseType = 202;
+
+            if (isScrap)
+            {
+                receipt.Lines.BaseLine = scrapLine;
+            }
+                
+
+            if (!string.IsNullOrEmpty(batchNo))
+            {
+                receipt.Lines.BatchNumbers.BatchNumber = batchNo;
+                receipt.Lines.BatchNumbers.Quantity = quantity;
+                receipt.Lines.BatchNumbers.Notes = lotNumber;
+                //Batch
+                index = UDFIndexLocation(receipt.Lines, "U_PMX_BATC");
+                if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = batchNo; }
+
+            }
+            //Storage Location
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_LOCO");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = storageLoc; }
+
+            //Quality Status
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_QYSC");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = qualityStatus; }
+
+            //Quantity
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_QUAN");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = quantity.ToString(); }
 
 
-            //if (itemCode.Substring(0, 2) == "R_") { productionOrder.Lines.ItemType = ProductionItemType.pit_Resource; }
-            //else { productionOrder.Lines.ItemType = ProductionItemType.pit_Item; }
+            //luid
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_LUID");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = luid.ToString(); }
 
-            //productionOrder.Lines.ItemNo = itemCode;
-            //productionOrder.Lines.BaseQuantity = quantity;
-            //productionOrder.Lines.ProductionOrderIssueType = BoIssueMethod.im_Manual;
-            //productionOrder.Lines.Warehouse = warehouse;
+            //base entry
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_BAEN");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = baseEntry; }
 
+            //base type
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_BATY");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = "202"; }
 
-            //var index = -1;
-            //index = UDFIndexLocation(productionOrder.Lines, "U_NBS_OpSeq");
-            //if (index != -1) { productionOrder.Lines.UserFields.Fields.Item(index).Value = opSeq; }
+            //production batch
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_PRDB");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = 1; }
 
-            //index = -1;
-            //index = UDFIndexLocation(productionOrder.Lines, "U_NBS_MedFile");
-            //if (index != -1 && medFile.Trim().Length > 0) { productionOrder.Lines.UserFields.Fields.Item(index).Value = medFile; }
+            //sscc
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_SSCC");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = sscc; }
 
-            //index = -1;
-            //index = UDFIndexLocation(productionOrder.Lines, "U_NBS_ScrapPct");
-            //if (index != -1) { productionOrder.Lines.UserFields.Fields.Item(index).Value = scrapPct; }
-
-            //index = -1;
-            //index = UDFIndexLocation(productionOrder.Lines, "U_NBS_WrkInstr");
-            //if (index != -1 && wrkInstr.Trim().Length > 0) { productionOrder.Lines.UserFields.Fields.Item(index).Value = wrkInstr; }
-
-            //index = -1;
-            //index = UDFIndexLocation(productionOrder.Lines, "U_NB_QNeed");
-            //if (index != -1) { productionOrder.Lines.UserFields.Fields.Item(index).Value = qNeed; }
-
-            //productionOrder.Lines.Add();
-            //_line = productionOrder.Lines;
+            receipt.Lines.Add();
+            _line = receipt.Lines;
         }
 
         #endregion
@@ -95,12 +135,12 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         #region methods
 
         /// <summary></summary>
-        private static int UDFIndexLocation(IProductionOrders_Lines sapOrder, string udfName)
+        private static int UDFIndexLocation(IDocument_Lines receiptLines, string udfName)
         {
             int index = -1;
-            for (int i = 0; i < sapOrder.UserFields.Fields.Count; i++)
+            for (int i = 0; i < receiptLines.UserFields.Fields.Count; i++)
             {
-                if (sapOrder.UserFields.Fields.Item(i).Name == udfName)
+                if (receiptLines.UserFields.Fields.Item(i).Name == udfName)
                 {
                     index = i;
                     break;

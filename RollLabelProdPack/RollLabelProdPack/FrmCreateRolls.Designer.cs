@@ -1,6 +1,6 @@
 ﻿namespace RollLabelProdPack
 {
-    partial class FrmMain
+    partial class FrmCreateRolls
     {
         /// <summary>
         /// Required designer variable.
@@ -82,8 +82,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnCreate = new System.Windows.Forms.Button();
             this.olvRolls = new BrightIdeasSoftware.ObjectListView();
-            this.olvColScrap = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColScrap = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColKgs = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -96,13 +96,12 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.formsToolStripMenuItem,
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1065, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -111,13 +110,13 @@
             this.formsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reprintToolStripMenuItem});
             this.formsToolStripMenuItem.Name = "formsToolStripMenuItem";
-            this.formsToolStripMenuItem.Size = new System.Drawing.Size(66, 25);
+            this.formsToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.formsToolStripMenuItem.Text = "Forms";
             // 
             // reprintToolStripMenuItem
             // 
             this.reprintToolStripMenuItem.Name = "reprintToolStripMenuItem";
-            this.reprintToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.reprintToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.reprintToolStripMenuItem.Text = "Reprint";
             this.reprintToolStripMenuItem.Click += new System.EventHandler(this.reprintToolStripMenuItem_Click);
             // 
@@ -127,27 +126,27 @@
             this.testSQLConnectionToolStripMenuItem,
             this.testSAPB1ConnectionToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 25);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // testSQLConnectionToolStripMenuItem
             // 
             this.testSQLConnectionToolStripMenuItem.Name = "testSQLConnectionToolStripMenuItem";
-            this.testSQLConnectionToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.testSQLConnectionToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.testSQLConnectionToolStripMenuItem.Text = "Test SQL Connection";
             this.testSQLConnectionToolStripMenuItem.Click += new System.EventHandler(this.testSQLConnectionToolStripMenuItem_Click);
             // 
             // testSAPB1ConnectionToolStripMenuItem
             // 
             this.testSAPB1ConnectionToolStripMenuItem.Name = "testSAPB1ConnectionToolStripMenuItem";
-            this.testSAPB1ConnectionToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.testSAPB1ConnectionToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.testSAPB1ConnectionToolStripMenuItem.Text = "Test SAP B1 Connection";
             this.testSAPB1ConnectionToolStripMenuItem.Click += new System.EventHandler(this.testSAPB1ConnectionToolStripMenuItem_Click);
             // 
             // txtIRMS
             // 
             this.txtIRMS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIRMS.Location = new System.Drawing.Point(146, 292);
+            this.txtIRMS.Location = new System.Drawing.Point(146, 279);
             this.txtIRMS.Margin = new System.Windows.Forms.Padding(4);
             this.txtIRMS.Name = "txtIRMS";
             this.txtIRMS.ReadOnly = true;
@@ -158,7 +157,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(10, 295);
+            this.label10.Location = new System.Drawing.Point(10, 282);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(50, 20);
@@ -169,7 +168,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(10, 334);
+            this.label8.Location = new System.Drawing.Point(10, 321);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(88, 20);
@@ -189,19 +188,17 @@
             // 
             // txtDie
             // 
-            this.txtDie.Enabled = false;
             this.txtDie.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDie.Location = new System.Drawing.Point(209, 5);
+            this.txtDie.Location = new System.Drawing.Point(209, 4);
             this.txtDie.Margin = new System.Windows.Forms.Padding(4);
             this.txtDie.Name = "txtDie";
             this.txtDie.Size = new System.Drawing.Size(76, 26);
-            this.txtDie.TabIndex = 1;
-            this.txtDie.Validated += new System.EventHandler(this.txtDie_Validated);
+            this.txtDie.TabIndex = 31;
             // 
             // txtJumboRoll
             // 
             this.txtJumboRoll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtJumboRoll.Location = new System.Drawing.Point(146, 331);
+            this.txtJumboRoll.Location = new System.Drawing.Point(146, 318);
             this.txtJumboRoll.Margin = new System.Windows.Forms.Padding(4);
             this.txtJumboRoll.Name = "txtJumboRoll";
             this.txtJumboRoll.ReadOnly = true;
@@ -226,14 +223,14 @@
             this.txtNoOfSlits.Margin = new System.Windows.Forms.Padding(4);
             this.txtNoOfSlits.Name = "txtNoOfSlits";
             this.txtNoOfSlits.Size = new System.Drawing.Size(59, 26);
-            this.txtNoOfSlits.TabIndex = 0;
+            this.txtNoOfSlits.TabIndex = 29;
             this.txtNoOfSlits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNoOfSlits_KeyPress);
             this.txtNoOfSlits.Validated += new System.EventHandler(this.txtNoOfSlits_Validated);
             // 
             // txtItemName
             // 
             this.txtItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItemName.Location = new System.Drawing.Point(258, 253);
+            this.txtItemName.Location = new System.Drawing.Point(258, 240);
             this.txtItemName.Margin = new System.Windows.Forms.Padding(4);
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.ReadOnly = true;
@@ -243,7 +240,7 @@
             // txtItemCode
             // 
             this.txtItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItemCode.Location = new System.Drawing.Point(146, 253);
+            this.txtItemCode.Location = new System.Drawing.Point(146, 240);
             this.txtItemCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtItemCode.Name = "txtItemCode";
             this.txtItemCode.ReadOnly = true;
@@ -254,7 +251,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(10, 256);
+            this.label5.Location = new System.Drawing.Point(10, 243);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 20);
@@ -264,7 +261,7 @@
             // txtShift
             // 
             this.txtShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtShift.Location = new System.Drawing.Point(146, 409);
+            this.txtShift.Location = new System.Drawing.Point(146, 396);
             this.txtShift.Margin = new System.Windows.Forms.Padding(4);
             this.txtShift.Name = "txtShift";
             this.txtShift.ReadOnly = true;
@@ -274,7 +271,7 @@
             // txtProductionLine
             // 
             this.txtProductionLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProductionLine.Location = new System.Drawing.Point(146, 136);
+            this.txtProductionLine.Location = new System.Drawing.Point(146, 123);
             this.txtProductionLine.Margin = new System.Windows.Forms.Padding(4);
             this.txtProductionLine.Name = "txtProductionLine";
             this.txtProductionLine.ReadOnly = true;
@@ -284,7 +281,7 @@
             // txtYJNProdOrder
             // 
             this.txtYJNProdOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtYJNProdOrder.Location = new System.Drawing.Point(146, 175);
+            this.txtYJNProdOrder.Location = new System.Drawing.Point(146, 162);
             this.txtYJNProdOrder.Margin = new System.Windows.Forms.Padding(4);
             this.txtYJNProdOrder.Name = "txtYJNProdOrder";
             this.txtYJNProdOrder.ReadOnly = true;
@@ -295,7 +292,7 @@
             // 
             this.lblOrderNo.AutoSize = true;
             this.lblOrderNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOrderNo.Location = new System.Drawing.Point(10, 217);
+            this.lblOrderNo.Location = new System.Drawing.Point(10, 204);
             this.lblOrderNo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOrderNo.Name = "lblOrderNo";
             this.lblOrderNo.Size = new System.Drawing.Size(113, 20);
@@ -305,7 +302,7 @@
             // txtOrderNo
             // 
             this.txtOrderNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOrderNo.Location = new System.Drawing.Point(146, 214);
+            this.txtOrderNo.Location = new System.Drawing.Point(146, 201);
             this.txtOrderNo.Margin = new System.Windows.Forms.Padding(4);
             this.txtOrderNo.Name = "txtOrderNo";
             this.txtOrderNo.ReadOnly = true;
@@ -316,7 +313,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 412);
+            this.label3.Location = new System.Drawing.Point(10, 399);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 20);
@@ -327,7 +324,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 178);
+            this.label2.Location = new System.Drawing.Point(10, 165);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 20);
@@ -338,7 +335,7 @@
             // 
             this.lblEmployee.AutoSize = true;
             this.lblEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmployee.Location = new System.Drawing.Point(10, 373);
+            this.lblEmployee.Location = new System.Drawing.Point(10, 360);
             this.lblEmployee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployee.Name = "lblEmployee";
             this.lblEmployee.Size = new System.Drawing.Size(79, 20);
@@ -348,7 +345,7 @@
             // txtEmployee
             // 
             this.txtEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployee.Location = new System.Drawing.Point(146, 370);
+            this.txtEmployee.Location = new System.Drawing.Point(146, 357);
             this.txtEmployee.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmployee.Name = "txtEmployee";
             this.txtEmployee.ReadOnly = true;
@@ -359,7 +356,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 139);
+            this.label1.Location = new System.Drawing.Point(10, 126);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 20);
@@ -369,7 +366,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 29);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -424,8 +421,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.btnCreate);
             this.splitContainer1.Panel2.Controls.Add(this.olvRolls);
-            this.splitContainer1.Size = new System.Drawing.Size(1065, 534);
-            this.splitContainer1.SplitterDistance = 646;
+            this.splitContainer1.Size = new System.Drawing.Size(898, 472);
+            this.splitContainer1.SplitterDistance = 641;
             this.splitContainer1.TabIndex = 5;
             // 
             // nudCopies
@@ -434,7 +431,7 @@
             this.nudCopies.Location = new System.Drawing.Point(498, 6);
             this.nudCopies.Name = "nudCopies";
             this.nudCopies.Size = new System.Drawing.Size(47, 26);
-            this.nudCopies.TabIndex = 3;
+            this.nudCopies.TabIndex = 91;
             this.nudCopies.Value = new decimal(new int[] {
             1,
             0,
@@ -455,7 +452,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(10, 451);
+            this.label9.Location = new System.Drawing.Point(10, 438);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 20);
@@ -465,7 +462,7 @@
             // txtProductionDateFull
             // 
             this.txtProductionDateFull.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProductionDateFull.Location = new System.Drawing.Point(146, 448);
+            this.txtProductionDateFull.Location = new System.Drawing.Point(146, 435);
             this.txtProductionDateFull.Margin = new System.Windows.Forms.Padding(4);
             this.txtProductionDateFull.Name = "txtProductionDateFull";
             this.txtProductionDateFull.ReadOnly = true;
@@ -486,7 +483,6 @@
             this.chkSP15.Text = "15";
             this.chkSP15.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP15.UseVisualStyleBackColor = true;
-            this.chkSP15.Visible = false;
             // 
             // chkSP14
             // 
@@ -502,7 +498,6 @@
             this.chkSP14.Text = "14";
             this.chkSP14.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP14.UseVisualStyleBackColor = true;
-            this.chkSP14.Visible = false;
             // 
             // chkSP13
             // 
@@ -518,7 +513,6 @@
             this.chkSP13.Text = "13";
             this.chkSP13.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP13.UseVisualStyleBackColor = true;
-            this.chkSP13.Visible = false;
             // 
             // chkSP12
             // 
@@ -534,26 +528,23 @@
             this.chkSP12.Text = "12";
             this.chkSP12.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP12.UseVisualStyleBackColor = true;
-            this.chkSP12.Visible = false;
             // 
             // label11
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label11.Location = new System.Drawing.Point(2, 120);
+            this.label11.Location = new System.Drawing.Point(2, 111);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(641, 2);
+            this.label11.Size = new System.Drawing.Size(636, 2);
             this.label11.TabIndex = 52;
             // 
             // btnSelect
             // 
-            this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelect.Location = new System.Drawing.Point(504, 120);
+            this.btnSelect.Location = new System.Drawing.Point(381, 117);
             this.btnSelect.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelect.Name = "btnSelect";
-            this.btnSelect.Size = new System.Drawing.Size(142, 42);
+            this.btnSelect.Size = new System.Drawing.Size(119, 32);
             this.btnSelect.TabIndex = 51;
             this.btnSelect.Text = "SELECT ORDER";
             this.btnSelect.UseVisualStyleBackColor = true;
@@ -561,14 +552,12 @@
             // 
             // btnGenerateRolls
             // 
-            this.btnGenerateRolls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerateRolls.Enabled = false;
             this.btnGenerateRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerateRolls.Location = new System.Drawing.Point(552, -1);
+            this.btnGenerateRolls.Location = new System.Drawing.Point(561, 9);
             this.btnGenerateRolls.Name = "btnGenerateRolls";
-            this.btnGenerateRolls.Size = new System.Drawing.Size(95, 37);
-            this.btnGenerateRolls.TabIndex = 4;
-            this.btnGenerateRolls.Text = ">>>>";
+            this.btnGenerateRolls.Size = new System.Drawing.Size(55, 24);
+            this.btnGenerateRolls.TabIndex = 50;
+            this.btnGenerateRolls.Text = ">>";
             this.btnGenerateRolls.UseVisualStyleBackColor = true;
             this.btnGenerateRolls.Click += new System.EventHandler(this.btnGenerateRolls_Click);
             // 
@@ -586,7 +575,6 @@
             this.chkSP11.Text = "11";
             this.chkSP11.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP11.UseVisualStyleBackColor = true;
-            this.chkSP11.Visible = false;
             // 
             // chkSP10
             // 
@@ -602,7 +590,6 @@
             this.chkSP10.Text = "10";
             this.chkSP10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP10.UseVisualStyleBackColor = true;
-            this.chkSP10.Visible = false;
             // 
             // chkSP9
             // 
@@ -618,7 +605,6 @@
             this.chkSP9.Text = "9";
             this.chkSP9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP9.UseVisualStyleBackColor = true;
-            this.chkSP9.Visible = false;
             // 
             // chkSP8
             // 
@@ -634,7 +620,6 @@
             this.chkSP8.Text = "8";
             this.chkSP8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP8.UseVisualStyleBackColor = true;
-            this.chkSP8.Visible = false;
             // 
             // chkSP7
             // 
@@ -650,7 +635,6 @@
             this.chkSP7.Text = "7";
             this.chkSP7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP7.UseVisualStyleBackColor = true;
-            this.chkSP7.Visible = false;
             // 
             // chkSP6
             // 
@@ -666,7 +650,6 @@
             this.chkSP6.Text = "6";
             this.chkSP6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP6.UseVisualStyleBackColor = true;
-            this.chkSP6.Visible = false;
             // 
             // chkSP5
             // 
@@ -682,7 +665,6 @@
             this.chkSP5.Text = "5";
             this.chkSP5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP5.UseVisualStyleBackColor = true;
-            this.chkSP5.Visible = false;
             // 
             // chkSP4
             // 
@@ -698,7 +680,6 @@
             this.chkSP4.Text = "4";
             this.chkSP4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP4.UseVisualStyleBackColor = true;
-            this.chkSP4.Visible = false;
             // 
             // chkSP3
             // 
@@ -714,7 +695,6 @@
             this.chkSP3.Text = "3";
             this.chkSP3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP3.UseVisualStyleBackColor = true;
-            this.chkSP3.Visible = false;
             // 
             // chkSP2
             // 
@@ -730,7 +710,6 @@
             this.chkSP2.Text = "2";
             this.chkSP2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP2.UseVisualStyleBackColor = true;
-            this.chkSP2.Visible = false;
             // 
             // chkSP1
             // 
@@ -746,17 +725,15 @@
             this.chkSP1.Text = "1";
             this.chkSP1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.chkSP1.UseVisualStyleBackColor = true;
-            this.chkSP1.Visible = false;
             // 
             // txtWeightKgs
             // 
-            this.txtWeightKgs.Enabled = false;
             this.txtWeightKgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtWeightKgs.Location = new System.Drawing.Point(338, 5);
             this.txtWeightKgs.Name = "txtWeightKgs";
             this.txtWeightKgs.Size = new System.Drawing.Size(77, 26);
-            this.txtWeightKgs.TabIndex = 2;
-            this.txtWeightKgs.Validated += new System.EventHandler(this.txtWeightKgs_Validated);
+            this.txtWeightKgs.TabIndex = 10;
+            this.txtWeightKgs.Visible = false;
             // 
             // label4
             // 
@@ -767,16 +744,15 @@
             this.label4.Size = new System.Drawing.Size(36, 20);
             this.label4.TabIndex = 9;
             this.label4.Text = "Kgs";
-            this.label4.Validated += new System.EventHandler(this.txtWeightKgs_Validated);
+            this.label4.Visible = false;
             // 
             // btnCreate
             // 
             this.btnCreate.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnCreate.Enabled = false;
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(0, 498);
+            this.btnCreate.Location = new System.Drawing.Point(0, 436);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(415, 36);
+            this.btnCreate.Size = new System.Drawing.Size(253, 36);
             this.btnCreate.TabIndex = 12;
             this.btnCreate.Text = "Create/Print";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -784,33 +760,23 @@
             // 
             // olvRolls
             // 
-            this.olvRolls.AllColumns.Add(this.olvColScrap);
             this.olvRolls.AllColumns.Add(this.olvColRollNo);
+            this.olvRolls.AllColumns.Add(this.olvColScrap);
             this.olvRolls.AllColumns.Add(this.olvColKgs);
             this.olvRolls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.olvRolls.CellEditUseWholeCell = false;
-            this.olvRolls.CheckBoxes = true;
-            this.olvRolls.CheckedAspectName = "Scrap";
             this.olvRolls.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColScrap,
-            this.olvColRollNo,
-            this.olvColKgs});
+            this.olvColRollNo});
             this.olvRolls.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvRolls.Location = new System.Drawing.Point(3, 3);
             this.olvRolls.Name = "olvRolls";
-            this.olvRolls.Size = new System.Drawing.Size(409, 499);
+            this.olvRolls.Size = new System.Drawing.Size(247, 437);
             this.olvRolls.TabIndex = 11;
             this.olvRolls.UseCompatibleStateImageBehavior = false;
             this.olvRolls.View = System.Windows.Forms.View.Details;
-            // 
-            // olvColScrap
-            // 
-            this.olvColScrap.AspectName = "Scrap";
-            this.olvColScrap.CheckBoxes = true;
-            this.olvColScrap.Text = "Scrap";
             // 
             // olvColRollNo
             // 
@@ -819,9 +785,19 @@
             this.olvColRollNo.Text = "Roll No.";
             this.olvColRollNo.Width = 200;
             // 
+            // olvColScrap
+            // 
+            this.olvColScrap.AspectName = "Scrap";
+            this.olvColScrap.CheckBoxes = true;
+            this.olvColScrap.DisplayIndex = 1;
+            this.olvColScrap.IsVisible = false;
+            this.olvColScrap.Text = "Scrap";
+            // 
             // olvColKgs
             // 
             this.olvColKgs.AspectName = "Kgs";
+            this.olvColKgs.DisplayIndex = 2;
+            this.olvColKgs.IsVisible = false;
             this.olvColKgs.Text = "Kgs";
             this.olvColKgs.Width = 100;
             // 
@@ -829,13 +805,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 563);
+            this.ClientSize = new System.Drawing.Size(898, 496);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "FrmMain";
+            this.Name = "FrmCreateRolls";
             this.Text = "Main";
-            this.Load += new System.EventHandler(this.FrmMain_Load);
+            this.Load += new System.EventHandler(this.FrmCreateRolls_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);

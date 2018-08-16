@@ -70,6 +70,7 @@
             // olvColItem
             // 
             this.olvColItem.AspectName = "ItemCode";
+            this.olvColItem.Groupable = false;
             this.olvColItem.Text = "Item";
             this.olvColItem.Width = 200;
             // 
