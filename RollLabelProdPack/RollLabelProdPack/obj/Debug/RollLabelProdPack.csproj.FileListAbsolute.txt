@@ -41,3 +41,8 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLab
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.csproj.ResolveComReference.cache
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmPlannedIssueDialog.resources
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmCreateRolls.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmPackPrint.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmRollsDialog.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmMix.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmBoxScrap.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmAdjustResmix.resources

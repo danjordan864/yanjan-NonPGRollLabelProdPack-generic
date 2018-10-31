@@ -95,10 +95,19 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = quantity.ToString(); }
 
 
-            //luid
-            index = -1;
-            index = UDFIndexLocation(issue.Lines, "U_PMX_LUID");
-            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = luid.ToString(); }
+            //luid and sscc
+            if(luid != 0)
+            {
+                index = -1;
+                index = UDFIndexLocation(issue.Lines, "U_PMX_LUID");
+                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = luid.ToString(); }
+
+                //sscc
+                index = -1;
+                index = UDFIndexLocation(issue.Lines, "U_PMX_SSCC");
+                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = sscc; }
+            }
+            
 
             //base entry
             index = -1;
@@ -115,10 +124,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             index = UDFIndexLocation(issue.Lines, "U_PMX_PRDB");
             if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = 1; }
 
-            //sscc
-            index = -1;
-            index = UDFIndexLocation(issue.Lines, "U_PMX_SSCC");
-            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = sscc; }
+          
 
             issue.Lines.Add();
             _line = issue.Lines;

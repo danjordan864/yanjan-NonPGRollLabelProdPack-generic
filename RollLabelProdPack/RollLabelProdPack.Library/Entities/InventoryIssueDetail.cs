@@ -12,5 +12,7 @@ namespace RollLabelProdPack.Library.Entities
         public int BaseEntry { get; set; }
         public int BaseLine { get; set; }
         public double ShortQty { get; set; }
+        
+
     }
 }

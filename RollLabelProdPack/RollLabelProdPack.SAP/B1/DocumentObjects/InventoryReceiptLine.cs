@@ -74,7 +74,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             }
                 
 
-            if (!string.IsNullOrEmpty(batchNo))
+            if (!string.IsNullOrEmpty(batchNo) && !isScrap)
             {
                 receipt.Lines.BatchNumbers.BatchNumber = batchNo;
                 receipt.Lines.BatchNumbers.Quantity = quantity;
@@ -82,8 +82,12 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                 //Batch
                 index = UDFIndexLocation(receipt.Lines, "U_PMX_BATC");
                 if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = batchNo; }
-
             }
+
+            //production batch
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_PMX_PRDB");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = 1; }
             //Storage Location
             index = -1;
             index = UDFIndexLocation(receipt.Lines, "U_PMX_LOCO");
@@ -115,11 +119,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             index = UDFIndexLocation(receipt.Lines, "U_PMX_BATY");
             if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = "202"; }
 
-            //production batch
-            index = -1;
-            index = UDFIndexLocation(receipt.Lines, "U_PMX_PRDB");
-            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = 1; }
-
+            
             //sscc
             index = -1;
             index = UDFIndexLocation(receipt.Lines, "U_PMX_SSCC");

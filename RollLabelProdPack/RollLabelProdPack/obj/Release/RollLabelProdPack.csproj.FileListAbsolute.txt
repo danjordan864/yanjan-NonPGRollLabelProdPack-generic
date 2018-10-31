@@ -39,3 +39,6 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLab
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.csproj.GenerateResource.Cache
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\Interop.SAPbobsCOM.dll
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.csproj.ResolveComReference.cache
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmCreateRolls.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmPlannedIssueDialog.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmPackPrint.resources

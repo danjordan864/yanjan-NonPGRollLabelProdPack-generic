@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.formsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.boxScrapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSQLConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSAPB1ConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,8 +57,7 @@
             this.txtEmployee = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.nudCopies = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
+            this.lnkPlannedIssues = new System.Windows.Forms.LinkLabel();
             this.label9 = new System.Windows.Forms.Label();
             this.txtProductionDateFull = new System.Windows.Forms.TextBox();
             this.chkSP15 = new System.Windows.Forms.CheckBox();
@@ -85,12 +85,12 @@
             this.olvColScrap = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColKgs = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.adjustResmixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCopies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.olvRolls)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,7 +109,9 @@
             // formsToolStripMenuItem
             // 
             this.formsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reprintToolStripMenuItem});
+            this.reprintToolStripMenuItem,
+            this.boxScrapToolStripMenuItem,
+            this.adjustResmixToolStripMenuItem});
             this.formsToolStripMenuItem.Name = "formsToolStripMenuItem";
             this.formsToolStripMenuItem.Size = new System.Drawing.Size(66, 25);
             this.formsToolStripMenuItem.Text = "Forms";
@@ -117,9 +119,16 @@
             // reprintToolStripMenuItem
             // 
             this.reprintToolStripMenuItem.Name = "reprintToolStripMenuItem";
-            this.reprintToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.reprintToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.reprintToolStripMenuItem.Text = "Reprint";
             this.reprintToolStripMenuItem.Click += new System.EventHandler(this.reprintToolStripMenuItem_Click);
+            // 
+            // boxScrapToolStripMenuItem
+            // 
+            this.boxScrapToolStripMenuItem.Name = "boxScrapToolStripMenuItem";
+            this.boxScrapToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
+            this.boxScrapToolStripMenuItem.Text = "Box Scrap";
+            this.boxScrapToolStripMenuItem.Click += new System.EventHandler(this.boxScrapToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -147,7 +156,7 @@
             // txtIRMS
             // 
             this.txtIRMS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIRMS.Location = new System.Drawing.Point(146, 292);
+            this.txtIRMS.Location = new System.Drawing.Point(146, 315);
             this.txtIRMS.Margin = new System.Windows.Forms.Padding(4);
             this.txtIRMS.Name = "txtIRMS";
             this.txtIRMS.ReadOnly = true;
@@ -158,7 +167,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(10, 295);
+            this.label10.Location = new System.Drawing.Point(10, 318);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(50, 20);
@@ -169,7 +178,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(10, 334);
+            this.label8.Location = new System.Drawing.Point(10, 357);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(88, 20);
@@ -180,7 +189,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(169, 7);
+            this.label7.Location = new System.Drawing.Point(165, 53);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(33, 20);
@@ -191,7 +200,7 @@
             // 
             this.txtDie.Enabled = false;
             this.txtDie.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDie.Location = new System.Drawing.Point(209, 5);
+            this.txtDie.Location = new System.Drawing.Point(205, 51);
             this.txtDie.Margin = new System.Windows.Forms.Padding(4);
             this.txtDie.Name = "txtDie";
             this.txtDie.Size = new System.Drawing.Size(76, 26);
@@ -201,7 +210,7 @@
             // txtJumboRoll
             // 
             this.txtJumboRoll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtJumboRoll.Location = new System.Drawing.Point(146, 331);
+            this.txtJumboRoll.Location = new System.Drawing.Point(146, 354);
             this.txtJumboRoll.Margin = new System.Windows.Forms.Padding(4);
             this.txtJumboRoll.Name = "txtJumboRoll";
             this.txtJumboRoll.ReadOnly = true;
@@ -212,7 +221,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(10, 8);
+            this.label6.Location = new System.Drawing.Point(6, 54);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 20);
@@ -221,8 +230,9 @@
             // 
             // txtNoOfSlits
             // 
+            this.txtNoOfSlits.Enabled = false;
             this.txtNoOfSlits.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoOfSlits.Location = new System.Drawing.Point(98, 4);
+            this.txtNoOfSlits.Location = new System.Drawing.Point(94, 50);
             this.txtNoOfSlits.Margin = new System.Windows.Forms.Padding(4);
             this.txtNoOfSlits.Name = "txtNoOfSlits";
             this.txtNoOfSlits.Size = new System.Drawing.Size(59, 26);
@@ -233,28 +243,28 @@
             // txtItemName
             // 
             this.txtItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItemName.Location = new System.Drawing.Point(258, 253);
+            this.txtItemName.Location = new System.Drawing.Point(325, 276);
             this.txtItemName.Margin = new System.Windows.Forms.Padding(4);
             this.txtItemName.Name = "txtItemName";
             this.txtItemName.ReadOnly = true;
-            this.txtItemName.Size = new System.Drawing.Size(216, 26);
+            this.txtItemName.Size = new System.Drawing.Size(306, 26);
             this.txtItemName.TabIndex = 28;
             // 
             // txtItemCode
             // 
             this.txtItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtItemCode.Location = new System.Drawing.Point(146, 253);
+            this.txtItemCode.Location = new System.Drawing.Point(146, 276);
             this.txtItemCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtItemCode.Name = "txtItemCode";
             this.txtItemCode.ReadOnly = true;
-            this.txtItemCode.Size = new System.Drawing.Size(104, 26);
+            this.txtItemCode.Size = new System.Drawing.Size(171, 26);
             this.txtItemCode.TabIndex = 27;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(10, 256);
+            this.label5.Location = new System.Drawing.Point(10, 279);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 20);
@@ -264,7 +274,7 @@
             // txtShift
             // 
             this.txtShift.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtShift.Location = new System.Drawing.Point(146, 409);
+            this.txtShift.Location = new System.Drawing.Point(146, 432);
             this.txtShift.Margin = new System.Windows.Forms.Padding(4);
             this.txtShift.Name = "txtShift";
             this.txtShift.ReadOnly = true;
@@ -274,7 +284,7 @@
             // txtProductionLine
             // 
             this.txtProductionLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProductionLine.Location = new System.Drawing.Point(146, 136);
+            this.txtProductionLine.Location = new System.Drawing.Point(146, 159);
             this.txtProductionLine.Margin = new System.Windows.Forms.Padding(4);
             this.txtProductionLine.Name = "txtProductionLine";
             this.txtProductionLine.ReadOnly = true;
@@ -284,7 +294,7 @@
             // txtYJNProdOrder
             // 
             this.txtYJNProdOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtYJNProdOrder.Location = new System.Drawing.Point(146, 175);
+            this.txtYJNProdOrder.Location = new System.Drawing.Point(146, 198);
             this.txtYJNProdOrder.Margin = new System.Windows.Forms.Padding(4);
             this.txtYJNProdOrder.Name = "txtYJNProdOrder";
             this.txtYJNProdOrder.ReadOnly = true;
@@ -295,7 +305,7 @@
             // 
             this.lblOrderNo.AutoSize = true;
             this.lblOrderNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOrderNo.Location = new System.Drawing.Point(10, 217);
+            this.lblOrderNo.Location = new System.Drawing.Point(10, 240);
             this.lblOrderNo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOrderNo.Name = "lblOrderNo";
             this.lblOrderNo.Size = new System.Drawing.Size(113, 20);
@@ -305,7 +315,7 @@
             // txtOrderNo
             // 
             this.txtOrderNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOrderNo.Location = new System.Drawing.Point(146, 214);
+            this.txtOrderNo.Location = new System.Drawing.Point(146, 237);
             this.txtOrderNo.Margin = new System.Windows.Forms.Padding(4);
             this.txtOrderNo.Name = "txtOrderNo";
             this.txtOrderNo.ReadOnly = true;
@@ -316,7 +326,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(10, 412);
+            this.label3.Location = new System.Drawing.Point(10, 435);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 20);
@@ -327,7 +337,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 178);
+            this.label2.Location = new System.Drawing.Point(10, 201);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 20);
@@ -338,7 +348,7 @@
             // 
             this.lblEmployee.AutoSize = true;
             this.lblEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmployee.Location = new System.Drawing.Point(10, 373);
+            this.lblEmployee.Location = new System.Drawing.Point(10, 396);
             this.lblEmployee.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmployee.Name = "lblEmployee";
             this.lblEmployee.Size = new System.Drawing.Size(79, 20);
@@ -348,7 +358,7 @@
             // txtEmployee
             // 
             this.txtEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployee.Location = new System.Drawing.Point(146, 370);
+            this.txtEmployee.Location = new System.Drawing.Point(146, 393);
             this.txtEmployee.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmployee.Name = "txtEmployee";
             this.txtEmployee.ReadOnly = true;
@@ -359,7 +369,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 139);
+            this.label1.Location = new System.Drawing.Point(10, 162);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 20);
@@ -374,8 +384,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.nudCopies);
-            this.splitContainer1.Panel1.Controls.Add(this.label18);
+            this.splitContainer1.Panel1.Controls.Add(this.lnkPlannedIssues);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.txtProductionDateFull);
             this.splitContainer1.Panel1.Controls.Add(this.chkSP15);
@@ -428,34 +437,23 @@
             this.splitContainer1.SplitterDistance = 646;
             this.splitContainer1.TabIndex = 5;
             // 
-            // nudCopies
+            // lnkPlannedIssues
             // 
-            this.nudCopies.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCopies.Location = new System.Drawing.Point(498, 6);
-            this.nudCopies.Name = "nudCopies";
-            this.nudCopies.Size = new System.Drawing.Size(47, 26);
-            this.nudCopies.TabIndex = 3;
-            this.nudCopies.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(434, 8);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(58, 20);
-            this.label18.TabIndex = 90;
-            this.label18.Text = "Copies";
+            this.lnkPlannedIssues.AutoSize = true;
+            this.lnkPlannedIssues.Enabled = false;
+            this.lnkPlannedIssues.Location = new System.Drawing.Point(507, 118);
+            this.lnkPlannedIssues.Name = "lnkPlannedIssues";
+            this.lnkPlannedIssues.Size = new System.Drawing.Size(105, 13);
+            this.lnkPlannedIssues.TabIndex = 91;
+            this.lnkPlannedIssues.TabStop = true;
+            this.lnkPlannedIssues.Text = "View Planned Issues";
+            this.lnkPlannedIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkPlannedIssues_LinkClicked);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(10, 451);
+            this.label9.Location = new System.Drawing.Point(10, 474);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(124, 20);
@@ -465,7 +463,7 @@
             // txtProductionDateFull
             // 
             this.txtProductionDateFull.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProductionDateFull.Location = new System.Drawing.Point(146, 448);
+            this.txtProductionDateFull.Location = new System.Drawing.Point(146, 471);
             this.txtProductionDateFull.Margin = new System.Windows.Forms.Padding(4);
             this.txtProductionDateFull.Name = "txtProductionDateFull";
             this.txtProductionDateFull.ReadOnly = true;
@@ -478,7 +476,7 @@
             this.chkSP15.Checked = true;
             this.chkSP15.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP15.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP15.Location = new System.Drawing.Point(578, 52);
+            this.chkSP15.Location = new System.Drawing.Point(574, 98);
             this.chkSP15.Name = "chkSP15";
             this.chkSP15.Size = new System.Drawing.Size(38, 17);
             this.chkSP15.TabIndex = 56;
@@ -494,7 +492,7 @@
             this.chkSP14.Checked = true;
             this.chkSP14.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP14.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP14.Location = new System.Drawing.Point(538, 52);
+            this.chkSP14.Location = new System.Drawing.Point(534, 98);
             this.chkSP14.Name = "chkSP14";
             this.chkSP14.Size = new System.Drawing.Size(38, 17);
             this.chkSP14.TabIndex = 55;
@@ -510,7 +508,7 @@
             this.chkSP13.Checked = true;
             this.chkSP13.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP13.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP13.Location = new System.Drawing.Point(498, 52);
+            this.chkSP13.Location = new System.Drawing.Point(494, 98);
             this.chkSP13.Name = "chkSP13";
             this.chkSP13.Size = new System.Drawing.Size(38, 17);
             this.chkSP13.TabIndex = 54;
@@ -526,7 +524,7 @@
             this.chkSP12.Checked = true;
             this.chkSP12.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP12.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP12.Location = new System.Drawing.Point(458, 52);
+            this.chkSP12.Location = new System.Drawing.Point(454, 98);
             this.chkSP12.Name = "chkSP12";
             this.chkSP12.Size = new System.Drawing.Size(38, 17);
             this.chkSP12.TabIndex = 53;
@@ -541,7 +539,7 @@
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label11.Location = new System.Drawing.Point(2, 120);
+            this.label11.Location = new System.Drawing.Point(3, 140);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(641, 2);
             this.label11.TabIndex = 52;
@@ -550,7 +548,7 @@
             // 
             this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelect.Location = new System.Drawing.Point(504, 120);
+            this.btnSelect.Location = new System.Drawing.Point(0, 0);
             this.btnSelect.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(142, 42);
@@ -564,7 +562,7 @@
             this.btnGenerateRolls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenerateRolls.Enabled = false;
             this.btnGenerateRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerateRolls.Location = new System.Drawing.Point(552, -1);
+            this.btnGenerateRolls.Location = new System.Drawing.Point(548, 45);
             this.btnGenerateRolls.Name = "btnGenerateRolls";
             this.btnGenerateRolls.Size = new System.Drawing.Size(95, 37);
             this.btnGenerateRolls.TabIndex = 4;
@@ -578,7 +576,7 @@
             this.chkSP11.Checked = true;
             this.chkSP11.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP11.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP11.Location = new System.Drawing.Point(418, 52);
+            this.chkSP11.Location = new System.Drawing.Point(414, 98);
             this.chkSP11.Name = "chkSP11";
             this.chkSP11.Size = new System.Drawing.Size(38, 17);
             this.chkSP11.TabIndex = 49;
@@ -594,7 +592,7 @@
             this.chkSP10.Checked = true;
             this.chkSP10.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP10.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP10.Location = new System.Drawing.Point(378, 52);
+            this.chkSP10.Location = new System.Drawing.Point(374, 98);
             this.chkSP10.Name = "chkSP10";
             this.chkSP10.Size = new System.Drawing.Size(38, 17);
             this.chkSP10.TabIndex = 48;
@@ -610,7 +608,7 @@
             this.chkSP9.Checked = true;
             this.chkSP9.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP9.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP9.Location = new System.Drawing.Point(338, 52);
+            this.chkSP9.Location = new System.Drawing.Point(334, 98);
             this.chkSP9.Name = "chkSP9";
             this.chkSP9.Size = new System.Drawing.Size(32, 17);
             this.chkSP9.TabIndex = 47;
@@ -626,7 +624,7 @@
             this.chkSP8.Checked = true;
             this.chkSP8.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP8.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP8.Location = new System.Drawing.Point(298, 52);
+            this.chkSP8.Location = new System.Drawing.Point(294, 98);
             this.chkSP8.Name = "chkSP8";
             this.chkSP8.Size = new System.Drawing.Size(32, 17);
             this.chkSP8.TabIndex = 46;
@@ -642,7 +640,7 @@
             this.chkSP7.Checked = true;
             this.chkSP7.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP7.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP7.Location = new System.Drawing.Point(258, 52);
+            this.chkSP7.Location = new System.Drawing.Point(254, 98);
             this.chkSP7.Name = "chkSP7";
             this.chkSP7.Size = new System.Drawing.Size(32, 17);
             this.chkSP7.TabIndex = 45;
@@ -658,7 +656,7 @@
             this.chkSP6.Checked = true;
             this.chkSP6.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP6.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP6.Location = new System.Drawing.Point(218, 52);
+            this.chkSP6.Location = new System.Drawing.Point(214, 98);
             this.chkSP6.Name = "chkSP6";
             this.chkSP6.Size = new System.Drawing.Size(32, 17);
             this.chkSP6.TabIndex = 44;
@@ -674,7 +672,7 @@
             this.chkSP5.Checked = true;
             this.chkSP5.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP5.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP5.Location = new System.Drawing.Point(178, 52);
+            this.chkSP5.Location = new System.Drawing.Point(174, 98);
             this.chkSP5.Name = "chkSP5";
             this.chkSP5.Size = new System.Drawing.Size(32, 17);
             this.chkSP5.TabIndex = 43;
@@ -690,7 +688,7 @@
             this.chkSP4.Checked = true;
             this.chkSP4.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP4.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP4.Location = new System.Drawing.Point(138, 52);
+            this.chkSP4.Location = new System.Drawing.Point(134, 98);
             this.chkSP4.Name = "chkSP4";
             this.chkSP4.Size = new System.Drawing.Size(32, 17);
             this.chkSP4.TabIndex = 42;
@@ -706,7 +704,7 @@
             this.chkSP3.Checked = true;
             this.chkSP3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP3.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP3.Location = new System.Drawing.Point(98, 52);
+            this.chkSP3.Location = new System.Drawing.Point(94, 98);
             this.chkSP3.Name = "chkSP3";
             this.chkSP3.Size = new System.Drawing.Size(32, 17);
             this.chkSP3.TabIndex = 41;
@@ -722,7 +720,7 @@
             this.chkSP2.Checked = true;
             this.chkSP2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP2.Location = new System.Drawing.Point(58, 52);
+            this.chkSP2.Location = new System.Drawing.Point(54, 98);
             this.chkSP2.Name = "chkSP2";
             this.chkSP2.Size = new System.Drawing.Size(32, 17);
             this.chkSP2.TabIndex = 40;
@@ -738,7 +736,7 @@
             this.chkSP1.Checked = true;
             this.chkSP1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP1.Location = new System.Drawing.Point(18, 52);
+            this.chkSP1.Location = new System.Drawing.Point(14, 98);
             this.chkSP1.Name = "chkSP1";
             this.chkSP1.Size = new System.Drawing.Size(32, 17);
             this.chkSP1.TabIndex = 39;
@@ -752,7 +750,7 @@
             // 
             this.txtWeightKgs.Enabled = false;
             this.txtWeightKgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWeightKgs.Location = new System.Drawing.Point(338, 5);
+            this.txtWeightKgs.Location = new System.Drawing.Point(334, 51);
             this.txtWeightKgs.Name = "txtWeightKgs";
             this.txtWeightKgs.Size = new System.Drawing.Size(77, 26);
             this.txtWeightKgs.TabIndex = 2;
@@ -762,7 +760,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(293, 7);
+            this.label4.Location = new System.Drawing.Point(289, 53);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 20);
             this.label4.TabIndex = 9;
@@ -825,6 +823,13 @@
             this.olvColKgs.Text = "Kgs";
             this.olvColKgs.Width = 100;
             // 
+            // adjustResmixToolStripMenuItem
+            // 
+            this.adjustResmixToolStripMenuItem.Name = "adjustResmixToolStripMenuItem";
+            this.adjustResmixToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
+            this.adjustResmixToolStripMenuItem.Text = "Adjust Resmix";
+            this.adjustResmixToolStripMenuItem.Click += new System.EventHandler(this.adjustResmixToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -843,7 +848,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudCopies)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.olvRolls)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -906,8 +910,9 @@
         private System.Windows.Forms.CheckBox chkSP12;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtProductionDateFull;
-        private System.Windows.Forms.NumericUpDown nudCopies;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.LinkLabel lnkPlannedIssues;
+        private System.Windows.Forms.ToolStripMenuItem boxScrapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adjustResmixToolStripMenuItem;
     }
 }
 

@@ -27,6 +27,7 @@ namespace RollLabelProdPack.Library.Entities
         public int SAPOrderNo { get; set; }
         public int SAPDocEntry { get; set; }
         public string YJNOrder { get; set; }
+        public string OrderDisplay { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime DueDate { get; set; }
         public int NoOfSlits { get; set; }

@@ -23,4 +23,3 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Releas
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView2012.csproj.GenerateResource.Cache
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView.dll
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView.pdb
-C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView2012.csprojResolveAssemblyReference.cache

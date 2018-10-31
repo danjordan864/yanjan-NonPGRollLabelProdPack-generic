@@ -19,7 +19,11 @@ namespace RollLabelProdPack
             //valid input values are pack, production or manual
             if (args.Length > 0 && args[0] != null && args[0] == "pack")
             {
-                Application.Run(new FrmPack());
+                Application.Run(new FrmPackPrint());
+            }
+            else if (args.Length > 0 && args[0] != null && args[0] == "mix")
+            {
+                Application.Run(new FrmMix());
             }
             else if (args.Length > 0 && args[0] != null && args[0] == "manual")
             {

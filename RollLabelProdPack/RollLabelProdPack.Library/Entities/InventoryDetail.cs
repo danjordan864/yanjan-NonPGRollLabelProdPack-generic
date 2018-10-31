@@ -20,5 +20,8 @@ namespace RollLabelProdPack.Library.Entities
         public int LUID { get; set; }
         public string SSCC { get; set; }
         public DateTime? InDate { get; set; }
+        public bool BatchControlled { get; set; }
+        public bool PackagingMtl { get; set; }
+        public int InvGrpCode { get; set; }
     }
 }

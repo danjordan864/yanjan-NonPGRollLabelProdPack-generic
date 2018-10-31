@@ -35,8 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cboProductionOrder = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.lblOrderNo = new System.Windows.Forms.Label();
-            this.txtOrderNo = new System.Windows.Forms.TextBox();
             this.cboProductionLine = new System.Windows.Forms.ComboBox();
             this.cboShift = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
@@ -54,7 +52,7 @@
             // txtEmployee
             // 
             this.txtEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmployee.Location = new System.Drawing.Point(173, 149);
+            this.txtEmployee.Location = new System.Drawing.Point(174, 112);
             this.txtEmployee.Name = "txtEmployee";
             this.txtEmployee.Size = new System.Drawing.Size(305, 26);
             this.txtEmployee.TabIndex = 3;
@@ -63,7 +61,7 @@
             // 
             this.lblEmployee.AutoSize = true;
             this.lblEmployee.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmployee.Location = new System.Drawing.Point(2, 149);
+            this.lblEmployee.Location = new System.Drawing.Point(3, 112);
             this.lblEmployee.Name = "lblEmployee";
             this.lblEmployee.Size = new System.Drawing.Size(79, 20);
             this.lblEmployee.TabIndex = 3;
@@ -72,7 +70,7 @@
             // btnOK
             // 
             this.btnOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOK.Location = new System.Drawing.Point(7, 240);
+            this.btnOK.Location = new System.Drawing.Point(6, 197);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(95, 36);
             this.btnOK.TabIndex = 5;
@@ -86,9 +84,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(2, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(163, 20);
+            this.label2.Size = new System.Drawing.Size(129, 20);
             this.label2.TabIndex = 6;
-            this.label2.Text = "YJN Production Order";
+            this.label2.Text = "Production Order";
             // 
             // cboProductionOrder
             // 
@@ -99,37 +97,16 @@
             this.cboProductionOrder.Name = "cboProductionOrder";
             this.cboProductionOrder.Size = new System.Drawing.Size(305, 28);
             this.cboProductionOrder.TabIndex = 1;
-            this.cboProductionOrder.SelectedIndexChanged += new System.EventHandler(this.cboProductionOrder_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(2, 185);
+            this.label3.Location = new System.Drawing.Point(3, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 20);
             this.label3.TabIndex = 9;
             this.label3.Text = "Shift";
-            // 
-            // lblOrderNo
-            // 
-            this.lblOrderNo.AutoSize = true;
-            this.lblOrderNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOrderNo.Location = new System.Drawing.Point(3, 109);
-            this.lblOrderNo.Name = "lblOrderNo";
-            this.lblOrderNo.Size = new System.Drawing.Size(113, 20);
-            this.lblOrderNo.TabIndex = 12;
-            this.lblOrderNo.Text = "SAP Order No.";
-            // 
-            // txtOrderNo
-            // 
-            this.txtOrderNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOrderNo.Location = new System.Drawing.Point(174, 109);
-            this.txtOrderNo.Name = "txtOrderNo";
-            this.txtOrderNo.ReadOnly = true;
-            this.txtOrderNo.Size = new System.Drawing.Size(305, 26);
-            this.txtOrderNo.TabIndex = 2;
-            this.txtOrderNo.TabStop = false;
             // 
             // cboProductionLine
             // 
@@ -151,7 +128,7 @@
             "B",
             "C",
             "D"});
-            this.cboShift.Location = new System.Drawing.Point(174, 185);
+            this.cboShift.Location = new System.Drawing.Point(175, 148);
             this.cboShift.Name = "cboShift";
             this.cboShift.Size = new System.Drawing.Size(305, 28);
             this.cboShift.TabIndex = 4;
@@ -160,11 +137,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 288);
+            this.ClientSize = new System.Drawing.Size(492, 240);
             this.Controls.Add(this.cboShift);
             this.Controls.Add(this.cboProductionLine);
-            this.Controls.Add(this.lblOrderNo);
-            this.Controls.Add(this.txtOrderNo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cboProductionOrder);
             this.Controls.Add(this.label2);
@@ -189,8 +164,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cboProductionOrder;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lblOrderNo;
-        private System.Windows.Forms.TextBox txtOrderNo;
         private System.Windows.Forms.ComboBox cboProductionLine;
         private System.Windows.Forms.ComboBox cboShift;
     }

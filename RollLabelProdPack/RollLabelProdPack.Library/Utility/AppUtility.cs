@@ -1,4 +1,7 @@
-﻿using System;
+﻿using RollLabelProdPack.Library.Data;
+using RollLabelProdPack.Library.Email;
+using RollLabelProdPack.Library.Entities;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,6 +16,79 @@ namespace RollLabelProdPack.Library.Utility
 {
     public class AppUtility
     {
+        #region production common routines
+        public static List<InventoryIssueDetail> RefreshIssueQty(int prodOrder, string prodLine, decimal productionQty)
+        {
+            var plannedIssue = new List<InventoryIssueDetail>();
+            var packingMtlLoc = GetPackingMtlLocation();
+            var so = AppData.GetProdLineInputMaterial(prodLine,packingMtlLoc);
+            if (!so.SuccessFlag) throw new ApplicationException($"Error getting Prod. Line Input Material. Error:{so.ServiceException}");
+            var inputLocMaterial = so.ReturnValue as List<InventoryDetail>;
+            so = AppData.GetProdOrderIssueMaterial(prodOrder, productionQty);
+            if (!so.SuccessFlag) throw new ApplicationException($"Error getting Issue Material. Error:{so.ServiceException}");
+            var prodOrderLines = so.ReturnValue as List<InventoryIssueDetail>;
+            //var userName = Convert.ToInt32(prodOrder) == 1 ? AppUtility.GetSAPUserLine1() : AppUtility.GetSAPUserLine2();
+            //var password = Convert.ToInt32(prodOrder) == 1 ? AppUtility.GetSAPPassLine1() : AppUtility.GetSAPPassLine2();
+            foreach (var line in prodOrderLines)
+            {
+                var qtyReq = line.PlannedIssueQty;
+                if (line.PlannedIssueQty > 0) //scrap is set up as by-product negative line qty
+                {
+                    var itemAvail = inputLocMaterial.Where(i => i.ItemCode == line.ItemCode).ToList();
+                    if (itemAvail.Count > 0)
+                    {
+                        foreach (var item in itemAvail)
+                        {
+                            if (qtyReq > 0)
+                            {
+                                if (item.Quantity > qtyReq)
+                                {
+                                    plannedIssue.Add(CreatePlannedIssueDetail(line.ItemCode, line.UOM, line.BaseEntry, line.BaseLine, item.StorageLocation, item.QualityStatus,
+                                        item.LUID, item.SSCC, qtyReq, qtyReq, item.Batch, 0, line.BatchControlled, line.PackagingMtl));
+                                    
+                                    qtyReq = 0;
+                                }
+                                else
+                                {
+                                    plannedIssue.Add(CreatePlannedIssueDetail(line.ItemCode, line.UOM, line.BaseEntry, line.BaseLine, item.StorageLocation, item.QualityStatus,
+                                        item.LUID, item.SSCC, qtyReq, item.Quantity, item.Batch, 0, line.BatchControlled, line.PackagingMtl));
+                                    qtyReq = qtyReq - item.Quantity;
+                                }
+                            }
+                        }
+                    }
+                    if (qtyReq > 0)
+                    {
+                        plannedIssue.Add(CreatePlannedIssueDetail(line.ItemCode, line.UOM, line.BaseEntry, line.BaseLine, string.Empty, string.Empty, 0,
+                            string.Empty, qtyReq, 0, string.Empty, qtyReq, line.BatchControlled, line.PackagingMtl));
+                    }
+                }
+            }
+            return plannedIssue;
+        }
+        public static InventoryIssueDetail CreatePlannedIssueDetail(string itemCode, string uom, int baseEntry, int baseLine, string storageLocation,
+           string qualityStatus, int luid, string sscc, double availableQty, double plannedIssueqty,
+           string batch, double shortQty, bool batchControlled, bool packagingMtl)
+        {
+            return new InventoryIssueDetail
+            {
+                ItemCode = itemCode,
+                BaseEntry = baseEntry,
+                BaseLine = baseLine,
+                StorageLocation = storageLocation,
+                LUID = luid,
+                SSCC = sscc,
+                Quantity = availableQty,
+                PlannedIssueQty = plannedIssueqty,
+                Batch = batch,
+                ShortQty = shortQty,
+                UOM = uom,
+                QualityStatus = qualityStatus,
+                PackagingMtl = packagingMtl,
+                BatchControlled = batchControlled
+            };
+        }
+        #endregion
         #region get connections
 
         /// <summary></summary>
@@ -78,7 +154,7 @@ namespace RollLabelProdPack.Library.Utility
                 if (eType != EventLogEntryType.Error) { if (!logging) { return; } } else { eventID = 9000; }
                 EventLog logEntry = new EventLog(logName, logMachine, logSource);
                 logEntry.WriteEntry(logMessage, eType, eventID);
-                //if (sendEmail) { SendEmail(logMessage, (eType == EventLogEntryType.Error)); }
+                if (sendEmail) { SendEmail(logMessage, (eType == EventLogEntryType.Error)); }
             }
             catch (Exception ex)
             {
@@ -174,6 +250,95 @@ namespace RollLabelProdPack.Library.Utility
             try { return ConfigurationManager.AppSettings["SAPPASS_LINE2"]; }
             catch { return ""; }
         }
+        public static string GetSAPUserLine3()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_LINE3"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassLine3()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_LINE3"]; }
+            catch { return ""; }
+        }
+        public static string GetSAPUserLine4()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_LINE4"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassLine4()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_LINE4"]; }
+            catch { return ""; }
+        }
+        public static string GetSAPUserLine5()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_LINE5"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassLine5()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_LINE5"]; }
+            catch { return ""; }
+        }
+        public static string GetSAPUserLine6()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_LINE6"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassLine6()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_LINE6"]; }
+            catch { return ""; }
+        }
+        public static string GetSAPUserLine7()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_LINE7"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassLine7()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_LINE7"]; }
+            catch { return ""; }
+        }
+        public static string GetSAPUserMixLine1()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_MIXLINE1"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassMixLine1()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_MIXLINE1"]; }
+            catch { return ""; }
+        }
+        public static string GetSAPUserMixLine2()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_MIXLINE2"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassMixLine2()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_MIXLINE2"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPUserMixLine3()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_MIXLINE3"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassMixLine3()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_MIXLINE3"]; }
+            catch { return ""; }
+        }
         /// <summary></summary>
         public static string GetSAPLicenseServer()
         {
@@ -198,6 +363,57 @@ namespace RollLabelProdPack.Library.Utility
         public static string GetSAPDBType()
         {
             return ConfigurationManager.AppSettings["SAPDBTYPE"];
+        }
+
+        public  static KeyValuePair<string,string> GetUserNameAndPasswordFilm(string machineNo)
+        {
+            KeyValuePair<string, string> userNameAndPW = new KeyValuePair<string, string>(GetSAPUser(), GetSAPPassword());
+            switch (machineNo)
+            {
+                case "1":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserLine1(), GetSAPPassLine1());
+                    break;
+                case "2":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserLine2(), GetSAPPassLine2());
+                    break;
+                case "3":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserLine3(), GetSAPPassLine3());
+                    break;
+                case "4":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserLine4(), GetSAPPassLine4());
+                    break;
+                case "5":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserLine5(), GetSAPPassLine5());
+                    break;
+                case "6":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserLine6(), GetSAPPassLine6());
+                    break;
+                case "7":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserLine6(), GetSAPPassLine7());
+                    break;
+                default:
+                    break;
+            }
+            return userNameAndPW;
+        }
+
+        public static KeyValuePair<string, string> GetUserNameAndPasswordMix(string machineNo)
+        {
+            KeyValuePair<string, string> userNameAndPW = new KeyValuePair<string, string>(GetSAPUser(),GetSAPPassword());
+            switch (machineNo)
+            {
+                case "1": userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine1(), GetSAPPassMixLine1());
+                    break;
+                case "2":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine2(), GetSAPPassMixLine2());
+                    break;
+                case "3":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine3(), GetSAPPassMixLine3());
+                    break;
+                default:
+                    break;
+            }
+            return userNameAndPW;
         }
         #endregion
 
@@ -296,6 +512,10 @@ namespace RollLabelProdPack.Library.Utility
         {
             return ConfigurationManager.AppSettings["PGDefaultCombLabelFormat"];
         }
+        public static string GetPGDefaultResmixLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefaultResmixLabelFormat"];
+        }
         public static string GetPGDefaultPackLabelFormat()
         {
             return ConfigurationManager.AppSettings["PGDefaultPackLabelFormat"];
@@ -342,8 +562,202 @@ namespace RollLabelProdPack.Library.Utility
 
             return sf.GetMethod().Name;
         }
+        public static string GetDefaultPackCopies()
+        {
+            return ConfigurationManager.AppSettings["DefaultPackCopies"];
+        }
+
+        public static string GetBoxScrapLocation()
+        {
+            return ConfigurationManager.AppSettings["BoxScrapLocation"];
+        }
+        //PackingMtlLocation
+        public static string GetPackingMtlLocation()
+        {
+            return ConfigurationManager.AppSettings["PackingMtlLocation"];
+        }
         #endregion
 
+        #region html toast
+        public static string GenerateHTMLToast(string title, string text, string type = "w3-warning")
+        {
+            string str = @"
+                    <html>
+                    <head>
+                    <style>
+	                    .w3-warning {
+		                    background-color:#ffffcc;
+		                    border-left:8px solid #ffeb3b;
+		                    margin:0;
+	                    }
 
+                        .w3-error  {
+	                        background-color:#ffdddd;
+	                        border-left:6px solid #f44336;
+	                        margin:0;
+                        }
+
+                        .w3-success {
+	                        background-color:#dff0d8;
+	                        border-left:6px solid #4bae4f;
+	                        margin:0;
+                        }
+                    </style>
+                    </head>
+                    <body style='margin: 0; border-style: solid;'>
+	                    <div class='{000}'>
+		                    <p><strong>{111}: </strong>{222}
+	                    </div>
+                    </body>
+                    </html>";
+
+            str = str.Replace("{000}", type);
+            str = str.Replace("{111}", title);
+            str = str.Replace("{222}", text);
+            return str;
+        }
+
+
+        #endregion
+
+        #region email
+
+        /// <summary></summary>
+        public static int GetSMTPPort()
+        {
+            try { return int.Parse(ConfigurationManager.AppSettings["SMTPPort"]); }
+            catch { return 25; }
+        }
+
+        /// <summary></summary>
+        public static string GetSMTPHost()
+        {
+            try { return ConfigurationManager.AppSettings["SMTPHost"]; }
+            catch { return "SII-EXS"; }
+        }
+
+        /// <summary></summary>
+        public static bool GetSMTPUseCredentials()
+        {
+            try { return bool.Parse(ConfigurationManager.AppSettings["SMTPUseCredentials"]); }
+            catch { return false; }
+        }
+
+        /// <summary></summary>
+        public static string GetSMTPUser()
+        {
+            try { return ConfigurationManager.AppSettings["SMTPUser"]; }
+            catch { return ""; }
+        }
+
+        /// <summary></summary>
+        public static string GetSMTPPass()
+        {
+            try { return ConfigurationManager.AppSettings["SMTPPass"]; }
+            catch { return ""; }
+        }
+
+        /// <summary></summary>
+        public static bool GetSMTPUseTSL()
+        {
+            try { return bool.Parse(ConfigurationManager.AppSettings["SMTPUseTSL"]); }
+            catch { return false; }
+        }
+
+        /// <summary></summary>
+        public static bool GetEmailAlerts()
+        {
+            try { return bool.Parse(ConfigurationManager.AppSettings["EmailAlerts"]); }
+            catch { return false; }
+        }
+
+        /// <summary></summary>
+        public static bool GetEmailErrors()
+        {
+            try { return bool.Parse(ConfigurationManager.AppSettings["EmailErrors"]); }
+            catch { return false; }
+        }
+
+        /// <summary></summary>
+        public static string GetFromAddress()
+        {
+            try { return ConfigurationManager.AppSettings["FromAddress"]; }
+            catch { return "sap@synesisintl.com"; }
+        }
+
+        /// <summary></summary>
+        public static string GetToAddress()
+        {
+            try { return ConfigurationManager.AppSettings["ToAddress"]; }
+            catch { return "jsnyder@synesisintl.com"; }
+        }
+
+        /// <summary></summary>
+        public static string GetCCAddress()
+        {
+            try { return ConfigurationManager.AppSettings["CCAddress"]; }
+            catch { return "jsnyder@synesisintl.com"; }
+        }
+
+        /// <summary></summary>
+        public static string GetSubject()
+        {
+            try { return ConfigurationManager.AppSettings["Subject"]; }
+            catch { return "Alert"; }
+        }
+
+        /// <summary></summary>
+        public static string GetErrorToAddress()
+        {
+            try { return ConfigurationManager.AppSettings["ErrorToAddress"]; }
+            catch { return "jsnyder@synesisintl.com"; }
+        }
+
+        /// <summary></summary>
+        public static string GetErrorCCAddress()
+        {
+            try { return ConfigurationManager.AppSettings["ErrorCCAddress"]; }
+            catch { return "jsnyder@synesisintl.com"; }
+        }
+
+        /// <summary></summary>
+        public static string GetErrrorSubject()
+        {
+            try { return ConfigurationManager.AppSettings["ErrorSubject"]; }
+            catch { return "Error"; }
+        }
+        /// <summary></summary>
+        public static void SendEmail(string message, bool exception)
+        {
+            try
+            {
+                if (exception) { if (!GetEmailErrors()) { return; } }
+                else { if (!GetEmailAlerts()) { return; } }
+                EmailItem email = new EmailItem();
+                email.FromAddress = GetFromAddress();
+                if (exception)
+                {
+                    email.ToAddress = GetErrorToAddress();
+                    email.CCAddress = GetErrorCCAddress();
+                    email.Subject = GetErrrorSubject();
+                    email.Body = message;
+                }
+                else
+                {
+                    email.ToAddress = GetToAddress();
+                    email.CCAddress = GetCCAddress();
+                    email.Subject = GetSubject();
+                    email.Body = message;
+                }
+                email.EmailReport();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error Sending Email | {ex.Message}");
+            }
+        }
+
+        #endregion
     }
 }
+

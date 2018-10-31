@@ -437,6 +437,7 @@
             0,
             0,
             0});
+            this.nudCopies.Visible = false;
             // 
             // label18
             // 
@@ -447,6 +448,7 @@
             this.label18.Size = new System.Drawing.Size(58, 20);
             this.label18.TabIndex = 90;
             this.label18.Text = "Copies";
+            this.label18.Visible = false;
             // 
             // label9
             // 
@@ -801,7 +803,7 @@
             this.olvColKgs.Text = "Kgs";
             this.olvColKgs.Width = 100;
             // 
-            // FrmMain
+            // FrmCreateRolls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

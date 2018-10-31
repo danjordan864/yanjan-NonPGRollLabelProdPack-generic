@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Email\EmailAttachment.cs" />
+    <Compile Include="Email\EmailItem.cs" />
+    <Compile Include="Entities\PackLabel.cs" />
+    <Compile Include="ProdumexFilterTest.cs" />
     <Compile Include="Data\AppData.cs" />
     <Compile Include="Data\ServiceOutput.cs" />
     <Compile Include="Entities\InventoryDetail.cs" />
@@ -51,7 +55,6 @@
     <Compile Include="Utility\AppUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Email\" />
     <Folder Include="Report\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -22,31 +22,29 @@ namespace RollLabelProdPack
             InitializeComponent();
         }
 
-        private void SelectOrderDialog_Load(object sender, EventArgs e)
+        public void SetDataSource(int itemGroup)
         {
             try
             {
-                cboShift.Text = "<-Please Select Shift->";
-                 cboProductionOrder.Enabled = false;
-                var so = AppData.GetOpenProdOrders(cboProductionLine.Text);
+                var so = AppData.GetOpenProdOrders(itemGroup);
                 if (!so.SuccessFlag) throw new ApplicationException("Error getting Production Orders. " + so.ServiceException);
                 _orders = so.ReturnValue as List<RollLabelData>;
-
-
                 var prodLines = _orders.Where(o => o.ProductionLine != null).Select(o => new { o.ProductionLine, o.ProductionMachineNo }).Distinct().OrderBy(o => o.ProductionLine).ToList();
                 prodLines.Insert(0, new { ProductionLine = "<-Please select an Production Line->", ProductionMachineNo = "0" });
                 cboProductionLine.DisplayMember = "ProductionLine";
                 cboProductionLine.ValueMember = "ProductionMachineNo";
                 cboProductionLine.DataSource = prodLines;
-
             }
             catch (Exception ex)
             {
                 AppUtility.WriteToEventLog($"Form Load error: {ex.Message}", System.Diagnostics.EventLogEntryType.Error, false);
                 throw;
             }
-
-
+        }
+        private void SelectOrderDialog_Load(object sender, EventArgs e)
+        {
+            cboShift.Text = "<-Please Select Shift->";
+            cboProductionOrder.Enabled = false;
         }
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -66,31 +64,23 @@ namespace RollLabelProdPack
         private bool ValidateSelectedOrder()
         {
             return SelectOrder.ProductionLine != "<-Please select an Production Line->" &&
-                SelectOrder.YJNOrder != "<-Please select an Production Line->" && 
-                !string.IsNullOrEmpty(SelectOrder.Employee) && 
+                SelectOrder.YJNOrder != "<-Please select an Order->" &&
+                !string.IsNullOrEmpty(SelectOrder.Employee) &&
                 SelectOrder.Shift != "<-Please Select Shift->";
         }
 
-       
+
 
         private void cboProductionLine_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cboProductionLine.Text != "<-Please select an Production Line->")
+            if (cboProductionLine.Text != "<-Please select an Production Line->")
             {
                 var ordersForProductLine = _orders.Where(o => o.ProductionLine == cboProductionLine.Text).ToList();
                 ordersForProductLine.Insert(0, new RollLabelData { YJNOrder = "<-Please select an Order->" });
-                cboProductionOrder.DisplayMember = "YJNOrder";
+                cboProductionOrder.DisplayMember = "OrderDisplay";
                 cboProductionOrder.ValueMember = "SAPOrderNo";
                 cboProductionOrder.DataSource = ordersForProductLine;
                 cboProductionOrder.Enabled = true;
-            }
-        }
-
-        private void cboProductionOrder_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboProductionOrder.Text != "<-Please select an Order->")
-            {
-                txtOrderNo.Text = cboProductionOrder.SelectedValue.ToString();
             }
         }
     }
