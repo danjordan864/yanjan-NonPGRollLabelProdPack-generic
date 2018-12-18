@@ -67,7 +67,60 @@ namespace RollLabelProdPack.Library.Data
             }
             return serviceOutput;
         }
-
+        public static ServiceOutput GetOpenProdOrders_old(string prodLine)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getFGProdOrders_old", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@productionLine", prodLine);
+                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
+                    IList<RollLabelData> openProdOrders = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
+                   new RollLabelData
+                   {
+                       StartDate = row.Field<DateTime>("StartDate"),
+                       DueDate = row.Field<DateTime>("DueDate"),
+                       NoOfSlits = row.Field<int>("NoOfSlits"),
+                       ItemCode = row.Field<string>("ItemCode"),
+                       ItemDescription = row.Field<string>("ItemDescription"),
+                       IRMS = row.Field<string>("IRMS"),
+                       FactoryCode = row.Field<string>("FactoryCode"),
+                       ProductionLine = row.Field<string>("ProductionLine"),
+                       ProductionMachineNo = row.Field<string>("ProductionMachineNo"),
+                       MaterialCode = row.Field<string>("MaterialCode"),
+                       ProductName = row.Field<string>("ProductName"),
+                       BatchNo = row.Field<string>("BatchNo"),
+                       SAPOrderNo = row.Field<int>("SAPOrderNo"),
+                       YJNOrder = row.Field<string>("YJNOrder"),
+                       JumboRollNo = row.Field<int>("JumboRoll"),
+                       AperatureDieNo = row.Field<string>("AperatureDieNo"),
+                       SAPDocEntry = row.Field<int>("DocEntry"),
+                       InputLoc = row.Field<string>("InputLoc"),
+                       OutputLoc = row.Field<string>("OutputLoc"),
+                       Printer = row.Field<string>("Printer"),
+                       DefaultQualityStatus = row.Field<string>("DefaultQualityStatus"),
+                       ScrapItem = row.Field<string>("ScrapItem"),
+                       ScrapLine = row.Field<int>("ScrapLine")
+                   }).ToList();
+                    serviceOutput.ReturnValue = openProdOrders;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+        }
         public static ServiceOutput GetPackLabels(bool isReprint, string order = null)
         {
             var serviceOutput = new ServiceOutput();
@@ -392,6 +445,38 @@ namespace RollLabelProdPack.Library.Data
             }
             return serviceOutput;
         }
+
+        public static ServiceOutput NewPGPalletNo_old()
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_spi_incrementPGPalletNo_old", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    var parm = new SqlParameter("RETURN_VALUE", SqlDbType.Int);
+                    parm.Direction = ParameterDirection.ReturnValue;
+                    cmd.Parameters.Add(parm);
+                    cmd.ExecuteNonQuery();
+
+                    serviceOutput.ReturnValue = (int)cmd.Parameters["RETURN_VALUE"].Value;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+        }
+       
 
         public static ServiceOutput AddRoll(string rollNo, int prodOrder, string lot, string sscc, decimal qty, string emp)
         {

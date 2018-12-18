@@ -26,6 +26,7 @@ namespace RollLabelProdPack
         private List<InventoryIssueDetail> _plannedIssue;
         private int luid;
         private string sscc;
+        private int _prodRun;
         public FrmMix()
         {
             InitializeComponent();
@@ -71,7 +72,8 @@ namespace RollLabelProdPack
             {
                 var so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
                 if (!so.SuccessFlag) throw new ApplicationException($"Error updating jumbo roll. Error:{so.ServiceException}");
-                txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()} - {((int)so.ReturnValue).ToString()}";
+                _prodRun = (int)so.ReturnValue;
+                txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
             }
             catch (Exception ex)
             {
@@ -121,7 +123,7 @@ namespace RollLabelProdPack
             sscc = luid_sscc.Value;
 
             var userNamePW = AppUtility.GetUserNameAndPasswordMix(_selectOrder.ProductionMachineNo);
-
+            var prodBatchNo = Convert.ToInt32(txtBatch.Text.Substring(txtBatch.Text.IndexOf("-"), txtBatch.Text.Length));
             using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
             {
                 using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
@@ -142,7 +144,7 @@ namespace RollLabelProdPack
                 }
                 using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                 {
-                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtWeightKgs.Text), _selectOrder.OutputLoc, "RELEASED", txtBatch.Text, luid, sscc, "Kgs", "", false, 0);
+                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtWeightKgs.Text),prodBatchNo, _selectOrder.OutputLoc, "RELEASED", txtBatch.Text, luid, sscc, "Kgs", "", false, 0);
                     if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                 }
             }

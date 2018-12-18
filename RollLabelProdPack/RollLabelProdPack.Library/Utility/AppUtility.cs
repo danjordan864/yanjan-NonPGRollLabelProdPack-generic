@@ -21,20 +21,18 @@ namespace RollLabelProdPack.Library.Utility
         {
             var plannedIssue = new List<InventoryIssueDetail>();
             var packingMtlLoc = GetPackingMtlLocation();
-            var so = AppData.GetProdLineInputMaterial(prodLine,packingMtlLoc);
+            var so = AppData.GetProdLineInputMaterial(prodLine, packingMtlLoc);
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting Prod. Line Input Material. Error:{so.ServiceException}");
             var inputLocMaterial = so.ReturnValue as List<InventoryDetail>;
             so = AppData.GetProdOrderIssueMaterial(prodOrder, productionQty);
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting Issue Material. Error:{so.ServiceException}");
             var prodOrderLines = so.ReturnValue as List<InventoryIssueDetail>;
-            //var userName = Convert.ToInt32(prodOrder) == 1 ? AppUtility.GetSAPUserLine1() : AppUtility.GetSAPUserLine2();
-            //var password = Convert.ToInt32(prodOrder) == 1 ? AppUtility.GetSAPPassLine1() : AppUtility.GetSAPPassLine2();
             foreach (var line in prodOrderLines)
             {
                 var qtyReq = line.PlannedIssueQty;
                 if (line.PlannedIssueQty > 0) //scrap is set up as by-product negative line qty
                 {
-                    var itemAvail = inputLocMaterial.Where(i => i.ItemCode == line.ItemCode).ToList();
+                    var itemAvail = inputLocMaterial.Where(i => i.ItemCode == line.ItemCode).OrderBy(i => i.InDate).ThenBy(i => i.Batch).ToList();
                     if (itemAvail.Count > 0)
                     {
                         foreach (var item in itemAvail)
@@ -45,7 +43,7 @@ namespace RollLabelProdPack.Library.Utility
                                 {
                                     plannedIssue.Add(CreatePlannedIssueDetail(line.ItemCode, line.UOM, line.BaseEntry, line.BaseLine, item.StorageLocation, item.QualityStatus,
                                         item.LUID, item.SSCC, qtyReq, qtyReq, item.Batch, 0, line.BatchControlled, line.PackagingMtl));
-                                    
+
                                     qtyReq = 0;
                                 }
                                 else
@@ -66,6 +64,8 @@ namespace RollLabelProdPack.Library.Utility
             }
             return plannedIssue;
         }
+
+
         public static InventoryIssueDetail CreatePlannedIssueDetail(string itemCode, string uom, int baseEntry, int baseLine, string storageLocation,
            string qualityStatus, int luid, string sscc, double availableQty, double plannedIssueqty,
            string batch, double shortQty, bool batchControlled, bool packagingMtl)
@@ -124,6 +124,7 @@ namespace RollLabelProdPack.Library.Utility
         /// <summary></summary>
 
         #endregion
+
         #region datasets
 
         /// <summary></summary>
@@ -365,7 +366,7 @@ namespace RollLabelProdPack.Library.Utility
             return ConfigurationManager.AppSettings["SAPDBTYPE"];
         }
 
-        public  static KeyValuePair<string,string> GetUserNameAndPasswordFilm(string machineNo)
+        public static KeyValuePair<string, string> GetUserNameAndPasswordFilm(string machineNo)
         {
             KeyValuePair<string, string> userNameAndPW = new KeyValuePair<string, string>(GetSAPUser(), GetSAPPassword());
             switch (machineNo)
@@ -399,10 +400,11 @@ namespace RollLabelProdPack.Library.Utility
 
         public static KeyValuePair<string, string> GetUserNameAndPasswordMix(string machineNo)
         {
-            KeyValuePair<string, string> userNameAndPW = new KeyValuePair<string, string>(GetSAPUser(),GetSAPPassword());
+            KeyValuePair<string, string> userNameAndPW = new KeyValuePair<string, string>(GetSAPUser(), GetSAPPassword());
             switch (machineNo)
             {
-                case "1": userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine1(), GetSAPPassMixLine1());
+                case "1":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine1(), GetSAPPassMixLine1());
                     break;
                 case "2":
                     userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine2(), GetSAPPassMixLine2());
@@ -552,6 +554,20 @@ namespace RollLabelProdPack.Library.Utility
                     break;
             }
             return yjMoCode;
+        }
+
+        public static int GetOrderBatchNoFromChar(char batchNoChar)
+        {
+            int batchNo = 0;
+            if (System.Text.RegularExpressions.Regex.IsMatch(batchNoChar.ToString(), "^[0-9]*$"))
+            {
+                batchNo = Convert.ToInt32(batchNoChar.ToString());
+            }
+            else
+            {
+                batchNo = 10 + char.ToUpper(batchNoChar) - 64;
+            }
+            return batchNo;
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]

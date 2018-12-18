@@ -104,7 +104,7 @@ namespace RollLabelProdPack
                     foreach (var batch in inputLocMatlMathingOrder.Reverse())
                     {
                         
-                        if (Convert.ToInt32(batch.Batch.Replace(" - ",string.Empty)) <= Convert.ToInt32(cboCurrentBatch.Text.Replace(" - ",string.Empty)) && batchInUseCount <3)
+                        if (Convert.ToInt32(batch.Batch.Replace(" - ",string.Empty)) <= Convert.ToInt32(cboCurrentBatch.Text.Replace("-",string.Empty)) && batchInUseCount <3)
                         {
                             batchInUseCount += 1;
                         }

@@ -113,7 +113,7 @@ namespace RollLabelProdPack
             sscc = luid_sscc.Value;
 
             var userNamePW = AppUtility.GetUserNameAndPasswordFilm(_selectOrder.ProductionMachineNo);
-
+            var prodBatchNo = AppUtility.GetOrderBatchNoFromChar(_selectOrder.BatchNo[0]);
             using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
             {
                 using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
@@ -134,7 +134,7 @@ namespace RollLabelProdPack
                 }
                 using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                 {
-                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(txtWeightKgs.Text), AppUtility.GetBoxScrapLocation(), "RELEASED", "", luid, sscc, "Kgs", "", true, _selectOrder.ScrapLine);
+                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(txtWeightKgs.Text), prodBatchNo,AppUtility.GetBoxScrapLocation(), "RELEASED", "", luid, sscc, "Kgs", "", true, _selectOrder.ScrapLine);
                     if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                 }
             }

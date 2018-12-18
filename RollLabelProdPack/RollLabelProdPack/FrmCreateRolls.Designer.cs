@@ -56,8 +56,7 @@
             this.txtEmployee = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.nudCopies = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
+            this.chkSP16 = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtProductionDateFull = new System.Windows.Forms.TextBox();
             this.chkSP15 = new System.Windows.Forms.CheckBox();
@@ -85,12 +84,13 @@
             this.olvColRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColScrap = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColKgs = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.chkSP18 = new System.Windows.Forms.CheckBox();
+            this.chkSP17 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCopies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.olvRolls)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,7 +101,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(898, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1037, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -371,8 +371,9 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.nudCopies);
-            this.splitContainer1.Panel1.Controls.Add(this.label18);
+            this.splitContainer1.Panel1.Controls.Add(this.chkSP18);
+            this.splitContainer1.Panel1.Controls.Add(this.chkSP17);
+            this.splitContainer1.Panel1.Controls.Add(this.chkSP16);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.txtProductionDateFull);
             this.splitContainer1.Panel1.Controls.Add(this.chkSP15);
@@ -421,34 +422,24 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.btnCreate);
             this.splitContainer1.Panel2.Controls.Add(this.olvRolls);
-            this.splitContainer1.Size = new System.Drawing.Size(898, 472);
-            this.splitContainer1.SplitterDistance = 641;
+            this.splitContainer1.Size = new System.Drawing.Size(1037, 553);
+            this.splitContainer1.SplitterDistance = 740;
             this.splitContainer1.TabIndex = 5;
             // 
-            // nudCopies
+            // chkSP16
             // 
-            this.nudCopies.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCopies.Location = new System.Drawing.Point(498, 6);
-            this.nudCopies.Name = "nudCopies";
-            this.nudCopies.Size = new System.Drawing.Size(47, 26);
-            this.nudCopies.TabIndex = 91;
-            this.nudCopies.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudCopies.Visible = false;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(434, 8);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(58, 20);
-            this.label18.TabIndex = 90;
-            this.label18.Text = "Copies";
-            this.label18.Visible = false;
+            this.chkSP16.AutoSize = true;
+            this.chkSP16.Checked = true;
+            this.chkSP16.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP16.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP16.Location = new System.Drawing.Point(616, 52);
+            this.chkSP16.Name = "chkSP16";
+            this.chkSP16.Size = new System.Drawing.Size(38, 17);
+            this.chkSP16.TabIndex = 90;
+            this.chkSP16.Tag = "16";
+            this.chkSP16.Text = "16";
+            this.chkSP16.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP16.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -538,7 +529,7 @@
             this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label11.Location = new System.Drawing.Point(2, 111);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(636, 2);
+            this.label11.Size = new System.Drawing.Size(735, 2);
             this.label11.TabIndex = 52;
             // 
             // btnSelect
@@ -752,9 +743,9 @@
             // 
             this.btnCreate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreate.Location = new System.Drawing.Point(0, 436);
+            this.btnCreate.Location = new System.Drawing.Point(0, 517);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(253, 36);
+            this.btnCreate.Size = new System.Drawing.Size(293, 36);
             this.btnCreate.TabIndex = 12;
             this.btnCreate.Text = "Create/Print";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -775,7 +766,7 @@
             this.olvRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvRolls.Location = new System.Drawing.Point(3, 3);
             this.olvRolls.Name = "olvRolls";
-            this.olvRolls.Size = new System.Drawing.Size(247, 437);
+            this.olvRolls.Size = new System.Drawing.Size(287, 518);
             this.olvRolls.TabIndex = 11;
             this.olvRolls.UseCompatibleStateImageBehavior = false;
             this.olvRolls.View = System.Windows.Forms.View.Details;
@@ -803,11 +794,41 @@
             this.olvColKgs.Text = "Kgs";
             this.olvColKgs.Width = 100;
             // 
+            // chkSP18
+            // 
+            this.chkSP18.AutoSize = true;
+            this.chkSP18.Checked = true;
+            this.chkSP18.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP18.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP18.Location = new System.Drawing.Point(698, 52);
+            this.chkSP18.Name = "chkSP18";
+            this.chkSP18.Size = new System.Drawing.Size(38, 17);
+            this.chkSP18.TabIndex = 92;
+            this.chkSP18.Tag = "18";
+            this.chkSP18.Text = "18";
+            this.chkSP18.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP18.UseVisualStyleBackColor = true;
+            // 
+            // chkSP17
+            // 
+            this.chkSP17.AutoSize = true;
+            this.chkSP17.Checked = true;
+            this.chkSP17.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP17.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP17.Location = new System.Drawing.Point(660, 52);
+            this.chkSP17.Name = "chkSP17";
+            this.chkSP17.Size = new System.Drawing.Size(38, 17);
+            this.chkSP17.TabIndex = 91;
+            this.chkSP17.Tag = "17";
+            this.chkSP17.Text = "17";
+            this.chkSP17.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP17.UseVisualStyleBackColor = true;
+            // 
             // FrmCreateRolls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 496);
+            this.ClientSize = new System.Drawing.Size(1037, 577);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -821,7 +842,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudCopies)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.olvRolls)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -884,8 +904,9 @@
         private System.Windows.Forms.CheckBox chkSP12;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtProductionDateFull;
-        private System.Windows.Forms.NumericUpDown nudCopies;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.CheckBox chkSP16;
+        private System.Windows.Forms.CheckBox chkSP18;
+        private System.Windows.Forms.CheckBox chkSP17;
     }
 }
 

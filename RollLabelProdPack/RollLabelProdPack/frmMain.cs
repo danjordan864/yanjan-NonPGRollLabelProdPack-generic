@@ -67,6 +67,9 @@ namespace RollLabelProdPack
             chkSP13.Visible = noSlitPos > 12;
             chkSP14.Visible = noSlitPos > 13;
             chkSP15.Visible = noSlitPos > 14;
+            chkSP16.Visible = noSlitPos > 15;
+            chkSP17.Visible = noSlitPos > 16;
+            chkSP18.Visible = noSlitPos > 17;
             txtDie.Enabled = true;
             txtWeightKgs.Enabled = true;
         }
@@ -268,7 +271,7 @@ namespace RollLabelProdPack
                 roll.SSCC = luid_sscc.Value;
             }
             var userNamePW = AppUtility.GetUserNameAndPasswordFilm(_selectOrder.ProductionMachineNo);
-
+            var prodBatchNo = AppUtility.GetOrderBatchNoFromChar(_selectOrder.BatchNo[0]);
             using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
             {
                 using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
@@ -289,21 +292,21 @@ namespace RollLabelProdPack
                 }
                 using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                 {
-                    foreach (var roll in _rolls)
-                    {
-                        //receive each roll
-                        so = AppData.AddRoll(roll.RollNo, _selectOrder.SAPOrderNo, roll.YJNOrder, roll.SSCC, roll.Kgs, _selectOrder.Employee);
-                        if (!so.SuccessFlag) DisplayToastNotification(WinFormUtils.ToastNotificationType.Warning, "Error Adding Roll", $"Error adding roll#: {roll.RollNo} to SAP @SII_ROLLS. Error:{so.ServiceException}");
-                    }
+                    //foreach (var roll in _rolls)
+                    //{
+                    //    //receive each roll
+                    //    so = AppData.AddRoll(roll.RollNo, _selectOrder.SAPOrderNo, roll.YJNOrder, roll.SSCC, roll.Kgs, _selectOrder.Employee);
+                    //    if (!so.SuccessFlag) DisplayToastNotification(WinFormUtils.ToastNotificationType.Warning, "Error Adding Roll", $"Error adding roll#: {roll.RollNo} to SAP @SII_ROLLS. Error:{so.ServiceException}");
+                    //}
                     var stdProduction = _rolls.Where(r => !r.Scrap);
                     foreach (var roll in stdProduction)
                     {
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, roll.ItemCode, Convert.ToDouble(roll.Kgs), _selectOrder.OutputLoc, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, false, 0);
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, roll.ItemCode, Convert.ToDouble(roll.Kgs),prodBatchNo, _selectOrder.OutputLoc, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, false, 0);
                     }
                     var scrapProd = _rolls.Where(r => r.Scrap && _selectOrder.ScrapItem != null);
                     foreach (var roll in scrapProd)
                     {
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.Kgs), _selectOrder.OutputLoc, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, true, _selectOrder.ScrapLine);
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.Kgs), prodBatchNo, _selectOrder.OutputLoc, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, true, _selectOrder.ScrapLine);
                     }
                     if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                 }

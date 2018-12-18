@@ -63,7 +63,9 @@ namespace RollLabelProdPack
             chkSP13.Visible = noSlitPos > 12;
             chkSP14.Visible = noSlitPos > 13;
             chkSP15.Visible = noSlitPos > 14;
-
+            chkSP16.Visible = noSlitPos > 15;
+            chkSP17.Visible = noSlitPos > 16;
+            chkSP18.Visible = noSlitPos > 17;
         }
 
         private bool EnableGenerate()
@@ -84,7 +86,6 @@ namespace RollLabelProdPack
         private void GenerateRolls()
         {
             _rolls = new List<Roll>();
-
             for (int i = 1; i <= Convert.ToInt32(txtNoOfSlits.Text); i++)
             {
                 var slitPosCheckBox = this.splitContainer1.Panel1.Controls.OfType<CheckBox>().Where(c => c.Tag.ToString() == i.ToString()).FirstOrDefault();
@@ -109,9 +110,9 @@ namespace RollLabelProdPack
 
         private void ChangeOrder()
         {
-            using (SelectOrderDialog frmSignInDialog = new SelectOrderDialog())
+            using (SelectOrderDialog_old frmSignInDialog = new SelectOrderDialog_old())
             {
-                frmSignInDialog.SetDataSource(104);
+                //frmSignInDialog.SetDataSource(104);
                 DialogResult dr = frmSignInDialog.ShowDialog();
                 if (dr == DialogResult.OK)
                 {
@@ -171,7 +172,7 @@ namespace RollLabelProdPack
             str = str.Replace("{222}", text);
             return str;
         }
-        public void DisplayToastNotification(ToastNotificationType type, string title, string text, int timeOut = 4000)
+       public void DisplayToastNotification(ToastNotificationType type, string title, string text, int timeOut = 7000)
         {
             m_htmlToast.Close();
 
@@ -236,13 +237,17 @@ namespace RollLabelProdPack
             {
                 ServiceOutput so = null;
 
-                if(_rolls != null &&_rolls.Count > 0)
+                if (_rolls != null && _rolls.Count > 0)
                 {
                     PrintRollLabels();
+                   
                     foreach (var roll in _rolls)
                     {
                         so = AppData.AddRoll(roll.RollNo, _selectOrder.SAPOrderNo, roll.YJNOrder, roll.SSCC, 0, _selectOrder.Employee);
-                        if (!so.SuccessFlag) throw new ApplicationException($"Error adding roll#: {roll.RollNo}. Error:{so.ServiceException}");
+                        if (!so.SuccessFlag)
+                        {
+                            DisplayToastNotification(WinFormUtils.ToastNotificationType.Warning,"Roll already created", $"Error adding roll#: {roll.RollNo}. Error:{so.ServiceException}");
+                        }
                     }
                     so = AppData.UpdateJumboRoll(_selectOrder.SAPOrderNo);
                     if (!so.SuccessFlag) throw new ApplicationException($"Error updating jumbo roll. Error:{so.ServiceException}");
@@ -264,7 +269,7 @@ namespace RollLabelProdPack
             }
 
         }
-        
+
 
         private void txtNoOfSlits_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -341,19 +346,18 @@ namespace RollLabelProdPack
                 sbRollLabel.AppendLine();
                 sbRollLabel.Append("Item, ItemName, IRMS, LotNo, RollNo, SSCC, Qty");
                 sbRollLabel.AppendLine();
-                for (int i = 0; i < nudCopies.Value; i++)
+
+                foreach (var roll in _rolls)
                 {
-                    foreach (var roll in _rolls)
-                    {
-                        sbRollLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", roll.ItemCode, roll.ItemName, roll.IRMS, roll.YJNOrder, roll.RollNo, roll.SSCC, roll.Kgs);
-                        sbRollLabel.AppendLine();
-                    }
+                    sbRollLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", roll.ItemCode, roll.ItemName, roll.IRMS, roll.YJNOrder, roll.RollNo, roll.SSCC, roll.Kgs);
+                    sbRollLabel.AppendLine();
                 }
+
                 using (StreamWriter sw = File.CreateText(fileNameRollLabels))
                 {
                     sw.Write(sbRollLabel.ToString());
                 }
-              
+
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "Roll labels printed. Please check printer.");
 
             }

@@ -121,6 +121,18 @@
     <Compile Include="FrmReprintOrderRollsDialog.Designer.cs">
       <DependentUpon>FrmReprintOrderRollsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmShipScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmShipScan.Designer.cs">
+      <DependentUpon>FrmShipScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectOrderDialog_old.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectOrderDialog_old.Designer.cs">
+      <DependentUpon>SelectOrderDialog_old.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectOrderDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +177,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmReprintOrderRollsDialog.resx">
       <DependentUpon>FrmReprintOrderRollsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmShipScan.resx">
+      <DependentUpon>FrmShipScan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectOrderDialog_old.resx">
+      <DependentUpon>SelectOrderDialog_old.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectOrderDialog.resx">
       <DependentUpon>SelectOrderDialog.cs</DependentUpon>

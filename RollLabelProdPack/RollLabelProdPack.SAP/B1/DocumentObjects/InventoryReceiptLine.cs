@@ -61,7 +61,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// </summary>
         /// <param name="productionOrder">The SAP B1 document object that owns the line item.</param>
         /// <param name="itemCode">Line item code (item Primary key)</param>
-        public InventoryReceiptLine(IDocuments receipt, int baseEntry, string itemCode, double quantity, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber, bool isScrap, int scrapLine)
+        public InventoryReceiptLine(IDocuments receipt, int baseEntry, string itemCode, double quantity, int prodBatchNo, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber, bool isScrap, int scrapLine)
         {
             int index = -1;
             receipt.Lines.BaseEntry = baseEntry;
@@ -82,12 +82,15 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                 //Batch
                 index = UDFIndexLocation(receipt.Lines, "U_PMX_BATC");
                 if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = batchNo; }
+
+                index = UDFIndexLocation(receipt.Lines, "U_PMX_BAT2");
+                if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value =lotNumber; }
             }
 
             //production batch
             index = -1;
             index = UDFIndexLocation(receipt.Lines, "U_PMX_PRDB");
-            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = 1; }
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = prodBatchNo; }
             //Storage Location
             index = -1;
             index = UDFIndexLocation(receipt.Lines, "U_PMX_LOCO");

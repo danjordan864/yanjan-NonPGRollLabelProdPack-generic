@@ -43,7 +43,7 @@ namespace RollLabelProdPack
         {
             try
             {
-                var so = AppData.NewPGPalletNo();
+                var so = AppData.NewPGPalletNo_old();
                 if (!so.SuccessFlag) throw new ApplicationException($"Error getting new Pallet. {so.ServiceException}");
                 txtPalletNo.Text = ((int)so.ReturnValue).ToString();
             }
@@ -57,9 +57,9 @@ namespace RollLabelProdPack
         {
             try
             {
-                using (SelectOrderDialog frmSignInDialog = new SelectOrderDialog())
+                using (SelectOrderDialog_old frmSignInDialog = new SelectOrderDialog_old())
                 {
-                    frmSignInDialog.SetDataSource(104);
+                    //frmSignInDialog.SetDataSource(104);
                     DialogResult dr = frmSignInDialog.ShowDialog();
                     if (dr == DialogResult.OK)
                     {

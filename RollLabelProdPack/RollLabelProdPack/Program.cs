@@ -33,7 +33,6 @@ namespace RollLabelProdPack
             {
                 Application.Run(new FrmMain());
             }
-           
         }
     }
 }

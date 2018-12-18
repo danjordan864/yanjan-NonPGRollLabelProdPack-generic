@@ -32,6 +32,7 @@
             this.formsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boxScrapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adjustResmixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSQLConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSAPB1ConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +86,9 @@
             this.olvColScrap = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColKgs = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.adjustResmixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkSP18 = new System.Windows.Forms.CheckBox();
+            this.chkSP17 = new System.Windows.Forms.CheckBox();
+            this.chkSP16 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -129,6 +132,13 @@
             this.boxScrapToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.boxScrapToolStripMenuItem.Text = "Box Scrap";
             this.boxScrapToolStripMenuItem.Click += new System.EventHandler(this.boxScrapToolStripMenuItem_Click);
+            // 
+            // adjustResmixToolStripMenuItem
+            // 
+            this.adjustResmixToolStripMenuItem.Name = "adjustResmixToolStripMenuItem";
+            this.adjustResmixToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
+            this.adjustResmixToolStripMenuItem.Text = "Adjust Resmix";
+            this.adjustResmixToolStripMenuItem.Click += new System.EventHandler(this.adjustResmixToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -384,6 +394,9 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.chkSP16);
+            this.splitContainer1.Panel1.Controls.Add(this.chkSP17);
+            this.splitContainer1.Panel1.Controls.Add(this.chkSP18);
             this.splitContainer1.Panel1.Controls.Add(this.lnkPlannedIssues);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.txtProductionDateFull);
@@ -441,7 +454,7 @@
             // 
             this.lnkPlannedIssues.AutoSize = true;
             this.lnkPlannedIssues.Enabled = false;
-            this.lnkPlannedIssues.Location = new System.Drawing.Point(507, 118);
+            this.lnkPlannedIssues.Location = new System.Drawing.Point(539, 111);
             this.lnkPlannedIssues.Name = "lnkPlannedIssues";
             this.lnkPlannedIssues.Size = new System.Drawing.Size(105, 13);
             this.lnkPlannedIssues.TabIndex = 91;
@@ -476,7 +489,7 @@
             this.chkSP15.Checked = true;
             this.chkSP15.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP15.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP15.Location = new System.Drawing.Point(574, 98);
+            this.chkSP15.Location = new System.Drawing.Point(489, 91);
             this.chkSP15.Name = "chkSP15";
             this.chkSP15.Size = new System.Drawing.Size(38, 17);
             this.chkSP15.TabIndex = 56;
@@ -492,7 +505,7 @@
             this.chkSP14.Checked = true;
             this.chkSP14.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP14.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP14.Location = new System.Drawing.Point(534, 98);
+            this.chkSP14.Location = new System.Drawing.Point(451, 91);
             this.chkSP14.Name = "chkSP14";
             this.chkSP14.Size = new System.Drawing.Size(38, 17);
             this.chkSP14.TabIndex = 55;
@@ -508,7 +521,7 @@
             this.chkSP13.Checked = true;
             this.chkSP13.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP13.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP13.Location = new System.Drawing.Point(494, 98);
+            this.chkSP13.Location = new System.Drawing.Point(413, 91);
             this.chkSP13.Name = "chkSP13";
             this.chkSP13.Size = new System.Drawing.Size(38, 17);
             this.chkSP13.TabIndex = 54;
@@ -524,7 +537,7 @@
             this.chkSP12.Checked = true;
             this.chkSP12.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP12.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP12.Location = new System.Drawing.Point(454, 98);
+            this.chkSP12.Location = new System.Drawing.Point(375, 91);
             this.chkSP12.Name = "chkSP12";
             this.chkSP12.Size = new System.Drawing.Size(38, 17);
             this.chkSP12.TabIndex = 53;
@@ -576,7 +589,7 @@
             this.chkSP11.Checked = true;
             this.chkSP11.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP11.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP11.Location = new System.Drawing.Point(414, 98);
+            this.chkSP11.Location = new System.Drawing.Point(337, 91);
             this.chkSP11.Name = "chkSP11";
             this.chkSP11.Size = new System.Drawing.Size(38, 17);
             this.chkSP11.TabIndex = 49;
@@ -592,7 +605,7 @@
             this.chkSP10.Checked = true;
             this.chkSP10.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP10.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP10.Location = new System.Drawing.Point(374, 98);
+            this.chkSP10.Location = new System.Drawing.Point(299, 91);
             this.chkSP10.Name = "chkSP10";
             this.chkSP10.Size = new System.Drawing.Size(38, 17);
             this.chkSP10.TabIndex = 48;
@@ -608,7 +621,7 @@
             this.chkSP9.Checked = true;
             this.chkSP9.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP9.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP9.Location = new System.Drawing.Point(334, 98);
+            this.chkSP9.Location = new System.Drawing.Point(267, 91);
             this.chkSP9.Name = "chkSP9";
             this.chkSP9.Size = new System.Drawing.Size(32, 17);
             this.chkSP9.TabIndex = 47;
@@ -624,7 +637,7 @@
             this.chkSP8.Checked = true;
             this.chkSP8.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP8.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP8.Location = new System.Drawing.Point(294, 98);
+            this.chkSP8.Location = new System.Drawing.Point(235, 91);
             this.chkSP8.Name = "chkSP8";
             this.chkSP8.Size = new System.Drawing.Size(32, 17);
             this.chkSP8.TabIndex = 46;
@@ -640,7 +653,7 @@
             this.chkSP7.Checked = true;
             this.chkSP7.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP7.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP7.Location = new System.Drawing.Point(254, 98);
+            this.chkSP7.Location = new System.Drawing.Point(203, 91);
             this.chkSP7.Name = "chkSP7";
             this.chkSP7.Size = new System.Drawing.Size(32, 17);
             this.chkSP7.TabIndex = 45;
@@ -656,7 +669,7 @@
             this.chkSP6.Checked = true;
             this.chkSP6.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP6.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP6.Location = new System.Drawing.Point(214, 98);
+            this.chkSP6.Location = new System.Drawing.Point(171, 91);
             this.chkSP6.Name = "chkSP6";
             this.chkSP6.Size = new System.Drawing.Size(32, 17);
             this.chkSP6.TabIndex = 44;
@@ -672,7 +685,7 @@
             this.chkSP5.Checked = true;
             this.chkSP5.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP5.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP5.Location = new System.Drawing.Point(174, 98);
+            this.chkSP5.Location = new System.Drawing.Point(139, 91);
             this.chkSP5.Name = "chkSP5";
             this.chkSP5.Size = new System.Drawing.Size(32, 17);
             this.chkSP5.TabIndex = 43;
@@ -688,7 +701,7 @@
             this.chkSP4.Checked = true;
             this.chkSP4.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP4.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP4.Location = new System.Drawing.Point(134, 98);
+            this.chkSP4.Location = new System.Drawing.Point(107, 91);
             this.chkSP4.Name = "chkSP4";
             this.chkSP4.Size = new System.Drawing.Size(32, 17);
             this.chkSP4.TabIndex = 42;
@@ -704,7 +717,7 @@
             this.chkSP3.Checked = true;
             this.chkSP3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP3.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP3.Location = new System.Drawing.Point(94, 98);
+            this.chkSP3.Location = new System.Drawing.Point(75, 91);
             this.chkSP3.Name = "chkSP3";
             this.chkSP3.Size = new System.Drawing.Size(32, 17);
             this.chkSP3.TabIndex = 41;
@@ -720,7 +733,7 @@
             this.chkSP2.Checked = true;
             this.chkSP2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP2.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP2.Location = new System.Drawing.Point(54, 98);
+            this.chkSP2.Location = new System.Drawing.Point(43, 91);
             this.chkSP2.Name = "chkSP2";
             this.chkSP2.Size = new System.Drawing.Size(32, 17);
             this.chkSP2.TabIndex = 40;
@@ -736,7 +749,7 @@
             this.chkSP1.Checked = true;
             this.chkSP1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSP1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP1.Location = new System.Drawing.Point(14, 98);
+            this.chkSP1.Location = new System.Drawing.Point(11, 91);
             this.chkSP1.Name = "chkSP1";
             this.chkSP1.Size = new System.Drawing.Size(32, 17);
             this.chkSP1.TabIndex = 39;
@@ -823,12 +836,53 @@
             this.olvColKgs.Text = "Kgs";
             this.olvColKgs.Width = 100;
             // 
-            // adjustResmixToolStripMenuItem
+            // chkSP18
             // 
-            this.adjustResmixToolStripMenuItem.Name = "adjustResmixToolStripMenuItem";
-            this.adjustResmixToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
-            this.adjustResmixToolStripMenuItem.Text = "Adjust Resmix";
-            this.adjustResmixToolStripMenuItem.Click += new System.EventHandler(this.adjustResmixToolStripMenuItem_Click);
+            this.chkSP18.AutoSize = true;
+            this.chkSP18.Checked = true;
+            this.chkSP18.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP18.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP18.Location = new System.Drawing.Point(603, 91);
+            this.chkSP18.Name = "chkSP18";
+            this.chkSP18.Size = new System.Drawing.Size(38, 17);
+            this.chkSP18.TabIndex = 92;
+            this.chkSP18.Tag = "18";
+            this.chkSP18.Text = "18";
+            this.chkSP18.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP18.UseVisualStyleBackColor = true;
+            this.chkSP18.Visible = false;
+            // 
+            // chkSP17
+            // 
+            this.chkSP17.AutoSize = true;
+            this.chkSP17.Checked = true;
+            this.chkSP17.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP17.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP17.Location = new System.Drawing.Point(565, 91);
+            this.chkSP17.Name = "chkSP17";
+            this.chkSP17.Size = new System.Drawing.Size(38, 17);
+            this.chkSP17.TabIndex = 93;
+            this.chkSP17.Tag = "17";
+            this.chkSP17.Text = "17";
+            this.chkSP17.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP17.UseVisualStyleBackColor = true;
+            this.chkSP17.Visible = false;
+            // 
+            // chkSP16
+            // 
+            this.chkSP16.AutoSize = true;
+            this.chkSP16.Checked = true;
+            this.chkSP16.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP16.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP16.Location = new System.Drawing.Point(527, 91);
+            this.chkSP16.Name = "chkSP16";
+            this.chkSP16.Size = new System.Drawing.Size(38, 17);
+            this.chkSP16.TabIndex = 94;
+            this.chkSP16.Tag = "16";
+            this.chkSP16.Text = "16";
+            this.chkSP16.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP16.UseVisualStyleBackColor = true;
+            this.chkSP16.Visible = false;
             // 
             // FrmMain
             // 
@@ -913,6 +967,9 @@
         private System.Windows.Forms.LinkLabel lnkPlannedIssues;
         private System.Windows.Forms.ToolStripMenuItem boxScrapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adjustResmixToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chkSP16;
+        private System.Windows.Forms.CheckBox chkSP17;
+        private System.Windows.Forms.CheckBox chkSP18;
     }
 }
 
