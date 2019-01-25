@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{62D4D0B6-EE53-4934-85F5-6BEBF5239C22}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RollLabelProdPack</RootNamespace>
+    <AssemblyName>RollLabelProdPack</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlRenderer.WinForms, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.WinForms.1.5.0.6\lib\net45\HtmlRenderer.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmAdjustResmix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAdjustResmix.Designer.cs">
+      <DependentUpon>FrmAdjustResmix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCreateRollLabels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCreateRollLabels.Designer.cs">
+      <DependentUpon>FrmCreateRollLabels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCreateRolls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCreateRolls.Designer.cs">
+      <DependentUpon>FrmCreateRolls.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBoxScrap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBoxScrap.Designer.cs">
+      <DependentUpon>FrmBoxScrap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMix.Designer.cs">
+      <DependentUpon>FrmMix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPackPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPackPrint.Designer.cs">
+      <DependentUpon>FrmPackPrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPack.Designer.cs">
+      <DependentUpon>FrmPack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmScrapRollsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmScrapRollsDialog.Designer.cs">
+      <DependentUpon>FrmScrapRollsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRollsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRollsDialog.Designer.cs">
+      <DependentUpon>FrmRollsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPlannedIssueDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPlannedIssueDialog.Designer.cs">
+      <DependentUpon>FrmPlannedIssueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReprintOrderRollsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReprintOrderRollsDialog.Designer.cs">
+      <DependentUpon>FrmReprintOrderRollsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmShipScan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmShipScan.Designer.cs">
+      <DependentUpon>FrmShipScan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectOrderDialog_old.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectOrderDialog_old.Designer.cs">
+      <DependentUpon>SelectOrderDialog_old.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectOrderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectOrderDialog.Designer.cs">
+      <DependentUpon>SelectOrderDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OSP\FloatingHTML.cs" />
+    <Compile Include="OSP\FloatingImage.cs" />
+    <Compile Include="OSP\FloatingOSDWindow.cs" />
+    <Compile Include="OSP\FloatingWindow.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAdjustResmix.resx">
+      <DependentUpon>FrmAdjustResmix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateRollLabels.resx">
+      <DependentUpon>FrmCreateRollLabels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCreateRolls.resx">
+      <DependentUpon>FrmCreateRolls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBoxScrap.resx">
+      <DependentUpon>FrmBoxScrap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMix.resx">
+      <DependentUpon>FrmMix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPackPrint.resx">
+      <DependentUpon>FrmPackPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPack.resx">
+      <DependentUpon>FrmPack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmScrapRollsDialog.resx">
+      <DependentUpon>FrmScrapRollsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRollsDialog.resx">
+      <DependentUpon>FrmRollsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPlannedIssueDialog.resx">
+      <DependentUpon>FrmPlannedIssueDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReprintOrderRollsDialog.resx">
+      <DependentUpon>FrmReprintOrderRollsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmShipScan.resx">
+      <DependentUpon>FrmShipScan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectOrderDialog_old.resx">
+      <DependentUpon>SelectOrderDialog_old.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectOrderDialog.resx">
+      <DependentUpon>SelectOrderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\RollLabelProdPack.Library.Entities.SelectOrder.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ObjectListView\ObjectListView2012.csproj">
+      <Project>{18feda0c-d147-4286-b39a-01204808106a}</Project>
+      <Name>ObjectListView2012</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RollLabelProdPack.Library\RollLabelProdPack.Library.csproj">
+      <Project>{7c645955-79d2-47e6-9d83-0b52a51ee646}</Project>
+      <Name>RollLabelProdPack.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RollLabelProdPack.SAP\RollLabelProdPack.SAP.csproj">
+      <Project>{4f013c36-c171-42bf-9a12-270006f5ba41}</Project>
+      <Name>RollLabelProdPack.SAP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\One.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\One.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SAPbobsCOM">
+      <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
