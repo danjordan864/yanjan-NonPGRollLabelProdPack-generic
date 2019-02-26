@@ -76,9 +76,14 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             }
         }
 
-        public void AddLine(int baseEntry, int baseLine, string itemCode, double quantity, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber)
+        public void AddOrderIssueLine(int baseEntry, int baseLine, string itemCode, double quantity, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber)
         {
             _issueLines.Add(new InventoryIssueLine(_issue, baseEntry,baseLine,itemCode,quantity,storageLoc,qualityStatus,batchNo,luid,sscc,uom,lotNumber));
+        }
+
+        public void AddScrapIssueLine(string itemCode, double quantity, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber, string scrapOffsetCode,string scrapReason,string shift)
+        {
+            _issueLines.Add(new InventoryIssueLine(_issue, itemCode, quantity, storageLoc, qualityStatus, batchNo, luid, sscc, uom, lotNumber,scrapOffsetCode,scrapReason,shift));
         }
 
         public BoObjectTypes SAPObjectType

@@ -42,6 +42,11 @@ namespace RollLabelProdPack
             txtProductionLine.DataBindings.Add("Text", bindingSource1, "ProductionLine");
             txtItemCode.DataBindings.Add("Text", bindingSource1, "ItemCode");
             txtItemName.DataBindings.Add("Text", bindingSource1, "ItemDescription");
+            //set up scrap reason combo
+            var so = AppData.GetScrapReasons();
+            if (!so.SuccessFlag) throw new ApplicationException($"Failed to get scrap reasons. Error:{so.ServiceException}.");
+            var scrapReasons = so.ReturnValue as List<string>;
+            cboScrapReason.DataSource = scrapReasons;
         }
         private void btnSelect_Click(object sender, EventArgs e)
         {
@@ -122,7 +127,7 @@ namespace RollLabelProdPack
                     {
                         if(plIssue.ShortQty == 0)
                         {
-                            invIssue.AddLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.YJNOrder);
+                            invIssue.AddOrderIssueLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.YJNOrder);
                         }
                         else
                         {
@@ -134,7 +139,7 @@ namespace RollLabelProdPack
                 }
                 using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                 {
-                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(txtWeightKgs.Text), prodBatchNo,AppUtility.GetBoxScrapLocation(), "RELEASED", "", luid, sscc, "Kgs", "", true, _selectOrder.ScrapLine,_selectOrder.Shift,_selectOrder.Employee);
+                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(txtWeightKgs.Text), prodBatchNo,AppUtility.GetScrapLocCode(), "RELEASED", "", luid, sscc, "Kgs", _selectOrder.YJNOrder, true, _selectOrder.ScrapLine,_selectOrder.Shift,_selectOrder.Employee,cboScrapReason.Text);
                     if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                 }
             }
@@ -153,48 +158,49 @@ namespace RollLabelProdPack
         private void btnProduce_Click(object sender, EventArgs e)
         {
             Produce();
+            PrintBoxScrapLabel();
             txtWeightKgs.Text = "0";
             lnkPlannedIssues.Enabled = false;
             btnScrap.Enabled = false;
             luid = 0;
             sscc = null;
         }
-        //private void PrintBoxScrapLabel()
-        //{
-        //    try
-        //    {
-        //        var labelPrintLoc = AppUtility.GetBTTriggerLoc();
-        //        var labelPrintExtension = AppUtility.GetLabelPrintExtension();
-        //        var fileNameRollLabels = Path.Combine(labelPrintLoc, "BoxScrapLabel" + labelPrintExtension);
-        //        var formatFilePathResmixLabel = AppUtility.GetPGDefaultResmixLabelFormat();
+        private void PrintBoxScrapLabel()
+        {
+            try
+            {
+                var labelPrintLoc = AppUtility.GetBTTriggerLoc();
+                var labelPrintExtension = AppUtility.GetLabelPrintExtension();
+                var fileNameRollLabels = Path.Combine(labelPrintLoc, "BoxScrapLabel" + labelPrintExtension);
+                var formatFilePathLabel = AppUtility.GetPGDefaultScrapLabelFormat();
 
-        //        var sbMixLabel = new StringBuilder(5000);
-        //        sbMixLabel.AppendFormat(@"%BTW% /AF=""{0}"" /D=""%Trigger File Name%"" /PRN=""{1}"" /R=3 /P /DD", formatFilePathResmixLabel, _selectOrder.Printer);
-        //        sbMixLabel.AppendLine();
-        //        sbMixLabel.Append(@"%END%");
-        //        sbMixLabel.AppendLine();
-        //        sbMixLabel.Append("Item, ItemName, IRMS, LotNo, RollNo, SSCC, Qty");
-        //        sbMixLabel.AppendLine();
+                var sbMixLabel = new StringBuilder(5000);
+                sbMixLabel.AppendFormat(@"%BTW% /AF=""{0}"" /D=""%Trigger File Name%"" /PRN=""{1}"" /R=3 /P /DD", formatFilePathLabel, _selectOrder.Printer);
+                sbMixLabel.AppendLine();
+                sbMixLabel.Append(@"%END%");
+                sbMixLabel.AppendLine();
+                sbMixLabel.Append("Item, ItemName, IRMS, LotNo, RollNo, SSCC, Qty");
+                sbMixLabel.AppendLine();
 
-        //        sbMixLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", _selectOrder.ItemCode, _selectOrder.ItemDescription, "", "", "", sscc, Convert.ToDecimal(txtWeightKgs.Text));
+                sbMixLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", _selectOrder.ScrapItem, _selectOrder.ScrapItemName, "", _selectOrder.YJNOrder, "", sscc, Convert.ToDecimal(txtWeightKgs.Text));
 
-        //        using (StreamWriter sw = File.CreateText(fileNameRollLabels))
-        //        {
-        //            sw.Write(sbMixLabel.ToString());
-        //        }
-        //        DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "ResMix label printed. Please check printer.");
-        //        txtWeightKgs.Text = "0";
-        //        lnkPlannedIssues.Enabled = false;
-        //        btnScrap.Enabled = false;
-        //        luid = 0;
-        //        sscc = null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Exception has occurred in {AppUtility.GetLoggingText()} PrintRollLabels.\n\n{ex.Message}");
-        //        AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} PrintRollLabels.\n\n{ex.Message}", EventLogEntryType.Error, true);
-        //    }
-        //}
+                using (StreamWriter sw = File.CreateText(fileNameRollLabels))
+                {
+                    sw.Write(sbMixLabel.ToString());
+                }
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "Scrap label printed. Please check printer.");
+                txtWeightKgs.Text = "0";
+                lnkPlannedIssues.Enabled = false;
+                btnScrap.Enabled = false;
+                luid = 0;
+                sscc = null;
+            }
+            catch (Exception ex)
+            {
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Exception has occurred in {AppUtility.GetLoggingText()} PrintRollLabels.\n\n{ex.Message}");
+                AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} PrintRollLabels.\n\n{ex.Message}", EventLogEntryType.Error, true);
+            }
+        }
         public void DisplayToastNotification(ToastNotificationType type, string title, string text, int timeOut = 4000)
         {
             m_htmlToast.Close();
@@ -238,6 +244,8 @@ namespace RollLabelProdPack
         {
             CheckReadyToProduce();
         }
+
+       
 
     }
 }

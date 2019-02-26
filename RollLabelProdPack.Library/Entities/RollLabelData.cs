@@ -45,6 +45,7 @@ namespace RollLabelProdPack.Library.Entities
         public int TargetRolls { get; set; }
         public int InvRolls { get; set; }
 
+        public string ScrapItemName { get; set; }
         public int LeftToProduce
         {
             get { return TargetRolls - InvRolls; }

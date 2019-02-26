@@ -63,24 +63,13 @@ namespace RollLabelProdPack
                     bindingSource1.DataSource = _selectOrder;
                 }
             }
-            GetNextBatch();
+            var so = AppData.GetLastResmixProductionRun(_selectOrder.SAPOrderNo);
+            if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
+            _prodRun = (int)so.ReturnValue;
+            _prodRun += 1;
+            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
         }
 
-        private void GetNextBatch()
-        {
-            try
-            {
-                var so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
-                if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
-                _prodRun = (int)so.ReturnValue;
-                txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
-            }
-            catch (Exception ex)
-            {
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "GetNextBatch", $"Exception has occurred in {AppUtility.GetLoggingText()} PrintRollLabels.\n\n{ex.Message}");
-                AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} GetNextBatch.\n\n{ex.Message}", EventLogEntryType.Error, true);
-            }
-        }
 
         private void txtWeightKgs_Validated(object sender, EventArgs e)
         {
@@ -132,7 +121,7 @@ namespace RollLabelProdPack
                     {
                         if(plIssue.ShortQty == 0)
                         {
-                            invIssue.AddLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.YJNOrder);
+                            invIssue.AddOrderIssueLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.SAPOrderNo.ToString());
                         }
                         else
                         {
@@ -144,8 +133,13 @@ namespace RollLabelProdPack
                 }
                 using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                 {
-                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtWeightKgs.Text),prodBatchNo, _selectOrder.OutputLoc, "RELEASED", txtBatch.Text, luid, sscc, "Kgs", "", false, 0, _selectOrder.Shift, _selectOrder.Employee);
+                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtWeightKgs.Text),prodBatchNo, _selectOrder.OutputLoc, "RELEASED", txtBatch.Text, luid, sscc, "Kgs","", false, 0, _selectOrder.Shift, _selectOrder.Employee);
                     if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
+                    so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
+                    if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
+                    _prodRun = (int)so.ReturnValue;
+                    _prodRun += 1;
+                    txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
                 }
             }
             DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Resmix Produced", $"#{txtWeightKgs.Text} kgs. produced. Order: {txtOrderNo.Text}");
@@ -194,7 +188,6 @@ namespace RollLabelProdPack
                 btnProduce.Enabled = false;
                 luid = 0;
                 sscc = null;
-                GetNextBatch();
             }
             catch (Exception ex)
             {

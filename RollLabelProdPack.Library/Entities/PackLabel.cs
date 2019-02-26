@@ -28,6 +28,7 @@ namespace RollLabelProdPack.Library.Entities
         public List<Roll> Rolls { get; set; }
         public int MaxRollsPerPack { get; set; }
         public int Copies { get; set; }
+        public string Employee { get; set; }
 
     }
 }

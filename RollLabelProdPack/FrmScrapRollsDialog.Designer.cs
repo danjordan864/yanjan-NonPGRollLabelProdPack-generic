@@ -31,6 +31,7 @@
             this.olvOrderRolls = new BrightIdeasSoftware.ObjectListView();
             this.olvColJumboRoll = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColBundleId = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColScrapReason = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.btnScrap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.olvOrderRolls)).BeginInit();
@@ -40,6 +41,7 @@
             // 
             this.olvOrderRolls.AllColumns.Add(this.olvColJumboRoll);
             this.olvOrderRolls.AllColumns.Add(this.olvColRollNo);
+            this.olvOrderRolls.AllColumns.Add(this.olvColBundleId);
             this.olvOrderRolls.AllColumns.Add(this.olvColScrapReason);
             this.olvOrderRolls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -51,18 +53,21 @@
             this.olvOrderRolls.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColJumboRoll,
             this.olvColRollNo,
+            this.olvColBundleId,
             this.olvColScrapReason});
             this.olvOrderRolls.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvOrderRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvOrderRolls.Location = new System.Drawing.Point(0, 0);
             this.olvOrderRolls.Name = "olvOrderRolls";
-            this.olvOrderRolls.Size = new System.Drawing.Size(533, 427);
+            this.olvOrderRolls.ShowImagesOnSubItems = true;
+            this.olvOrderRolls.Size = new System.Drawing.Size(722, 492);
             this.olvOrderRolls.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.olvOrderRolls.TabIndex = 0;
             this.olvOrderRolls.UseCompatibleStateImageBehavior = false;
             this.olvOrderRolls.View = System.Windows.Forms.View.Details;
             this.olvOrderRolls.CellEditFinishing += new BrightIdeasSoftware.CellEditEventHandler(this.olvOrderRolls_CellEditFinishing);
             this.olvOrderRolls.CellEditStarting += new BrightIdeasSoftware.CellEditEventHandler(this.olvOrderRolls_CellEditStarting);
+            this.olvOrderRolls.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.olvOrderRolls_ItemCheck);
             // 
             // olvColJumboRoll
             // 
@@ -77,6 +82,12 @@
             this.olvColRollNo.Text = "Roll No.";
             this.olvColRollNo.Width = 200;
             // 
+            // olvColBundleId
+            // 
+            this.olvColBundleId.AspectName = "PG_SSCC";
+            this.olvColBundleId.Text = "Bundle Id";
+            this.olvColBundleId.Width = 206;
+            // 
             // olvColScrapReason
             // 
             this.olvColScrapReason.AspectName = "ScrapReason";
@@ -87,9 +98,9 @@
             // 
             this.btnScrap.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnScrap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnScrap.Location = new System.Drawing.Point(0, 424);
+            this.btnScrap.Location = new System.Drawing.Point(0, 489);
             this.btnScrap.Name = "btnScrap";
-            this.btnScrap.Size = new System.Drawing.Size(533, 32);
+            this.btnScrap.Size = new System.Drawing.Size(722, 32);
             this.btnScrap.TabIndex = 1;
             this.btnScrap.Text = "Scrap";
             this.btnScrap.UseVisualStyleBackColor = true;
@@ -99,7 +110,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 456);
+            this.ClientSize = new System.Drawing.Size(722, 521);
             this.Controls.Add(this.btnScrap);
             this.Controls.Add(this.olvOrderRolls);
             this.Name = "FrmScrapRollsDialog";
@@ -117,5 +128,6 @@
         private BrightIdeasSoftware.OLVColumn olvColRollNo;
         private BrightIdeasSoftware.OLVColumn olvColJumboRoll;
         private BrightIdeasSoftware.OLVColumn olvColScrapReason;
+        private BrightIdeasSoftware.OLVColumn olvColBundleId;
     }
 }

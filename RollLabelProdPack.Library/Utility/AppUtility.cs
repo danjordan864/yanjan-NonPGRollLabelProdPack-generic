@@ -514,6 +514,10 @@ namespace RollLabelProdPack.Library.Utility
         {
             return ConfigurationManager.AppSettings["PGDefaultCombLabelFormat"];
         }
+        public static string GetPGDefaultScrapLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefaultScrapLabelFormat"];
+        }
         public static string GetPGDefaultResmixLabelFormat()
         {
             return ConfigurationManager.AppSettings["PGDefaultResmixLabelFormat"];
@@ -588,14 +592,20 @@ namespace RollLabelProdPack.Library.Utility
             return ConfigurationManager.AppSettings["DefaultPackCopies"];
         }
 
-        public static string GetBoxScrapLocation()
-        {
-            return ConfigurationManager.AppSettings["BoxScrapLocation"];
-        }
         //PackingMtlLocation
         public static string GetPackingMtlLocation()
         {
             return ConfigurationManager.AppSettings["PackingMtlLocation"];
+        }
+
+        public static string GetScrapOffsetCode()
+        {
+            return ConfigurationManager.AppSettings["ScrapOffsetCode"];
+        }
+
+        public static string GetScrapLocCode()
+        {
+            return ConfigurationManager.AppSettings["ScrapLocCode"];
         }
         #endregion
 

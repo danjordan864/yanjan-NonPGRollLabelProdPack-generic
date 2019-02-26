@@ -33,6 +33,7 @@
             this.reprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boxScrapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adjustResmixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scrapRollsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSQLConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSAPB1ConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,7 +97,6 @@
             this.olvColRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColKgs = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColScrapReason = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.scrapRollsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -130,6 +130,7 @@
             // 
             // reprintToolStripMenuItem
             // 
+            this.reprintToolStripMenuItem.Enabled = false;
             this.reprintToolStripMenuItem.Name = "reprintToolStripMenuItem";
             this.reprintToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.reprintToolStripMenuItem.Text = "Reprint";
@@ -148,6 +149,14 @@
             this.adjustResmixToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
             this.adjustResmixToolStripMenuItem.Text = "Adjust Resmix";
             this.adjustResmixToolStripMenuItem.Click += new System.EventHandler(this.adjustResmixToolStripMenuItem_Click);
+            // 
+            // scrapRollsToolStripMenuItem
+            // 
+            this.scrapRollsToolStripMenuItem.Enabled = false;
+            this.scrapRollsToolStripMenuItem.Name = "scrapRollsToolStripMenuItem";
+            this.scrapRollsToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
+            this.scrapRollsToolStripMenuItem.Text = "Scrap Rolls";
+            this.scrapRollsToolStripMenuItem.Click += new System.EventHandler(this.scrapRollsToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -977,13 +986,6 @@
             this.olvColScrapReason.IsEditable = false;
             this.olvColScrapReason.Text = "Scr. Reason";
             this.olvColScrapReason.Width = 104;
-            // 
-            // scrapRollsToolStripMenuItem
-            // 
-            this.scrapRollsToolStripMenuItem.Name = "scrapRollsToolStripMenuItem";
-            this.scrapRollsToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
-            this.scrapRollsToolStripMenuItem.Text = "Scrap Rolls";
-            this.scrapRollsToolStripMenuItem.Click += new System.EventHandler(this.scrapRollsToolStripMenuItem_Click);
             // 
             // FrmMain
             // 

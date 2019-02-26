@@ -49,6 +49,8 @@
             this.txtEmployee = new System.Windows.Forms.TextBox();
             this.btnScrap = new System.Windows.Forms.Button();
             this.lnkPlannedIssues = new System.Windows.Forms.LinkLabel();
+            this.cboScrapReason = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,9 +96,9 @@
             // 
             this.txtWeightKgs.Enabled = false;
             this.txtWeightKgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWeightKgs.Location = new System.Drawing.Point(309, 38);
+            this.txtWeightKgs.Location = new System.Drawing.Point(254, 38);
             this.txtWeightKgs.Name = "txtWeightKgs";
-            this.txtWeightKgs.Size = new System.Drawing.Size(115, 26);
+            this.txtWeightKgs.Size = new System.Drawing.Size(320, 26);
             this.txtWeightKgs.TabIndex = 53;
             this.txtWeightKgs.Validated += new System.EventHandler(this.txtWeightKgs_Validated);
             // 
@@ -104,7 +106,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(256, 41);
+            this.label4.Location = new System.Drawing.Point(212, 38);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 20);
             this.label4.TabIndex = 54;
@@ -251,7 +253,7 @@
             this.btnScrap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnScrap.Enabled = false;
             this.btnScrap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnScrap.Location = new System.Drawing.Point(459, 33);
+            this.btnScrap.Location = new System.Drawing.Point(612, 38);
             this.btnScrap.Margin = new System.Windows.Forms.Padding(4);
             this.btnScrap.Name = "btnScrap";
             this.btnScrap.Size = new System.Drawing.Size(142, 42);
@@ -264,7 +266,7 @@
             // 
             this.lnkPlannedIssues.AutoSize = true;
             this.lnkPlannedIssues.Enabled = false;
-            this.lnkPlannedIssues.Location = new System.Drawing.Point(467, 79);
+            this.lnkPlannedIssues.Location = new System.Drawing.Point(620, 84);
             this.lnkPlannedIssues.Name = "lnkPlannedIssues";
             this.lnkPlannedIssues.Size = new System.Drawing.Size(105, 13);
             this.lnkPlannedIssues.TabIndex = 110;
@@ -272,11 +274,32 @@
             this.lnkPlannedIssues.Text = "View Planned Issues";
             this.lnkPlannedIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkPlannedIssues_LinkClicked);
             // 
+            // cboScrapReason
+            // 
+            this.cboScrapReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboScrapReason.FormattingEnabled = true;
+            this.cboScrapReason.Location = new System.Drawing.Point(254, 71);
+            this.cboScrapReason.Name = "cboScrapReason";
+            this.cboScrapReason.Size = new System.Drawing.Size(320, 28);
+            this.cboScrapReason.TabIndex = 111;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(183, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 20);
+            this.label2.TabIndex = 112;
+            this.label2.Text = "Reason";
+            // 
             // FrmBoxScrap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 369);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cboScrapReason);
             this.Controls.Add(this.lnkPlannedIssues);
             this.Controls.Add(this.btnScrap);
             this.Controls.Add(this.label9);
@@ -330,5 +353,7 @@
         private System.Windows.Forms.TextBox txtEmployee;
         private System.Windows.Forms.Button btnScrap;
         private System.Windows.Forms.LinkLabel lnkPlannedIssues;
+        private System.Windows.Forms.ComboBox cboScrapReason;
+        private System.Windows.Forms.Label label2;
     }
 }

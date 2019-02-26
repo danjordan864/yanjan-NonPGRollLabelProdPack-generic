@@ -23,7 +23,7 @@ namespace RollLabelProdPack
         public FrmPackPrint()
         {
             InitializeComponent();
-            timer1.Start();
+            //timer1.Start();
         }
 
         private void FrmPackPrint_Load(object sender, EventArgs e)
@@ -78,6 +78,7 @@ namespace RollLabelProdPack
 
         private void LoadPackLabels(bool isReprint, string order = null)
         {
+            //timer1.Stop();
             try
             {
                 var so = AppData.GetPackLabels(isReprint,order);
@@ -119,6 +120,11 @@ namespace RollLabelProdPack
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Load Pack Labels", $"Exception has occurred in {AppUtility.GetLoggingText()} Load Pack Labels.\n\n{ex.Message}");
                 AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} Create Click.\n\n{ex.Message}", EventLogEntryType.Error, true);
             }
+            finally
+            {
+                //timer1.Start();
+            }
+            
         }
         private void SetupDescribedTaskColumn()
         {
@@ -321,23 +327,21 @@ namespace RollLabelProdPack
         {
             lblOrder.Visible = enable;
             txtOrder.Visible = enable;
-            btnRefresh.Visible = enable;
             lblMatchText.Visible = enable;
             txtMatch.Visible = enable;
-            if (enable)
-            {
-                timer1.Stop();
-            }  
-            else
-            {
-                timer1.Start();
-            }
+            //if (enable)
+            //{
+            //    timer1.Stop();
+            //}  
+            //else
+            //{
+            //    timer1.Start();
+            //}
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            var isReprint = true;
-            LoadPackLabels(isReprint,txtOrder.Text);
+            LoadPackLabels(chkReprint.Checked,txtOrder.Text);
         }
 
         private void RebuildFilters()

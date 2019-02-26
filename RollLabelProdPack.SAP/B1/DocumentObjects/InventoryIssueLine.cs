@@ -77,10 +77,10 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                //Batch
                 index = UDFIndexLocation(issue.Lines, "U_PMX_BATC");
                 if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = batchNo; }
-
             }
+
             //Storage Location
-           index = -1;
+            index = -1;
             index = UDFIndexLocation(issue.Lines, "U_PMX_LOCO");
             if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = storageLoc; }
 
@@ -107,8 +107,12 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                 index = UDFIndexLocation(issue.Lines, "U_PMX_SSCC");
                 if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = sscc; }
             }
-            
 
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_PMX_SSCC");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = sscc; }
+
+            //"PMX_INVT"."ItemTransactionalInfoKey"
             //base entry
             index = -1;
             index = UDFIndexLocation(issue.Lines, "U_PMX_BAEN");
@@ -124,12 +128,83 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             index = UDFIndexLocation(issue.Lines, "U_PMX_PRDB");
             if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = 1; }
 
-          
+            //Lot No
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_SII_LotNo");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
 
             issue.Lines.Add();
             _line = issue.Lines;
         }
 
+       
+        public InventoryIssueLine(IDocuments issue, string itemCode, double quantity, string storageLoc, string qualityStatus, 
+            string batchNo, int luid, string sscc, string uom, string lotNumber, string scrapOffsetCode, string scrapReason, string shift)
+        {
+            int index = -1;
+            issue.Lines.Quantity = quantity;
+            issue.Lines.BaseType = -1;
+            issue.Lines.ItemCode = itemCode;
+
+            if (!string.IsNullOrEmpty(batchNo))
+            {
+                issue.Lines.BatchNumbers.BatchNumber = batchNo;
+                issue.Lines.BatchNumbers.Quantity = quantity;
+                issue.Lines.BatchNumbers.Notes = lotNumber;
+                //Batch
+                index = UDFIndexLocation(issue.Lines, "U_PMX_BATC");
+                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = batchNo; }
+
+                index = UDFIndexLocation(issue.Lines, "U_PMX_BAT2");
+                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
+            }
+            //Storage Location
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_PMX_LOCO");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = storageLoc; }
+
+            //Quality Status
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_PMX_QYSC");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = qualityStatus; }
+
+            //Quantity
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_PMX_QUAN");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = quantity.ToString(); }
+
+
+            //luid and sscc
+            if (luid != 0)
+            {
+                index = -1;
+                index = UDFIndexLocation(issue.Lines, "U_PMX_LUID");
+                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = luid.ToString(); }
+
+                //sscc
+                index = -1;
+                index = UDFIndexLocation(issue.Lines, "U_PMX_SSCC");
+                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = sscc; }
+            }
+
+            //Shift
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_SII_Shift");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = shift; }
+
+            //scrap reason
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_SII_ScrapReason");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = scrapReason; }
+
+            //Lot No
+            index = -1;
+            index = UDFIndexLocation(issue.Lines, "U_SII_LotNo");
+            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
+
+            issue.Lines.Add();
+            _line = issue.Lines;
+        }
         #endregion
 
 

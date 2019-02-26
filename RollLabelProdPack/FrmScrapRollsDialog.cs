@@ -34,8 +34,15 @@ namespace RollLabelProdPack
 
         private void btnScrap_Click(object sender, EventArgs e)
         {
-            SelectedRolls = _rolls.Where(r => r.Scrap).ToList();
-            this.DialogResult = DialogResult.OK;
+            if (_rolls.Where(r => r.Scrap && r.ScrapReason == null).Count() > 0)
+            {
+                MessageBox.Show("Please choose scrap reason for selected rolls");
+            }
+            else
+            {
+                SelectedRolls = _rolls.Where(r => r.Scrap).ToList();
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         private void olvOrderRolls_CellEditStarting(object sender, BrightIdeasSoftware.CellEditEventArgs e)
@@ -53,6 +60,7 @@ namespace RollLabelProdPack
             cb.DataSource = scrapReasons;
             e.Control = cb;
 
+
         }
         private void olvOrderRolls_CellEditFinishing(object sender, BrightIdeasSoftware.CellEditEventArgs e)
         {
@@ -66,7 +74,16 @@ namespace RollLabelProdPack
                     e.Cancel = true;
                 }
             }
+        }
 
+        private void olvOrderRolls_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            Roll roll = olvOrderRolls.GetModelObject(e.Index) as Roll;
+            if(!string.IsNullOrEmpty(roll.PG_SSCC))
+            {
+                MessageBox.Show("Can not scrap a roll that is on a bundle.");
+                e.NewValue = CheckState.Unchecked;
+            }
         }
     }
 }

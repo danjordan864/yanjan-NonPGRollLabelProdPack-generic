@@ -48,3 +48,4 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLab
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmRollsDialog.resources
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmShipScan.resources
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.SelectOrderDialog_old.resources
+C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Release\RollLabelProdPack.FrmScrapRollsDialog.resources

@@ -12,6 +12,65 @@ namespace RollLabelProdPack.Library.Data
 {
     public class AppData
     {
+        //_sii_rpr_sps_getProdOrder
+        public static ServiceOutput GetProdOrder(int orderNo)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getProdOrder", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@orderNo", orderNo);
+                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
+                    RollLabelData prodOrder = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
+                   new RollLabelData
+                   {
+                       StartDate = row.Field<DateTime>("StartDate"),
+                       DueDate = row.Field<DateTime>("DueDate"),
+                       NoOfSlits = row.Field<int>("NoOfSlits"),
+                       ItemCode = row.Field<string>("ItemCode"),
+                       ItemDescription = row.Field<string>("ItemDescription"),
+                       IRMS = row.Field<string>("IRMS"),
+                       FactoryCode = row.Field<string>("FactoryCode"),
+                       ProductionLine = row.Field<string>("ProductionLine"),
+                       ProductionMachineNo = row.Field<string>("ProductionMachineNo"),
+                       MaterialCode = row.Field<string>("MaterialCode"),
+                       ProductName = row.Field<string>("ProductName"),
+                       BatchNo = row.Field<string>("BatchNo"),
+                       SAPOrderNo = row.Field<int>("SAPOrderNo"),
+                       YJNOrder = row.Field<string>("YJNOrder"),
+                       OrderDisplay = string.IsNullOrEmpty(row.Field<string>("YJNOrder")) ? row.Field<int>("SAPOrderNo").ToString() : $"{row.Field<int>("SAPOrderNo").ToString()} - {row.Field<string>("YJNOrder")}",
+                       JumboRollNo = row.Field<int>("JumboRoll"),
+                       AperatureDieNo = row.Field<string>("AperatureDieNo"),
+                       SAPDocEntry = row.Field<int>("DocEntry"),
+                       InputLoc = row.Field<string>("InputLoc"),
+                       OutputLoc = row.Field<string>("OutputLoc"),
+                       Printer = row.Field<string>("Printer"),
+                       DefaultQualityStatus = row.Field<string>("DefaultQualityStatus"),
+                       ScrapItem = row.Field<string>("ScrapItem"),
+                       ScrapItemName = row.Field<string>("ScrapItemName"),
+                       ScrapLine = row.Field<int>("ScrapLine"),
+                       TargetRolls = row.Field<int>("TargetRolls"),
+                       InvRolls = row.Field<int>("InvRolls")
+                   }).First();
+                    serviceOutput.ReturnValue = prodOrder;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+        }
         public static ServiceOutput GetOpenProdOrders(int itemGroup)
         {
             var serviceOutput = new ServiceOutput();
@@ -53,6 +112,7 @@ namespace RollLabelProdPack.Library.Data
                        Printer = row.Field<string>("Printer"),
                        DefaultQualityStatus = row.Field<string>("DefaultQualityStatus"),
                        ScrapItem = row.Field<string>("ScrapItem"),
+                       ScrapItemName = row.Field<string>("ScrapItemName"),
                        ScrapLine = row.Field<int>("ScrapLine"),
                        TargetRolls = row.Field<int>("TargetRolls"),
                        InvRolls = row.Field<int>("InvRolls")
@@ -158,7 +218,9 @@ namespace RollLabelProdPack.Library.Data
                        ProductionDate = row.Field<DateTime>("ProductionDate"),
                        Qty = row.Field<decimal>("Qty"),
                        MaxRollsPerPack = row.Field<int>("MaxRollsPerPack"),
-                       Copies = noOfCopies
+                       Copies = noOfCopies,
+                       Employee = ""
+
                    }).ToList();
                     serviceOutput.ReturnValue = packLabels;
                     serviceOutput.SuccessFlag = true;
@@ -198,7 +260,7 @@ namespace RollLabelProdPack.Library.Data
                        SSCC = row.Field<string>("SSCC"),
                        YJNOrder = row.Field<string>("YJNOrderNo"),
                        Kgs = row.Field<decimal>("Kgs"),
-                       JumboRoll = row.Field<string>("RollNo").Substring(8, 2)
+                       JumboRoll = string.IsNullOrEmpty(row.Field<string>("RollNo"))?"":row.Field<string>("RollNo").Substring(8, 2)
                    }).ToList();
                     serviceOutput.ReturnValue = rolls;
                     serviceOutput.SuccessFlag = true;
@@ -235,9 +297,14 @@ namespace RollLabelProdPack.Library.Data
                        ItemName = row.Field<string>("ItemName"),
                        IRMS = row.Field<string>("IRMS"),
                        SSCC = row.Field<string>("SSCC"),
+                       PG_SSCC = row.Field<string>("PG_SSCC"),
+                       LUID = row.Field<int>("LUID"),
                        YJNOrder = row.Field<string>("YJNOrderNo"),
                        Kgs = row.Field<decimal>("Kgs"),
-                       JumboRoll = row.Field<string>("RollNo").Substring(8,2)
+                       JumboRoll = row.Field<string>("RollNo").Substring(8,2),
+                       StorLocCode = row.Field<string>("StorLocCode"),
+                       QualityStatus = row.Field<string>("QualityStatus"),
+                       UOM = row.Field<string>("UOM")
                    }).ToList();
                     serviceOutput.ReturnValue = rolls;
                     serviceOutput.SuccessFlag = true;
@@ -401,6 +468,41 @@ namespace RollLabelProdPack.Library.Data
             }
             return serviceOutput;
         }
+
+
+        public static ServiceOutput GetLastResmixProductionRun(int orderNo)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getLastProductionRun", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@docNum", orderNo);
+                    var parm = new SqlParameter("@lastProductionRun", SqlDbType.Int);
+                    parm.Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add(parm);
+                    cmd.ExecuteNonQuery();
+
+                    serviceOutput.ReturnValue = (int)cmd.Parameters["@lastProductionRun"].Value;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+        }
+
+
         public static ServiceOutput CreateSSCC()
         {
             var serviceOutput = new ServiceOutput();

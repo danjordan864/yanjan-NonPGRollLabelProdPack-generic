@@ -77,9 +77,9 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         }
 
         public void AddLine(int baseEntry, string itemCode, double quantity, int prodBatchNo, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber,bool isScrap, int scrapLine,
-            string shift, string user, string scrapReason = null)
+            string shift, string user, string scrapReason = null, string scrapGLOffset = null)
         {
-            _receiptLines.Add(new InventoryReceiptLine(_receipt, baseEntry, itemCode, quantity, prodBatchNo,  storageLoc, qualityStatus, batchNo, luid, sscc, uom, lotNumber,isScrap,scrapLine,shift,user,scrapReason));
+            _receiptLines.Add(new InventoryReceiptLine(_receipt, baseEntry, itemCode, quantity, prodBatchNo,  storageLoc, qualityStatus, batchNo, luid, sscc, uom, lotNumber,isScrap,scrapLine,shift,user,scrapReason,scrapGLOffset));
         }
 
         public BoObjectTypes SAPObjectType

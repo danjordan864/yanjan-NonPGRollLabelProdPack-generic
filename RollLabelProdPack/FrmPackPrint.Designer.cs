@@ -35,6 +35,7 @@
             this.olvColPrint = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColAction = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvCopies = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColEmployee = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ilPackPrint = new System.Windows.Forms.ImageList(this.components);
             this.pnlTop = new System.Windows.Forms.Panel();
@@ -54,6 +55,7 @@
             this.olvBundles.AllColumns.Add(this.olvColPrint);
             this.olvBundles.AllColumns.Add(this.olvColAction);
             this.olvBundles.AllColumns.Add(this.olvCopies);
+            this.olvBundles.AllColumns.Add(this.olvColEmployee);
             this.olvBundles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -62,12 +64,13 @@
             this.olvColPackDesc,
             this.olvColPrint,
             this.olvColAction,
-            this.olvCopies});
+            this.olvCopies,
+            this.olvColEmployee});
             this.olvBundles.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvBundles.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvBundles.Location = new System.Drawing.Point(0, 36);
             this.olvBundles.Name = "olvBundles";
-            this.olvBundles.Size = new System.Drawing.Size(641, 527);
+            this.olvBundles.Size = new System.Drawing.Size(718, 527);
             this.olvBundles.TabIndex = 0;
             this.olvBundles.UseCompatibleStateImageBehavior = false;
             this.olvBundles.UseHyperlinks = true;
@@ -98,6 +101,11 @@
             this.olvCopies.AspectName = "Copies";
             this.olvCopies.Text = "Copies";
             // 
+            // olvColEmployee
+            // 
+            this.olvColEmployee.AspectName = "Employee";
+            this.olvColEmployee.Text = "Initials";
+            // 
             // timer1
             // 
             this.timer1.Interval = 15000;
@@ -122,7 +130,7 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(641, 40);
+            this.pnlTop.Size = new System.Drawing.Size(718, 40);
             this.pnlTop.TabIndex = 1;
             // 
             // txtMatch
@@ -139,7 +147,7 @@
             this.lblMatchText.AutoSize = true;
             this.lblMatchText.Location = new System.Drawing.Point(368, 13);
             this.lblMatchText.Name = "lblMatchText";
-            this.lblMatchText.Size = new System.Drawing.Size(61, 13);
+            this.lblMatchText.Size = new System.Drawing.Size(67, 15);
             this.lblMatchText.TabIndex = 4;
             this.lblMatchText.Text = "Match Text";
             this.lblMatchText.Visible = false;
@@ -152,7 +160,6 @@
             this.btnRefresh.TabIndex = 3;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Visible = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // txtOrder
@@ -168,7 +175,7 @@
             this.lblOrder.AutoSize = true;
             this.lblOrder.Location = new System.Drawing.Point(110, 13);
             this.lblOrder.Name = "lblOrder";
-            this.lblOrder.Size = new System.Drawing.Size(33, 13);
+            this.lblOrder.Size = new System.Drawing.Size(38, 15);
             this.lblOrder.TabIndex = 1;
             this.lblOrder.Text = "Order";
             this.lblOrder.Visible = false;
@@ -178,7 +185,7 @@
             this.chkReprint.AutoSize = true;
             this.chkReprint.Location = new System.Drawing.Point(12, 12);
             this.chkReprint.Name = "chkReprint";
-            this.chkReprint.Size = new System.Drawing.Size(60, 17);
+            this.chkReprint.Size = new System.Drawing.Size(69, 19);
             this.chkReprint.TabIndex = 0;
             this.chkReprint.Text = "Reprint";
             this.chkReprint.UseVisualStyleBackColor = true;
@@ -188,7 +195,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 563);
+            this.ClientSize = new System.Drawing.Size(718, 563);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.olvBundles);
             this.Name = "FrmPackPrint";
@@ -217,5 +224,6 @@
         private System.Windows.Forms.CheckBox chkReprint;
         private System.Windows.Forms.TextBox txtMatch;
         private System.Windows.Forms.Label lblMatchText;
+        private BrightIdeasSoftware.OLVColumn olvColEmployee;
     }
 }

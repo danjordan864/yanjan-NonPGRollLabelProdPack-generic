@@ -34,7 +34,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
 
         public int BaseLine { get { return _line.BaseLine; } }
-        
+
 
         /// <summary>
         /// Line item code (item Primary key)
@@ -61,17 +61,36 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// </summary>
         /// <param name="productionOrder">The SAP B1 document object that owns the line item.</param>
         /// <param name="itemCode">Line item code (item Primary key)</param>
-        public InventoryReceiptLine(IDocuments receipt, int baseEntry, string itemCode, 
-            double quantity, int prodBatchNo, string storageLoc, 
-            string qualityStatus, string batchNo, int luid, string sscc, string uom, 
-            string lotNumber, bool isScrap, int scrapLine, string shift, string user, 
-            string scrapReason = null)
+        public InventoryReceiptLine(IDocuments receipt, int baseEntry, string itemCode,
+            double quantity, int prodBatchNo, string storageLoc,
+            string qualityStatus, string batchNo, int luid, string sscc, string uom,
+            string lotNumber, bool isScrap, int scrapLine, string shift, string user,
+            string scrapReason = null, string scrapGLOffset = null)
         {
             int index = -1;
-            receipt.Lines.BaseEntry = baseEntry;
             receipt.Lines.Quantity = quantity;
-            receipt.Lines.BaseType = 202;
-            
+            if (scrapGLOffset == null)
+            {
+                receipt.Lines.BaseEntry = baseEntry;
+                receipt.Lines.BaseType = 202;
+
+                //base entry
+                index = -1;
+                index = UDFIndexLocation(receipt.Lines, "U_PMX_BAEN");
+                if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = baseEntry; }
+
+                //base type
+                index = -1;
+                index = UDFIndexLocation(receipt.Lines, "U_PMX_BATY");
+                if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = "202"; }
+            }
+            else
+            {
+                receipt.Lines.BaseType = -1;
+                receipt.Lines.AccountCode = scrapGLOffset;
+                receipt.Lines.ItemCode = itemCode;
+            }
+
             if (isScrap)
             {
                 receipt.Lines.BaseLine = scrapLine;
@@ -80,7 +99,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                 index = UDFIndexLocation(receipt.Lines, "U_SII_ScrapReason");
                 if (index != -1 && scrapReason != null) { receipt.Lines.UserFields.Fields.Item(index).Value = scrapReason; }
             }
-                
+
 
             if (!string.IsNullOrEmpty(batchNo) && !isScrap)
             {
@@ -91,8 +110,12 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                 index = UDFIndexLocation(receipt.Lines, "U_PMX_BATC");
                 if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = batchNo; }
 
-                index = UDFIndexLocation(receipt.Lines, "U_PMX_BAT2");
-                if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
+                if (!string.IsNullOrEmpty(lotNumber))
+                {
+                    index = UDFIndexLocation(receipt.Lines, "U_PMX_BAT2");
+                    if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
+                }
+
 
             }
 
@@ -121,17 +144,6 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             index = UDFIndexLocation(receipt.Lines, "U_PMX_LUID");
             if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = luid.ToString(); }
 
-            //base entry
-            index = -1;
-            index = UDFIndexLocation(receipt.Lines, "U_PMX_BAEN");
-            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = baseEntry; }
-
-            //base type
-            index = -1;
-            index = UDFIndexLocation(receipt.Lines, "U_PMX_BATY");
-            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = "202"; }
-
-            
             //sscc
             index = -1;
             index = UDFIndexLocation(receipt.Lines, "U_PMX_SSCC");
@@ -152,6 +164,11 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             index = -1;
             index = UDFIndexLocation(receipt.Lines, "U_SII_User");
             if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = user; }
+
+            //Lot No
+            index = -1;
+            index = UDFIndexLocation(receipt.Lines, "U_SII_LotNo");
+            if (index != -1) { receipt.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
 
             receipt.Lines.Add();
             _line = receipt.Lines;

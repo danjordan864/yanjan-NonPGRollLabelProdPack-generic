@@ -14,12 +14,17 @@ namespace RollLabelProdPack.Library.Entities
         public string IRMS { get; set; }
         public string YJNOrder { get; set; }
         public string SSCC { get; set; }
+
+        public string PG_SSCC { get; set; }
         public decimal Kgs { get; set; }
         public bool Scrap { get; set; }
         public bool Print { get; set; }
         public int LUID { get; set; }
         public string JumboRoll { get; set; }
         public string ScrapReason { get; set; }
+        public string StorLocCode { get; set; }
+        public string QualityStatus { get; set; }
+        public string UOM { get; set; }
 
     }
 }
