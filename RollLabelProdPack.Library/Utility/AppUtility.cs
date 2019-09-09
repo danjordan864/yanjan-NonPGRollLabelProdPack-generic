@@ -403,13 +403,13 @@ namespace RollLabelProdPack.Library.Utility
             KeyValuePair<string, string> userNameAndPW = new KeyValuePair<string, string>(GetSAPUser(), GetSAPPassword());
             switch (machineNo)
             {
-                case "1":
+                case "B":
                     userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine1(), GetSAPPassMixLine1());
                     break;
-                case "2":
+                case "C":
                     userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine2(), GetSAPPassMixLine2());
                     break;
-                case "3":
+                case "D":
                     userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine3(), GetSAPPassMixLine3());
                     break;
                 default:
@@ -606,6 +606,36 @@ namespace RollLabelProdPack.Library.Utility
         public static string GetScrapLocCode()
         {
             return ConfigurationManager.AppSettings["ScrapLocCode"];
+        }
+
+        public static string GetHoldStatus()
+        {
+            return ConfigurationManager.AppSettings["HoldStatus"];
+        }
+        public static string GetHoldLocation()
+        {
+            return ConfigurationManager.AppSettings["HoldLocation"];
+        }
+        public static string GetScrapStatus()
+        {
+            return ConfigurationManager.AppSettings["ScrapStatus"];
+        }
+        public static string GetDefaultStatus()
+        {
+            return ConfigurationManager.AppSettings["DefaultStatus"];
+        }
+        public static string GetDefaultUom()
+        {
+            return ConfigurationManager.AppSettings["DefaultUom"];
+        }
+        //Resmix001ToLines
+        public static string GetResmix001ToLines()
+        {
+            return ConfigurationManager.AppSettings["Resmix001ToLines"];
+        }
+        public static string GetResmix002ToLines()
+        {
+            return ConfigurationManager.AppSettings["Resmix002ToLines"];
         }
         #endregion
 

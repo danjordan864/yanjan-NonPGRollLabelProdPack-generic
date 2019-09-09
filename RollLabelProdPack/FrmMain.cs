@@ -26,7 +26,6 @@ namespace RollLabelProdPack
         private List<Roll> _rolls = null;
         private BindingSource bindingSource1;
         private List<InventoryIssueDetail> _plannedIssue;
-        private int _rollsLeft = 0;
         public FrmMain()
         {
             InitializeComponent();
@@ -85,12 +84,17 @@ namespace RollLabelProdPack
             {
                 olvRolls.Objects = null;
                 _rolls = null;
+                var weightKgs = Convert.ToDecimal(txtWeightKgs.Text);
                 if (txtNoOfSlits.Text == "0" || string.IsNullOrEmpty(txtNoOfSlits.Text) || string.IsNullOrEmpty(txtDie.Text) || string.IsNullOrEmpty(txtWeightKgs.Text) || txtWeightKgs.Text == "0")
                 {
                     btnGenerateRolls.Enabled = false;
                     DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input values No. Of Slits,  Die No. and first roll weight.");
                     _rolls = null;
                     return;
+                }
+                else if(weightKgs < _selectOrder.MinRollKgs || weightKgs > _selectOrder.MaxRollKgs)
+                {
+                    DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Invalid Roll Weight", $"Weight (kgs) must be greater than Min. Roll Weight: {_selectOrder.MinRollKgs.ToString("0.00")} and less than Max Roll Weight: {_selectOrder.MaxRollKgs.ToString("0.00")}.");
                 }
                 else
                 {
@@ -219,9 +223,9 @@ namespace RollLabelProdPack
         }
         private void testSQLConnectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Cursor = Cursors.WaitCursor;
+            Cursor.Current = Cursors.WaitCursor;
             var connection = AppUtility.TestSQLConnection();
-            Cursor = Cursors.Default;
+            Cursor.Current = Cursors.Default;
             if (connection.Length == 0) { DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "Successful SQL Connection"); }
             else { DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Error", connection); }
         }
@@ -268,12 +272,14 @@ namespace RollLabelProdPack
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             ChangeOrder();
+            Cursor.Current = Cursors.Default;
         }
 
         private void testSAPB1ConnectionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Cursor = Cursors.WaitCursor;
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 SAPB1 sap = new SAPB1();
@@ -283,16 +289,18 @@ namespace RollLabelProdPack
             {
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Test Failed!\n\n[Exception Message]\n{ex.Message}");
             }
-            Cursor = Cursors.Default;
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+            btnCreate.Enabled = false;
             try
             {
                 Produce();
                 RefreshOrderInfo();
-                btnCreate.Enabled = false;
+                Cursor.Current = Cursors.Default;
             }
             catch (Exception ex)
             {
@@ -304,7 +312,11 @@ namespace RollLabelProdPack
         private void Produce()
         {
             ServiceOutput so;
-
+            var holdArea = AppUtility.GetHoldLocation();
+            var holdStatus = AppUtility.GetHoldStatus();
+            var scrapStatus = AppUtility.GetScrapStatus();
+            var defaultStatus = AppUtility.GetDefaultStatus();
+            var defaultUom = AppUtility.GetDefaultUom();
             foreach (var roll in _rolls)
             {
                 so = AppData.CreateSSCC();
@@ -323,13 +335,13 @@ namespace RollLabelProdPack
                     var stdProduction = _rolls.Where(r => !r.Scrap);
                     foreach (var roll in stdProduction)
                     {
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, roll.ItemCode, Convert.ToDouble(roll.Kgs), prodBatchNo, _selectOrder.OutputLoc, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, false, 0, _selectOrder.Shift, _selectOrder.Employee);
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, roll.ItemCode, Convert.ToDouble(roll.Kgs), prodBatchNo, roll.Hold ?holdStatus: _selectOrder.OutputLoc, roll.Hold? holdStatus : defaultStatus, roll.RollNo, roll.LUID, roll.SSCC, defaultUom, _selectOrder.YJNOrder, false, 0, _selectOrder.Shift, _selectOrder.Employee);
                     }
                     var scrapProd = _rolls.Where(r => r.Scrap && _selectOrder.ScrapItem != null);
                     var scrapLoc = AppUtility.GetScrapLocCode();
                     foreach (var roll in scrapProd)
                     {
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.Kgs), prodBatchNo, _selectOrder.OutputLoc, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, true, _selectOrder.ScrapLine, _selectOrder.Shift, _selectOrder.Employee, roll.ScrapReason);
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.Kgs), prodBatchNo, _selectOrder.OutputLoc, scrapStatus, roll.RollNo, roll.LUID, roll.SSCC, defaultUom, _selectOrder.YJNOrder, true, _selectOrder.ScrapLine, _selectOrder.Shift, _selectOrder.Employee, roll.ScrapReason);
                     }
                     if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                 }
@@ -557,6 +569,7 @@ namespace RollLabelProdPack
 
         private void scrapRollsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 using (FrmScrapRollsDialog frmScrapRollsDialog = new FrmScrapRollsDialog())
@@ -577,16 +590,26 @@ namespace RollLabelProdPack
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Exception has occurred in {AppUtility.GetLoggingText()} ScrapRolls.\n\n{ex.Message}");
                 AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} ScrapRolls.\n\n{ex.Message}", EventLogEntryType.Error, true);
             }
+            Cursor.Current = Cursors.Default;
         }
 
         private void ScrapRolls()
         {
-
             var userNamePW = AppUtility.GetUserNameAndPasswordFilm(_selectOrder.ProductionMachineNo);
             using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
             {
                 var scrapLocCode = AppUtility.GetScrapLocCode();
                 var scrapGLOffset = AppUtility.GetScrapOffsetCode();
+                
+                using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
+                {
+                    foreach (var roll in _rolls)
+                    {
+                        invIssue.AddScrapIssueLine(roll.ItemCode, Convert.ToDouble(roll.Kgs), roll.StorLocCode, roll.QualityStatus, roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, _selectOrder.YJNOrder, scrapGLOffset, roll.ScrapReason, _selectOrder.Shift);
+                    }
+                    if (invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
+                }
+
                 using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                 {
                     foreach (var roll in _rolls)
@@ -605,14 +628,6 @@ namespace RollLabelProdPack
                     }
                 }
                 PrintRollLabels();
-                using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
-                {
-                    foreach (var roll in _rolls)
-                    {
-                        invIssue.AddScrapIssueLine(roll.ItemCode, Convert.ToDouble(roll.Kgs), roll.StorLocCode, roll.QualityStatus, roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, _selectOrder.YJNOrder, scrapGLOffset, roll.ScrapReason, _selectOrder.Shift);
-                    }
-                    if (invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
-                }
             }
             DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Rolls converted to scrap", "Rolls converted to scrap");
             RefreshOrderInfo();

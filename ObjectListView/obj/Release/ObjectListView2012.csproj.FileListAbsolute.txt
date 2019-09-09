@@ -24,3 +24,12 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Releas
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView.dll
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView.pdb
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView2012.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\bin\Release\ObjectListView.XML
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\bin\Release\ObjectListView.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\bin\Release\ObjectListView.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView2012.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\obj\Release\BrightIdeasSoftware.Properties.Resources.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\obj\Release\BrightIdeasSoftware.ColumnSelectionForm.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView2012.csproj.GenerateResource.Cache
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\ObjectListView\obj\Release\ObjectListView.pdb

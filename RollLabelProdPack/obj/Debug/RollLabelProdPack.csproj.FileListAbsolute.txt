@@ -21,7 +21,6 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLab
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Debug\ObjectListView.dll
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.Library.dll
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Debug\ObjectListView.pdb
-C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Debug\ObjectListView.xml
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.Library.pdb
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.csprojResolveAssemblyReference.cache
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmCreateRollLabels.resources
@@ -49,3 +48,39 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLab
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmShipScan.resources
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.SelectOrderDialog_old.resources
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmScrapRollsDialog.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.exe.config
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\Interop.SAPbobsCOM.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.csproj.ResolveComReference.cache
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.exe
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmAdjustResmix.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmCreateRollLabels.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmCreateRolls.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmMain.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmBoxScrap.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmMix.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmPackPrint.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmPack.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmScrapRollsDialog.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmRollsDialog.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmPlannedIssueDialog.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmReprintOrderRollsDialog.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmShipScan.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.SelectOrderDialog_old.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.SelectOrderDialog.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.Properties.Resources.resources
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.csproj.GenerateResource.Cache
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.exe
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\HtmlRenderer.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\HtmlRenderer.WinForms.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\ObjectListView.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.Library.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.SAP.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\ObjectListView.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\ObjectListView.xml
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.Library.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\RollLabelProdPack.SAP.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\HtmlRenderer.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack\bin\Debug\HtmlRenderer.WinForms.pdb

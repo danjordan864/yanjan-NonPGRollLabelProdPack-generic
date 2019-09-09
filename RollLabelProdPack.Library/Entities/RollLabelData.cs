@@ -44,6 +44,8 @@ namespace RollLabelProdPack.Library.Entities
         public int ScrapLine { get; set; }
         public int TargetRolls { get; set; }
         public int InvRolls { get; set; }
+        public decimal MinRollKgs { get; set; }
+        public decimal MaxRollKgs { get; set; }
 
         public string ScrapItemName { get; set; }
         public int LeftToProduce

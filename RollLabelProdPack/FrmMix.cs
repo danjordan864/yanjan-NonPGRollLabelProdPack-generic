@@ -24,9 +24,11 @@ namespace RollLabelProdPack
         private RollLabelData _selectOrder = new RollLabelData();
         private BindingSource bindingSource1;
         private List<InventoryIssueDetail> _plannedIssue;
+        private List<ProductionLine> _prodLines;
         private int luid;
         private string sscc;
         private int _prodRun;
+        private bool _loading;
         public FrmMix()
         {
             InitializeComponent();
@@ -34,6 +36,7 @@ namespace RollLabelProdPack
 
         private void FrmMix_Load(object sender, EventArgs e)
         {
+            _loading = true;
             bindingSource1 = new BindingSource();
             bindingSource1.DataSource = _selectOrder;
             txtEmployee.DataBindings.Add("Text", bindingSource1, "Employee");
@@ -42,6 +45,14 @@ namespace RollLabelProdPack
             txtProductionLine.DataBindings.Add("Text", bindingSource1, "ProductionLine");
             txtItemCode.DataBindings.Add("Text", bindingSource1, "ItemCode");
             txtItemName.DataBindings.Add("Text", bindingSource1, "ItemDescription");
+            //set up scrap reason combo
+            var so = AppData.GetProdLines(false);
+            if (!so.SuccessFlag) throw new ApplicationException($"Failed to get prod lines. Error:{so.ServiceException}.");
+           _prodLines = so.ReturnValue as List<ProductionLine>;
+            var pls = _prodLines.Select(p => p.Code).ToList();
+            pls.Insert(0, "Select To Line");
+            cboToLine.DataSource = pls;
+            _loading = false;
         }
         private void btnSelect_Click(object sender, EventArgs e)
         {
@@ -58,7 +69,8 @@ namespace RollLabelProdPack
                 {
                     _selectOrder = frmSignInDialog.SelectOrder;
                     txtWeightKgs.Text = "0";
-                    txtWeightKgs.Enabled = true;
+                    //txtWeightKgs.Enabled = true;
+                    cboToLine.Enabled = true;
                     txtProductionDateFull.Text = DateTime.Now.ToShortDateString();
                     bindingSource1.DataSource = _selectOrder;
                 }
@@ -67,7 +79,6 @@ namespace RollLabelProdPack
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
             _prodRun = (int)so.ReturnValue;
             _prodRun += 1;
-            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
         }
 
 
@@ -78,10 +89,11 @@ namespace RollLabelProdPack
 
         private void CheckReadyToProduce()
         {
-            if (string.IsNullOrEmpty(txtWeightKgs.Text) || txtWeightKgs.Text == "0" || string.IsNullOrEmpty(txtBatch.Text))
+           if (string.IsNullOrEmpty(txtWeightKgs.Text) || txtWeightKgs.Text == "0"||string.IsNullOrEmpty(txtBatch.Text)||cboToLine.Text == "Select To Line")
             {
                 btnProduce.Enabled = false;
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input Mix weight.");
+                cboToLine.Focus();
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input Mix weight");
                 return;
             }
             else
@@ -104,12 +116,13 @@ namespace RollLabelProdPack
         private void Produce()
         {
             ServiceOutput so;
-
             so = AppData.CreateSSCC();
             if (!so.SuccessFlag) throw new ApplicationException($"Error Creating SSCC. Error:{so.ServiceException}");
             var luid_sscc = (KeyValuePair<int, string>)so.ReturnValue;
             luid = luid_sscc.Key;
             sscc = luid_sscc.Value;
+            var defaultStatus = AppUtility.GetDefaultStatus();
+            var defaultUom = AppUtility.GetDefaultUom();
 
             var userNamePW = AppUtility.GetUserNameAndPasswordMix(_selectOrder.ProductionMachineNo);
             var prodBatchNo = Convert.ToInt32(txtBatch.Text.Substring(txtBatch.Text.LastIndexOf("-")+1));
@@ -131,15 +144,16 @@ namespace RollLabelProdPack
                     }
                     if (_plannedIssue.Sum(q=>q.PlannedIssueQty) > 0 && invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                 }
+                var toProductionLineInputLoc = _prodLines.Where(p => p.Code == cboToLine.Text).Select(p => p.InputLocationCode).FirstOrDefault();
+               
                 using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                 {
-                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtWeightKgs.Text),prodBatchNo, _selectOrder.OutputLoc, "RELEASED", txtBatch.Text, luid, sscc, "Kgs","", false, 0, _selectOrder.Shift, _selectOrder.Employee);
+                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtWeightKgs.Text),prodBatchNo, toProductionLineInputLoc, defaultStatus, txtBatch.Text, luid, sscc, defaultUom,"", false, 0, _selectOrder.Shift, _selectOrder.Employee);
                     if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                     so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
                     if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
                     _prodRun = (int)so.ReturnValue;
                     _prodRun += 1;
-                    txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
                 }
             }
             DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Resmix Produced", $"#{txtWeightKgs.Text} kgs. produced. Order: {txtOrderNo.Text}");
@@ -184,8 +198,11 @@ namespace RollLabelProdPack
                 }
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "ResMix label printed. Please check printer.");
                 txtWeightKgs.Text = "0";
+                txtWeightKgs.Enabled = false;
+                cboToLine.Text = "Select To Line";
                 lnkPlannedIssues.Enabled = false;
                 btnProduce.Enabled = false;
+                
                 luid = 0;
                 sscc = null;
             }
@@ -237,6 +254,35 @@ namespace RollLabelProdPack
         private void txtBatch_Validated(object sender, EventArgs e)
         {
             CheckReadyToProduce();
+        }
+
+        private void cboToLine_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboToLine.Text != "Select To Line")
+            {
+                var resmixTo001 = AppUtility.GetResmix001ToLines();
+                var resmixTo002 = AppUtility.GetResmix002ToLines();
+                if (_selectOrder.ItemCode.ToUpper() == "RESMIX-001" && resmixTo001.IndexOf(cboToLine.Text) == -1)
+                {
+                    DisplayToastNotification(WinFormUtils.ToastNotificationType.Warning, "Select Line", $"{_selectOrder.ItemCode} cannot be selected for line {cboToLine.Text}");
+                    cboToLine.Text = "Select To Line";
+                    return;
+                }
+                if (_selectOrder.ItemCode.ToUpper() == "RESMIX-002" && resmixTo002.IndexOf(cboToLine.Text) == -1)
+                {
+                    DisplayToastNotification(WinFormUtils.ToastNotificationType.Warning, "Select Line", $"{_selectOrder.ItemCode} cannot be selected for line {cboToLine.Text}");
+                    cboToLine.Text = "Select To Line";
+                    return;
+                }
+                var lineNo = _prodLines.Where(p => p.Code == cboToLine.Text).Select(p => p.LineNo).FirstOrDefault();
+                txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{lineNo}{_prodRun.ToString()}";
+                txtWeightKgs.Enabled = true;
+            }
+            else
+            {
+                txtWeightKgs.Enabled = false;
+            }
+            
         }
     }
 }

@@ -111,6 +111,8 @@ namespace RollLabelProdPack.Library.Data
                        OutputLoc = row.Field<string>("OutputLoc"),
                        Printer = row.Field<string>("Printer"),
                        DefaultQualityStatus = row.Field<string>("DefaultQualityStatus"),
+                       MinRollKgs = row.Field<decimal>("MinRollKgs"),
+                       MaxRollKgs = row.Field<decimal>("MaxRollKgs"),
                        ScrapItem = row.Field<string>("ScrapItem"),
                        ScrapItemName = row.Field<string>("ScrapItemName"),
                        ScrapLine = row.Field<int>("ScrapLine"),
@@ -469,7 +471,42 @@ namespace RollLabelProdPack.Library.Data
             return serviceOutput;
         }
 
-
+        public static ServiceOutput GetProdLines(bool includeMixed)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getProdLines", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@includeMixLines", includeMixed?"Y":"N");
+                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
+                    List<ProductionLine> prodLines = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
+                    new ProductionLine
+                    {
+                         Code = row.Field<string>("Code"),
+                         LineNo = row.Field<string>("MachineNo"),
+                         InputLocationCode = row.Field<string>("InputLocationCode")
+                    }
+                        
+                   ).ToList();
+                    serviceOutput.ReturnValue = prodLines;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+        }
         public static ServiceOutput GetLastResmixProductionRun(int orderNo)
         {
             var serviceOutput = new ServiceOutput();

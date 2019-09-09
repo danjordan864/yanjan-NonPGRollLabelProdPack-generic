@@ -164,20 +164,20 @@
             this.testSQLConnectionToolStripMenuItem,
             this.testSAPB1ConnectionToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 25);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(59, 25);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // testSQLConnectionToolStripMenuItem
             // 
             this.testSQLConnectionToolStripMenuItem.Name = "testSQLConnectionToolStripMenuItem";
-            this.testSQLConnectionToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.testSQLConnectionToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.testSQLConnectionToolStripMenuItem.Text = "Test SQL Connection";
             this.testSQLConnectionToolStripMenuItem.Click += new System.EventHandler(this.testSQLConnectionToolStripMenuItem_Click);
             // 
             // testSAPB1ConnectionToolStripMenuItem
             // 
             this.testSAPB1ConnectionToolStripMenuItem.Name = "testSAPB1ConnectionToolStripMenuItem";
-            this.testSAPB1ConnectionToolStripMenuItem.Size = new System.Drawing.Size(243, 26);
+            this.testSAPB1ConnectionToolStripMenuItem.Size = new System.Drawing.Size(245, 26);
             this.testSAPB1ConnectionToolStripMenuItem.Text = "Test SAP B1 Connection";
             this.testSAPB1ConnectionToolStripMenuItem.Click += new System.EventHandler(this.testSAPB1ConnectionToolStripMenuItem_Click);
             // 
@@ -471,13 +471,13 @@
             this.splitContainer1.Panel2.Controls.Add(this.btnCreate);
             this.splitContainer1.Panel2.Controls.Add(this.olvRolls);
             this.splitContainer1.Size = new System.Drawing.Size(1237, 559);
-            this.splitContainer1.SplitterDistance = 750;
+            this.splitContainer1.SplitterDistance = 655;
             this.splitContainer1.TabIndex = 5;
             // 
             // txtRollsLeft
             // 
             this.txtRollsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRollsLeft.Location = new System.Drawing.Point(682, 8);
+            this.txtRollsLeft.Location = new System.Drawing.Point(590, 4);
             this.txtRollsLeft.Margin = new System.Windows.Forms.Padding(4);
             this.txtRollsLeft.Name = "txtRollsLeft";
             this.txtRollsLeft.ReadOnly = true;
@@ -488,17 +488,17 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(521, 11);
+            this.label14.Location = new System.Drawing.Point(505, 7);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(161, 20);
+            this.label14.Size = new System.Drawing.Size(76, 20);
             this.label14.TabIndex = 99;
-            this.label14.Text = "Rolls Left To Produce";
+            this.label14.Text = "Rolls Left";
             // 
             // txtInvRolls
             // 
             this.txtInvRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtInvRolls.Location = new System.Drawing.Point(451, 8);
+            this.txtInvRolls.Location = new System.Drawing.Point(453, 4);
             this.txtInvRolls.Margin = new System.Windows.Forms.Padding(4);
             this.txtInvRolls.Name = "txtInvRolls";
             this.txtInvRolls.ReadOnly = true;
@@ -509,7 +509,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(370, 11);
+            this.label13.Location = new System.Drawing.Point(372, 7);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(73, 20);
@@ -519,7 +519,7 @@
             // txtTargetRolls
             // 
             this.txtTargetRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTargetRolls.Location = new System.Drawing.Point(307, 8);
+            this.txtTargetRolls.Location = new System.Drawing.Point(320, 4);
             this.txtTargetRolls.Margin = new System.Windows.Forms.Padding(4);
             this.txtTargetRolls.Name = "txtTargetRolls";
             this.txtTargetRolls.ReadOnly = true;
@@ -530,7 +530,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(205, 11);
+            this.label12.Location = new System.Drawing.Point(218, 7);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(94, 20);
@@ -689,14 +689,14 @@
             this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label11.Location = new System.Drawing.Point(3, 140);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(745, 2);
+            this.label11.Size = new System.Drawing.Size(650, 2);
             this.label11.TabIndex = 52;
             // 
             // btnSelect
             // 
             this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelect.Location = new System.Drawing.Point(0, 3);
+            this.btnSelect.Location = new System.Drawing.Point(2, 3);
             this.btnSelect.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(142, 42);
@@ -710,7 +710,7 @@
             this.btnGenerateRolls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGenerateRolls.Enabled = false;
             this.btnGenerateRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerateRolls.Location = new System.Drawing.Point(652, 45);
+            this.btnGenerateRolls.Location = new System.Drawing.Point(542, 40);
             this.btnGenerateRolls.Name = "btnGenerateRolls";
             this.btnGenerateRolls.Size = new System.Drawing.Size(95, 37);
             this.btnGenerateRolls.TabIndex = 4;
@@ -922,7 +922,7 @@
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreate.Location = new System.Drawing.Point(0, 523);
             this.btnCreate.Name = "btnCreate";
-            this.btnCreate.Size = new System.Drawing.Size(483, 36);
+            this.btnCreate.Size = new System.Drawing.Size(578, 36);
             this.btnCreate.TabIndex = 12;
             this.btnCreate.Text = "Create/Print";
             this.btnCreate.UseVisualStyleBackColor = true;
@@ -948,9 +948,9 @@
             this.olvColScrapReason});
             this.olvRolls.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.olvRolls.Location = new System.Drawing.Point(3, 3);
+            this.olvRolls.Location = new System.Drawing.Point(6, 7);
             this.olvRolls.Name = "olvRolls";
-            this.olvRolls.Size = new System.Drawing.Size(477, 524);
+            this.olvRolls.Size = new System.Drawing.Size(572, 524);
             this.olvRolls.TabIndex = 11;
             this.olvRolls.UseCompatibleStateImageBehavior = false;
             this.olvRolls.View = System.Windows.Forms.View.Details;

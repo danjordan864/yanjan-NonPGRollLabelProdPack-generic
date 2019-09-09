@@ -18,6 +18,7 @@ namespace RollLabelProdPack.Library.Entities
         public string PG_SSCC { get; set; }
         public decimal Kgs { get; set; }
         public bool Scrap { get; set; }
+        public bool Hold { get; set; }
         public bool Print { get; set; }
         public int LUID { get; set; }
         public string JumboRoll { get; set; }

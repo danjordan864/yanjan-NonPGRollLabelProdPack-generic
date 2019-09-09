@@ -51,6 +51,8 @@
             this.lnkPlannedIssues = new System.Windows.Forms.LinkLabel();
             this.txtBatch = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cboToLine = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,7 +98,7 @@
             // 
             this.txtWeightKgs.Enabled = false;
             this.txtWeightKgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWeightKgs.Location = new System.Drawing.Point(296, 33);
+            this.txtWeightKgs.Location = new System.Drawing.Point(429, 30);
             this.txtWeightKgs.Name = "txtWeightKgs";
             this.txtWeightKgs.Size = new System.Drawing.Size(115, 26);
             this.txtWeightKgs.TabIndex = 53;
@@ -106,7 +108,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(254, 33);
+            this.label4.Location = new System.Drawing.Point(385, 33);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 20);
             this.label4.TabIndex = 54;
@@ -253,7 +255,7 @@
             this.btnProduce.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProduce.Enabled = false;
             this.btnProduce.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProduce.Location = new System.Drawing.Point(447, 33);
+            this.btnProduce.Location = new System.Drawing.Point(580, 30);
             this.btnProduce.Margin = new System.Windows.Forms.Padding(4);
             this.btnProduce.Name = "btnProduce";
             this.btnProduce.Size = new System.Drawing.Size(142, 42);
@@ -266,7 +268,7 @@
             // 
             this.lnkPlannedIssues.AutoSize = true;
             this.lnkPlannedIssues.Enabled = false;
-            this.lnkPlannedIssues.Location = new System.Drawing.Point(444, 79);
+            this.lnkPlannedIssues.Location = new System.Drawing.Point(539, 79);
             this.lnkPlannedIssues.Name = "lnkPlannedIssues";
             this.lnkPlannedIssues.Size = new System.Drawing.Size(105, 13);
             this.lnkPlannedIssues.TabIndex = 110;
@@ -278,9 +280,9 @@
             // 
             this.txtBatch.Enabled = false;
             this.txtBatch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBatch.Location = new System.Drawing.Point(296, 65);
+            this.txtBatch.Location = new System.Drawing.Point(227, 64);
             this.txtBatch.Name = "txtBatch";
-            this.txtBatch.Size = new System.Drawing.Size(115, 26);
+            this.txtBatch.Size = new System.Drawing.Size(142, 26);
             this.txtBatch.TabIndex = 111;
             this.txtBatch.Validated += new System.EventHandler(this.txtBatch_Validated);
             // 
@@ -288,17 +290,41 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(239, 66);
+            this.label2.Location = new System.Drawing.Point(156, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 20);
             this.label2.TabIndex = 112;
             this.label2.Text = "Batch";
+            // 
+            // cboToLine
+            // 
+            this.cboToLine.Enabled = false;
+            this.cboToLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboToLine.FormattingEnabled = true;
+            this.cboToLine.Location = new System.Drawing.Point(227, 30);
+            this.cboToLine.Name = "cboToLine";
+            this.cboToLine.Size = new System.Drawing.Size(142, 28);
+            this.cboToLine.TabIndex = 113;
+            this.cboToLine.SelectedIndexChanged += new System.EventHandler(this.cboToLine_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(159, 33);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 20);
+            this.label6.TabIndex = 114;
+            this.label6.Text = "To Line";
             // 
             // FrmMix
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 369);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cboToLine);
             this.Controls.Add(this.txtBatch);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lnkPlannedIssues);
@@ -356,5 +382,7 @@
         private System.Windows.Forms.LinkLabel lnkPlannedIssues;
         private System.Windows.Forms.TextBox txtBatch;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cboToLine;
+        private System.Windows.Forms.Label label6;
     }
 }

@@ -69,16 +69,6 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             issue.Lines.Quantity = quantity;
             issue.Lines.BaseType = 202;
 
-            if (!string.IsNullOrEmpty(batchNo))
-            {
-                issue.Lines.BatchNumbers.BatchNumber = batchNo;
-                issue.Lines.BatchNumbers.Quantity = quantity;
-                issue.Lines.BatchNumbers.Notes = lotNumber;
-               //Batch
-                index = UDFIndexLocation(issue.Lines, "U_PMX_BATC");
-                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = batchNo; }
-            }
-
             //Storage Location
             index = -1;
             index = UDFIndexLocation(issue.Lines, "U_PMX_LOCO");
@@ -108,10 +98,6 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                 if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = sscc; }
             }
 
-            index = -1;
-            index = UDFIndexLocation(issue.Lines, "U_PMX_SSCC");
-            if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = sscc; }
-
             //"PMX_INVT"."ItemTransactionalInfoKey"
             //base entry
             index = -1;
@@ -132,6 +118,19 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             index = -1;
             index = UDFIndexLocation(issue.Lines, "U_SII_LotNo");
             if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
+
+            if (!string.IsNullOrEmpty(batchNo))
+            {
+                issue.Lines.BatchNumbers.BatchNumber = batchNo;
+                issue.Lines.BatchNumbers.Quantity = quantity;
+                issue.Lines.BatchNumbers.Notes = lotNumber;
+                //Batch
+                index = UDFIndexLocation(issue.Lines, "U_PMX_BATC");
+                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = batchNo; }
+
+                //Batch id
+
+            }
 
             issue.Lines.Add();
             _line = issue.Lines;

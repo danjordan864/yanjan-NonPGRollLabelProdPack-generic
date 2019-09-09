@@ -7,3 +7,8 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLab
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.dll
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.pdb
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\bin\Debug\RollLabelProdPack.Library.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\bin\Debug\RollLabelProdPack.Library.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.dll
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.pdb
+C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.csprojResolveAssemblyReference.cache
