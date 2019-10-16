@@ -12,7 +12,6 @@ C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLab
 C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.pdb
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\bin\Release\RollLabelProdPack.SAP.dll
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\bin\Release\RollLabelProdPack.SAP.pdb
-C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csprojResolveAssemblyReference.cache
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\Interop.SAPbobsCOM.dll
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csproj.ResolveComReference.cache
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.dll

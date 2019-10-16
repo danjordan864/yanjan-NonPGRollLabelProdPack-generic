@@ -299,13 +299,16 @@ namespace RollLabelProdPack
             try
             {
                 Produce();
-                RefreshOrderInfo();
-                Cursor.Current = Cursors.Default;
             }
             catch (Exception ex)
             {
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Test SAP B1 Connection", $"Exception has occurred in {AppUtility.GetLoggingText()} Create Click.\n\n{ex.Message}");
                 AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} Create Click.\n\n{ex.Message}", EventLogEntryType.Error, true);
+            }
+            finally
+            {
+                RefreshOrderInfo();
+                Cursor.Current = Cursors.Default;
             }
         }
 
