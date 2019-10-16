@@ -291,7 +291,11 @@ namespace RollLabelProdPack
             }
             Cursor.Current = Cursors.Default;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreate_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
