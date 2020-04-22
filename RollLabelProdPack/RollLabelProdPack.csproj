@@ -81,18 +81,6 @@
     <Compile Include="FrmAdjustResmix.Designer.cs">
       <DependentUpon>FrmAdjustResmix.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmCreateRollLabels.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmCreateRollLabels.Designer.cs">
-      <DependentUpon>FrmCreateRollLabels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmCreateRolls.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmCreateRolls.Designer.cs">
-      <DependentUpon>FrmCreateRolls.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +93,12 @@
     <Compile Include="FrmBoxScrap.Designer.cs">
       <DependentUpon>FrmBoxScrap.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMask.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMask.designer.cs">
+      <DependentUpon>FrmMask.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMix.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,12 +110,6 @@
     </Compile>
     <Compile Include="FrmPackPrint.Designer.cs">
       <DependentUpon>FrmPackPrint.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmPack.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmPack.Designer.cs">
-      <DependentUpon>FrmPack.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmScrapRollsDialog.cs">
       <SubType>Form</SubType>
@@ -153,12 +141,6 @@
     <Compile Include="FrmShipScan.Designer.cs">
       <DependentUpon>FrmShipScan.cs</DependentUpon>
     </Compile>
-    <Compile Include="SelectOrderDialog_old.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SelectOrderDialog_old.Designer.cs">
-      <DependentUpon>SelectOrderDialog_old.cs</DependentUpon>
-    </Compile>
     <Compile Include="SelectOrderDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,26 +156,20 @@
     <EmbeddedResource Include="FrmAdjustResmix.resx">
       <DependentUpon>FrmAdjustResmix.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCreateRollLabels.resx">
-      <DependentUpon>FrmCreateRollLabels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmCreateRolls.resx">
-      <DependentUpon>FrmCreateRolls.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBoxScrap.resx">
       <DependentUpon>FrmBoxScrap.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmMask.resx">
+      <DependentUpon>FrmMask.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMix.resx">
       <DependentUpon>FrmMix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPackPrint.resx">
       <DependentUpon>FrmPackPrint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmPack.resx">
-      <DependentUpon>FrmPack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmScrapRollsDialog.resx">
       <DependentUpon>FrmScrapRollsDialog.cs</DependentUpon>
@@ -209,9 +185,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmShipScan.resx">
       <DependentUpon>FrmShipScan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectOrderDialog_old.resx">
-      <DependentUpon>SelectOrderDialog_old.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectOrderDialog.resx">
       <DependentUpon>SelectOrderDialog.cs</DependentUpon>

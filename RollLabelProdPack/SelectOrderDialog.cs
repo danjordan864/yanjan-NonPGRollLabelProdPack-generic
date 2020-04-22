@@ -22,11 +22,11 @@ namespace RollLabelProdPack
             InitializeComponent();
         }
 
-        public void SetDataSource(int itemGroup)
+        public void SetDataSource(string itemGroupFilter)
         {
             try
             {
-                var so = AppData.GetOpenProdOrders(itemGroup);
+                var so = AppData.GetOpenProdOrders(itemGroupFilter);
                 if (!so.SuccessFlag) throw new ApplicationException("Error getting Production Orders. " + so.ServiceException);
                 _orders = so.ReturnValue as List<RollLabelData>;
                 var prodLines = _orders.Where(o => o.ProductionLine != null).Select(o => new { o.ProductionLine, o.ProductionMachineNo }).Distinct().OrderBy(o => o.ProductionLine).ToList();

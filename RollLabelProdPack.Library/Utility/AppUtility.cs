@@ -340,6 +340,40 @@ namespace RollLabelProdPack.Library.Utility
             try { return ConfigurationManager.AppSettings["SAPPASS_MIXLINE3"]; }
             catch { return ""; }
         }
+        public static string GetSAPUserMaskLine1()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_MASKLINE1"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassMaskLine1()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_MASKLINE1"]; }
+            catch { return ""; }
+        }
+        public static string GetSAPUserMaskLine2()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_MASKLINE2"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassMaskLine2()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_MASKLINE2"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPUserMaskLine3()
+        {
+            try { return ConfigurationManager.AppSettings["SAPUSER_MASKLINE3"]; }
+            catch { return ""; }
+        }
+
+        public static string GetSAPPassMaskLine3()
+        {
+            try { return ConfigurationManager.AppSettings["SAPPASS_MASKLINE3"]; }
+            catch { return ""; }
+        }
         /// <summary></summary>
         public static string GetSAPLicenseServer()
         {
@@ -411,6 +445,26 @@ namespace RollLabelProdPack.Library.Utility
                     break;
                 case "D":
                     userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMixLine3(), GetSAPPassMixLine3());
+                    break;
+                default:
+                    break;
+            }
+            return userNameAndPW;
+        }
+
+        public static KeyValuePair<string, string> GetUserNameAndPasswordMask(string machineNo)
+        {
+            KeyValuePair<string, string> userNameAndPW = new KeyValuePair<string, string>(GetSAPUser(), GetSAPPassword());
+            switch (machineNo)
+            {
+                case "M1":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMaskLine1(), GetSAPPassMaskLine1());
+                    break;
+                case "M2":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMaskLine2(), GetSAPPassMaskLine2());
+                    break;
+                case "M3":
+                    userNameAndPW = new KeyValuePair<string, string>(GetSAPUserMaskLine3(), GetSAPPassMaskLine3());
                     break;
                 default:
                     break;
@@ -534,6 +588,11 @@ namespace RollLabelProdPack.Library.Utility
         public static string GetSupplierId()
         {
             return ConfigurationManager.AppSettings["SupplierId"];
+        }
+
+        public static string GetMaskUOMLabel()
+        {
+            return ConfigurationManager.AppSettings["MaskUOMLabel"];
         }
         public static string GetYanJanProdMo(DateTime orderStartDate)
         {

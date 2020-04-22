@@ -25,17 +25,9 @@ namespace RollLabelProdPack
             {
                 Application.Run(new FrmMix());
             }
-            else if(args.Length > 0 && args[0] != null && args[0] == "oldpack")
+            else if (args.Length > 0 && args[0] != null && args[0] == "mask")
             {
-                Application.Run(new FrmPack());
-            }
-            else if (args.Length > 0 && args[0] != null && args[0] == "oldrolls")
-            {
-                Application.Run(new FrmCreateRolls());
-            }
-            else if (args.Length > 0 && args[0] != null && args[0] == "manual")
-            {
-                Application.Run(new FrmCreateRollLabels());
+                Application.Run(new FrmMask());
             }
             else
             {

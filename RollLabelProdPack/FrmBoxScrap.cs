@@ -57,7 +57,7 @@ namespace RollLabelProdPack
         {
             using (SelectOrderDialog frmSignInDialog = new SelectOrderDialog())
             {
-                frmSignInDialog.SetDataSource(104); //pass in item group 103 = resmix, 104=formedfilm
+                frmSignInDialog.SetDataSource("FF"); //pass in item itemGroup fileter = FF, MIX, MASK
                 DialogResult dr = frmSignInDialog.ShowDialog();
                 if (dr == DialogResult.OK)
                 {

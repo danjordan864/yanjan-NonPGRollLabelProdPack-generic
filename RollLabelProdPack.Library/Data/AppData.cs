@@ -71,7 +71,7 @@ namespace RollLabelProdPack.Library.Data
             }
             return serviceOutput;
         }
-        public static ServiceOutput GetOpenProdOrders(int itemGroup)
+        public static ServiceOutput GetOpenProdOrders(string itemGroupFilter)
         {
             var serviceOutput = new ServiceOutput();
             var databaseConnection =AppUtility.GetSAPConnectionString();
@@ -84,7 +84,7 @@ namespace RollLabelProdPack.Library.Data
                     cnx.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandTimeout = commandTimeOut;
-                    cmd.Parameters.AddWithValue("@itemGroupFilter", itemGroup);
+                    cmd.Parameters.AddWithValue("@itemGroupFilter", itemGroupFilter);
                     serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
                     IList<RollLabelData> openProdOrders = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
                    new RollLabelData
@@ -507,7 +507,7 @@ namespace RollLabelProdPack.Library.Data
             }
             return serviceOutput;
         }
-        public static ServiceOutput GetLastResmixProductionRun(int orderNo)
+        public static ServiceOutput GetLastProductionRun(int orderNo)
         {
             var serviceOutput = new ServiceOutput();
             var databaseConnection = AppUtility.GetSAPConnectionString();

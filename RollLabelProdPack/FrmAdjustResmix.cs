@@ -57,7 +57,7 @@ namespace RollLabelProdPack
                 cboCurrentBatch.DataSource = null;
                 _noAdjustmentRequired = false;
                 
-                frmSignInDialog.SetDataSource(104); //pass in item group 103 = resmix, 104=formedfilm
+                frmSignInDialog.SetDataSource("MIX"); //pass in item group 103 = resmix, 104=formedfilm
                 DialogResult dr = frmSignInDialog.ShowDialog();
                 if (dr == DialogResult.OK)
                 {
