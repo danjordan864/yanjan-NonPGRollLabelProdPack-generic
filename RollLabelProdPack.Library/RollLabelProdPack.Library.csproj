@@ -69,8 +69,10 @@
   <ItemGroup>
     <Compile Include="Email\EmailAttachment.cs" />
     <Compile Include="Email\EmailItem.cs" />
+    <Compile Include="Entities\TubPalletLabel.cs" />
     <Compile Include="Entities\PackLabel.cs" />
     <Compile Include="Entities\ProductionLine.cs" />
+    <Compile Include="Entities\Case.cs" />
     <Compile Include="ProdumexFilterTest.cs" />
     <Compile Include="Data\AppData.cs" />
     <Compile Include="Data\ServiceOutput.cs" />

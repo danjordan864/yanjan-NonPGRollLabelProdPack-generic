@@ -68,7 +68,7 @@ namespace RollLabelProdPack
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
             _prodRun = (int)so.ReturnValue;
             _prodRun += 1;
-            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
+            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}";
         }
 
 
@@ -82,7 +82,7 @@ namespace RollLabelProdPack
             if (string.IsNullOrEmpty(txtNoOfMasks.Text) || txtNoOfMasks.Text == "0" || string.IsNullOrEmpty(txtBatch.Text))
             {
                 btnProduce.Enabled = false;
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input Mix weight.");
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input Units to Produce.");
                 return;
             }
             else
@@ -140,10 +140,10 @@ namespace RollLabelProdPack
                     if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
                     _prodRun = (int)so.ReturnValue;
                     _prodRun += 1;
-                    txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString()}";
+                    txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}";
                 }
             }
-            DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Resmix Produced", $"#{txtNoOfMasks.Text} kgs. produced. Order: {txtOrderNo.Text}");
+            DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Units Produced", $"#{txtNoOfMasks.Text} produced. Order: {txtOrderNo.Text}");
         }
 
         private void lnkPlannedIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -182,7 +182,7 @@ namespace RollLabelProdPack
            
                 var labelPrintLoc = AppUtility.GetBTTriggerLoc();
                 var labelPrintExtension = AppUtility.GetLabelPrintExtension();
-                var fileNameRollLabels = Path.Combine(labelPrintLoc, "ResMixLabel" + labelPrintExtension);
+                var fileNameRollLabels = Path.Combine(labelPrintLoc, "MaskLabel" + labelPrintExtension);
                 var formatFilePathResmixLabel = AppUtility.GetPGDefaultResmixLabelFormat();
 
                 var sbMixLabel = new StringBuilder(5000);
@@ -199,7 +199,7 @@ namespace RollLabelProdPack
                 {
                     sw.Write(sbMixLabel.ToString());
                 }
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "ResMix label printed. Please check printer.");
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "Mask label printed. Please check printer.");
         }
         public void DisplayToastNotification(ToastNotificationType type, string title, string text, int timeOut = 4000)
         {

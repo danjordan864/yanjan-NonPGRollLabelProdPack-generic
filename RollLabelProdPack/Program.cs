@@ -21,6 +21,10 @@ namespace RollLabelProdPack
             {
                 Application.Run(new FrmPackPrint());
             }
+            else if (args.Length > 0 && args[0] != null && args[0] == "tubpack")
+            {
+                Application.Run(new FrmTubPackPrint());
+            }
             else if (args.Length > 0 && args[0] != null && args[0] == "mix")
             {
                 Application.Run(new FrmMix());
@@ -28,6 +32,10 @@ namespace RollLabelProdPack
             else if (args.Length > 0 && args[0] != null && args[0] == "mask")
             {
                 Application.Run(new FrmMask());
+            }
+            else if (args.Length > 0 && args[0] != null && args[0] == "tub")
+            {
+                Application.Run(new FrmTub());
             }
             else
             {

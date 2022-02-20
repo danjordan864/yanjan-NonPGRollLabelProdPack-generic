@@ -276,6 +276,97 @@ namespace RollLabelProdPack.Library.Data
             }
             return serviceOutput;
         }
+
+        public static ServiceOutput GetTubPalletLabels(bool isReprint, string order = null)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var noOfCopies = Convert.ToInt32(AppUtility.GetDefaultPackCopies());
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getTubPalletLabels", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@rePrint", isReprint ? 1 : 0);
+                    cmd.Parameters.AddWithValue("@order", order);
+                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
+                    IList<TubPalletLabel> tubPalletLabels = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
+                   new TubPalletLabel
+                   {
+                       ID = row.Field<int>("ID"),
+                       PMXSSCC = row.Field<string>("PMXSSCC"),
+                       ItemCode = row.Field<string>("ItemCode"),
+                       ItemName = row.Field<string>("ItemName"),
+                       IRMS = row.Field<string>("IRMS"),
+                       YJNOrder = row.Field<string>("YJNOrder"),
+                       SSCC = row.Field<string>("SSCC"),
+                       SAPOrder = row.Field<int>("SAPOrder"),
+                       LotNo = $"YJWR{row.Field<string>("YJNOrder")}",
+                       PalletType = "NONE",
+                       Printed = row.Field<string>("Printed") == "Y" ? true : false,
+                       Created = ConvertSAPDateAndTime(row["DateCreated"], row["TimeCreated"]),
+                       ProductionDate = row.Field<DateTime>("ProductionDate"),
+                       Qty = row.Field<decimal>("Qty"),
+                       MaxCasesPerPack = row.Field<int>("MaxCasesPerPack"),
+                       Copies = noOfCopies,
+                       Employee = ""
+
+                   }).ToList();
+                    serviceOutput.ReturnValue = tubPalletLabels;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+        }
+
+        public static ServiceOutput GetTubPalletLabelCases(int packLabelId)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getTubPalletLabelCases", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@packLabelId", packLabelId);
+                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
+                    IList<Case> cases = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
+                   new Case
+                   {
+                       CaseNo = row.Field<string>("CaseNo"),
+                       ItemCode = row.Field<string>("ItemCode"),
+                       ItemName = row.Field<string>("ItemName"),
+                       IRMS = row.Field<string>("IRMS"),
+                       SSCC = row.Field<string>("SSCC"),
+                       YJNOrder = row.Field<string>("YJNOrderNo"),
+                       Units = row.Field<decimal>("Units")
+                   }).ToList();
+                    serviceOutput.ReturnValue = cases;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+        }
         public static ServiceOutput GetRollsForOrder(string yjnOrderNo)
         {
             var serviceOutput = new ServiceOutput();

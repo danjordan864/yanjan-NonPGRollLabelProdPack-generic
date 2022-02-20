@@ -99,6 +99,24 @@
     <Compile Include="FrmMask.designer.cs">
       <DependentUpon>FrmMask.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCasesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCasesDialog.Designer.cs">
+      <DependentUpon>FrmCasesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTubPackPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTubPackPrint.Designer.cs">
+      <DependentUpon>FrmTubPackPrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTub.Designer.cs">
+      <DependentUpon>FrmTub.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMix.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +173,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmAdjustResmix.resx">
       <DependentUpon>FrmAdjustResmix.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -164,6 +183,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMask.resx">
       <DependentUpon>FrmMask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCasesDialog.resx">
+      <DependentUpon>FrmCasesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTubPackPrint.resx">
+      <DependentUpon>FrmTubPackPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTub.resx">
+      <DependentUpon>FrmTub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMix.resx">
       <DependentUpon>FrmMix.cs</DependentUpon>

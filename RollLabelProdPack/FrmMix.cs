@@ -295,7 +295,7 @@ namespace RollLabelProdPack
                     return;
                 }
                 var lineNo = _prodLines.Where(p => p.Code == cboToLine.Text).Select(p => p.LineNo).FirstOrDefault();
-                txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{lineNo}{_prodRun.ToString()}";
+                txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{lineNo}{_prodRun.ToString("000")}";
                 txtWeightKgs.Enabled = true;
             }
             else
@@ -304,5 +304,6 @@ namespace RollLabelProdPack
             }
 
         }
+
     }
 }

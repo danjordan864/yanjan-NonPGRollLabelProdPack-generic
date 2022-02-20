@@ -10,3 +10,14 @@ C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Librar
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\bin\Release\RollLabelProdPack.Library.pdb
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.dll
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\bin\Release\RollLabelProdPack.Library.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\bin\Release\RollLabelProdPack.Library.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.csprojResolveAssemblyReference.cache
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\bin\Release\RollLabelProdPack.Library.dll
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\bin\Release\RollLabelProdPack.Library.pdb
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.csprojAssemblyReference.cache
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.csproj.CoreCompileInputs.cache
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.dll
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Release\RollLabelProdPack.Library.pdb

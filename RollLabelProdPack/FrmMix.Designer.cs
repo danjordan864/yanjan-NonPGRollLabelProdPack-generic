@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.formsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reprintToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSelect = new System.Windows.Forms.Button();
             this.txtWeightKgs = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,35 +49,17 @@
             this.lnkPlannedIssues = new System.Windows.Forms.LinkLabel();
             this.txtBatch = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cboToLine = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
+            this.cboToLine = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.formsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(808, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(808, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // formsToolStripMenuItem
-            // 
-            this.formsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reprintToolStripMenuItem});
-            this.formsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.formsToolStripMenuItem.Name = "formsToolStripMenuItem";
-            this.formsToolStripMenuItem.Size = new System.Drawing.Size(66, 25);
-            this.formsToolStripMenuItem.Text = "Forms";
-            // 
-            // reprintToolStripMenuItem
-            // 
-            this.reprintToolStripMenuItem.Name = "reprintToolStripMenuItem";
-            this.reprintToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
-            this.reprintToolStripMenuItem.Text = "Reprint";
             // 
             // btnSelect
             // 
@@ -98,7 +78,7 @@
             // 
             this.txtWeightKgs.Enabled = false;
             this.txtWeightKgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWeightKgs.Location = new System.Drawing.Point(429, 30);
+            this.txtWeightKgs.Location = new System.Drawing.Point(436, 32);
             this.txtWeightKgs.Name = "txtWeightKgs";
             this.txtWeightKgs.Size = new System.Drawing.Size(115, 26);
             this.txtWeightKgs.TabIndex = 53;
@@ -296,27 +276,27 @@
             this.label2.TabIndex = 112;
             this.label2.Text = "Batch";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(159, 36);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 20);
+            this.label6.TabIndex = 116;
+            this.label6.Text = "To Line";
+            // 
             // cboToLine
             // 
             this.cboToLine.Enabled = false;
             this.cboToLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboToLine.FormattingEnabled = true;
-            this.cboToLine.Location = new System.Drawing.Point(227, 30);
+            this.cboToLine.Location = new System.Drawing.Point(227, 33);
             this.cboToLine.Name = "cboToLine";
             this.cboToLine.Size = new System.Drawing.Size(142, 28);
-            this.cboToLine.TabIndex = 113;
+            this.cboToLine.TabIndex = 115;
             this.cboToLine.SelectedIndexChanged += new System.EventHandler(this.cboToLine_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(159, 33);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 20);
-            this.label6.TabIndex = 114;
-            this.label6.Text = "To Line";
             // 
             // FrmMix
             // 
@@ -350,8 +330,6 @@
             this.Name = "FrmMix";
             this.Text = "Resmix Production";
             this.Load += new System.EventHandler(this.FrmMix_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,8 +338,6 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem formsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reprintToolStripMenuItem;
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.TextBox txtWeightKgs;
         private System.Windows.Forms.Label label4;
@@ -382,7 +358,7 @@
         private System.Windows.Forms.LinkLabel lnkPlannedIssues;
         private System.Windows.Forms.TextBox txtBatch;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cboToLine;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cboToLine;
     }
 }

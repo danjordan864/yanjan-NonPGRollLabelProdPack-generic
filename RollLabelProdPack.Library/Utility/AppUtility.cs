@@ -549,9 +549,12 @@ namespace RollLabelProdPack.Library.Utility
         }
         public static string GetPackPrinterName()
         {
+            return ConfigurationManager.AppSettings["TubPalletPrinterName"];
+        }
+        public static string GetTubPalletPrinterName()
+        {
             return ConfigurationManager.AppSettings["PackPrinterName"];
         }
-
         public static string GetLabelPrintExtension()
         {
             return ConfigurationManager.AppSettings["LabelPrintExtension"];
@@ -579,6 +582,11 @@ namespace RollLabelProdPack.Library.Utility
         public static string GetPGDefaultPackLabelFormat()
         {
             return ConfigurationManager.AppSettings["PGDefaultPackLabelFormat"];
+        }
+
+        public static string GetPGDefaultTubPalletLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefaultTubPalletLabelFormat"];
         }
 
         public static string GetPGDefaultPackLabelFormatOld()

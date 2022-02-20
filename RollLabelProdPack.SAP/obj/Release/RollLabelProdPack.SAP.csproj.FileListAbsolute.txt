@@ -16,3 +16,18 @@ C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\ob
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csproj.ResolveComReference.cache
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.dll
 C:\SynesisDev\Yanjan\Source Code\2015\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\bin\Release\RollLabelProdPack.SAP.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\bin\Release\RollLabelProdPack.SAP.pdb
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\Interop.SAPbobsCOM.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csproj.ResolveComReference.cache
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.pdb
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\bin\Release\RollLabelProdPack.SAP.dll
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\bin\Release\RollLabelProdPack.SAP.pdb
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csprojAssemblyReference.cache
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\Interop.SAPbobsCOM.dll
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csproj.ResolveComReference.cache
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.csproj.CoreCompileInputs.cache
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.dll
+\\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Release\RollLabelProdPack.SAP.pdb
