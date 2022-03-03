@@ -1,4 +1,5 @@
-﻿using SAPbobsCOM;
+﻿using log4net;
+using SAPbobsCOM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,17 +57,46 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             _line = line;
         }
 
+        private ILog _log;
+
         /// <summary>
         /// Links the wrapper class to a given SAP B1 document line object
         /// </summary>
         /// <param name="productionOrder">The SAP B1 document object that owns the line item.</param>
         /// <param name="itemCode">Line item code (item Primary key)</param>
+        /// 
         public InventoryReceiptLine(IDocuments receipt, int baseEntry, string itemCode,
             double quantity, int prodBatchNo, string storageLoc,
             string qualityStatus, string batchNo, int luid, string sscc, string uom,
             string lotNumber, bool isScrap, int scrapLine, string shift, string user,
-            string scrapReason = null, string scrapGLOffset = null)
+            string scrapReason = null, string scrapGLOffset = null, bool isAdjustment = false)
         {
+            // RDJ 20220228 - Added isAdjustment flag for bundle adjustments. These should not be linked
+            // to a production order and use default G/L accounts.
+            _log = LogManager.GetLogger(this.GetType());
+
+            if (_log.IsDebugEnabled)
+            {
+                _log.Debug($"baseEntry = {baseEntry}");
+                _log.Debug($"itemCode = {itemCode}");
+                _log.Debug($"quantity = {quantity}");
+                _log.Debug($"prodBatchNo = {prodBatchNo}");
+                _log.Debug($"storageLoc = {storageLoc}");
+                _log.Debug($"qualityStatus = {qualityStatus}");
+                _log.Debug($"batchNo = {batchNo}");
+                _log.Debug($"luid = {luid}");
+                _log.Debug($"sscc = {sscc}");
+                _log.Debug($"uom = {uom}");
+                _log.Debug($"lotNumber = {lotNumber}");
+                _log.Debug($"isScrap = {isScrap}");
+                _log.Debug($"scrapLine = {scrapLine}");
+                _log.Debug($"shift = {shift}");
+                _log.Debug($"user = {user}");
+                _log.Debug($"scrapReason = {scrapReason}");
+                _log.Debug($"scrapGLOffset = {scrapGLOffset}");
+                _log.Debug($"isAdjustment = {isAdjustment}");
+            }
+
             int index = -1;
             receipt.Lines.Quantity = quantity;
             if (scrapGLOffset == null)
@@ -87,7 +117,11 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             else
             {
                 receipt.Lines.BaseType = -1;
-                receipt.Lines.AccountCode = scrapGLOffset;
+                // RDJ 20220228 - If isAdjustment is true, don't set the scrap G/L offset account
+                if (!isAdjustment)
+                {
+                    receipt.Lines.AccountCode = scrapGLOffset;
+                }
                 receipt.Lines.ItemCode = itemCode;
             }
 

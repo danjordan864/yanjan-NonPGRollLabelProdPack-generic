@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPackPrint));
             this.olvBundles = new BrightIdeasSoftware.ObjectListView();
             this.olvColPackDesc = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvTotalWeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColPrint = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColAction = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvCopies = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -52,6 +53,7 @@
             // olvBundles
             // 
             this.olvBundles.AllColumns.Add(this.olvColPackDesc);
+            this.olvBundles.AllColumns.Add(this.olvTotalWeight);
             this.olvBundles.AllColumns.Add(this.olvColPrint);
             this.olvBundles.AllColumns.Add(this.olvColAction);
             this.olvBundles.AllColumns.Add(this.olvCopies);
@@ -59,9 +61,11 @@
             this.olvBundles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.olvBundles.CellEditActivation = BrightIdeasSoftware.ObjectListView.CellEditActivateMode.SingleClick;
             this.olvBundles.CellEditUseWholeCell = false;
             this.olvBundles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColPackDesc,
+            this.olvTotalWeight,
             this.olvColPrint,
             this.olvColAction,
             this.olvCopies,
@@ -82,7 +86,15 @@
             this.olvColPackDesc.AspectName = "Description";
             this.olvColPackDesc.Groupable = false;
             this.olvColPackDesc.Text = "Pack Label";
-            this.olvColPackDesc.Width = 400;
+            this.olvColPackDesc.Width = 324;
+            // 
+            // olvTotalWeight
+            // 
+            this.olvTotalWeight.AspectName = "TotalWeight";
+            this.olvTotalWeight.AspectToStringFormat = "{0:0.0}";
+            this.olvTotalWeight.Text = "Total Wt";
+            this.olvTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.olvTotalWeight.Width = 79;
             // 
             // olvColPrint
             // 
@@ -147,7 +159,7 @@
             this.lblMatchText.AutoSize = true;
             this.lblMatchText.Location = new System.Drawing.Point(368, 13);
             this.lblMatchText.Name = "lblMatchText";
-            this.lblMatchText.Size = new System.Drawing.Size(67, 15);
+            this.lblMatchText.Size = new System.Drawing.Size(61, 13);
             this.lblMatchText.TabIndex = 4;
             this.lblMatchText.Text = "Match Text";
             this.lblMatchText.Visible = false;
@@ -175,7 +187,7 @@
             this.lblOrder.AutoSize = true;
             this.lblOrder.Location = new System.Drawing.Point(110, 13);
             this.lblOrder.Name = "lblOrder";
-            this.lblOrder.Size = new System.Drawing.Size(38, 15);
+            this.lblOrder.Size = new System.Drawing.Size(33, 13);
             this.lblOrder.TabIndex = 1;
             this.lblOrder.Text = "Order";
             this.lblOrder.Visible = false;
@@ -185,7 +197,7 @@
             this.chkReprint.AutoSize = true;
             this.chkReprint.Location = new System.Drawing.Point(12, 12);
             this.chkReprint.Name = "chkReprint";
-            this.chkReprint.Size = new System.Drawing.Size(69, 19);
+            this.chkReprint.Size = new System.Drawing.Size(60, 17);
             this.chkReprint.TabIndex = 0;
             this.chkReprint.Text = "Reprint";
             this.chkReprint.UseVisualStyleBackColor = true;
@@ -225,5 +237,6 @@
         private System.Windows.Forms.TextBox txtMatch;
         private System.Windows.Forms.Label lblMatchText;
         private BrightIdeasSoftware.OLVColumn olvColEmployee;
+        private BrightIdeasSoftware.OLVColumn olvTotalWeight;
     }
 }

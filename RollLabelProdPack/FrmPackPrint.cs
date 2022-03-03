@@ -1,7 +1,10 @@
 ﻿using BrightIdeasSoftware;
+using log4net;
 using RollLabelProdPack.Library.Data;
 using RollLabelProdPack.Library.Entities;
 using RollLabelProdPack.Library.Utility;
+using RollLabelProdPack.SAP.B1;
+using RollLabelProdPack.SAP.B1.DocumentObjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,10 +23,13 @@ namespace RollLabelProdPack
     public partial class FrmPackPrint : Form
     {
         FloatingHTML m_htmlToast = new FloatingHTML();
+        private ILog _log;
+
         public FrmPackPrint()
         {
             InitializeComponent();
             //timer1.Start();
+            _log = LogManager.GetLogger(this.GetType());
         }
 
         private void FrmPackPrint_Load(object sender, EventArgs e)
@@ -36,16 +42,33 @@ namespace RollLabelProdPack
             olvBundles.UseHotItem = false;
             olvBundles.CellEditActivation = ObjectListView.CellEditActivateMode.SingleClick;
             olvBundles.CellEditStarting += OlvBundlesOnCellEditStarting;
+            olvBundles.CellEditFinishing += OlvBundlesOnCellEditFinishing;
             olvBundles.SmallImageList = ilPackPrint;
+            olvTotalWeight.AspectPutter = delegate (object obj, object newValue) { ((PackLabel)obj).TotalWeight = decimal.Parse(newValue.ToString()); };
             
             olvColPrint.IsEditable = true;
-           
+            olvTotalWeight.IsEditable = true;
 
-           
             SetupShowRollsHyperLinkColumn();
             SetupPrintButton();
-            
+
             LoadPackLabels(false);
+        }
+
+        private void OlvBundlesOnCellEditFinishing(object sender, CellEditEventArgs e)
+        {
+            if (e.Column.AspectName == "TotalWeight")
+            {
+                decimal newTotalWeightValue = 0m;
+                if (!decimal.TryParse(e.NewValue.ToString(), out newTotalWeightValue))
+                {
+                    e.Cancel = true;
+                }
+                if (newTotalWeightValue < 0)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         private void SetupPrintButton()
@@ -53,7 +76,8 @@ namespace RollLabelProdPack
             //olvColPrint.AspectGetter = delegate {
             //    return "Print";
             //};
-            olvColPrint.ImageGetter = delegate (object rowObject) {
+            olvColPrint.ImageGetter = delegate (object rowObject)
+            {
                 if (rowObject is PackLabel)
                 {
                     var packLabel = rowObject as PackLabel;
@@ -81,28 +105,32 @@ namespace RollLabelProdPack
             //timer1.Stop();
             try
             {
-                var so = AppData.GetPackLabels(isReprint,order);
+                var so = AppData.GetPackLabels(isReprint, order);
                 if (!so.SuccessFlag) throw new ApplicationException($"Error getting pack labels. Error:{so.ServiceException}");
                 var packLabels = so.ReturnValue as List<PackLabel>;
                 foreach (var packLabel in packLabels)
                 {
+                    packLabel.PropertyChanged += PackLabel_PropertyChanged;
                     packLabel.Description = $"Created: {packLabel.Created.ToString("g")}\r\n{packLabel.ItemCode} - {packLabel.Description} Kgs: {packLabel.Qty.ToString("#.##")}\r\nSSCC: {packLabel.SSCC}";
                     so = AppData.GetPackLabelRolls(packLabel.ID);
                     if (!so.SuccessFlag) throw new ApplicationException($"Error getting pack label Rolls. Error:{so.ServiceException}");
                     packLabel.Rolls = so.ReturnValue as List<Roll>;
+                    packLabel.TotalWeight = packLabel.Rolls.Sum(t => t.Kgs);
+
                     //validate pack
                     if (packLabel.Rolls.Count() > packLabel.MaxRollsPerPack)
                     {
                         packLabel.ValidMessage = $"Rolls in pack: {packLabel.Rolls.Count().ToString()} exceeded maximum allowed rolls per pack: {packLabel.MaxRollsPerPack.ToString()} for this item.\r\n";
                     }
-                    if (packLabel.Rolls.Select(r =>r.ItemCode).Distinct().Count()>1)
+                    if (packLabel.Rolls.Select(r => r.ItemCode).Distinct().Count() > 1)
                     {
                         packLabel.ValidMessage += "Cannot combine different Items in a Pack.\r\n";
                     }
-                    if (packLabel.Rolls.Select(r=>r.YJNOrder).Distinct().Count() > 1)
+                    if (packLabel.Rolls.Select(r => r.YJNOrder).Distinct().Count() > 1)
                     {
                         packLabel.ValidMessage += "Cannot combine different Lots in a Pack.\r\n";
                     }
+
                     if (string.IsNullOrEmpty(packLabel.ValidMessage))
                     {
                         packLabel.Valid = true;
@@ -111,6 +139,7 @@ namespace RollLabelProdPack
                     {
                         packLabel.Valid = false;
                     }
+
                 }
                 olvBundles.Objects = null;
                 olvBundles.SetObjects(packLabels);
@@ -124,8 +153,133 @@ namespace RollLabelProdPack
             {
                 //timer1.Start();
             }
-            
+
         }
+
+        private void PackLabel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PackLabel packLabel = (PackLabel)sender;
+            if (e.PropertyName == "TotalWeight")
+            {
+                var totalAdjustment = packLabel.TotalWeight - packLabel.Qty;
+                foreach (Roll roll in packLabel.Rolls)
+                {
+                    var adjustAmt = Math.Round(totalAdjustment / packLabel.Rolls.Count, 5);
+                    roll.AdjustKgs = adjustAmt;
+                }
+            }
+        }
+
+        private void AdjustRollQuantities(PackLabel packLabel)
+        {
+            try
+            {
+                var user = AppUtility.GetSAPUser();
+                var password = AppUtility.GetSAPPassword();
+                using (SAPB1 sapB1 = new SAPB1(user, password))
+                {
+                    var scrapLocCode = AppUtility.GetScrapLocCode();
+                    var scrapGLOffset = AppUtility.GetScrapOffsetCode();
+                    var shift = "D";
+                    var scrapsAdded = false;
+                    var receiptsAdded = false;
+
+                    using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
+                    {
+                        int luid = 0;
+                        foreach (var roll in packLabel.Rolls)
+                        {
+                            if (roll.AdjustKgs < 0m)
+                            {
+                                roll.ScrapReason = "Bundle weight adjustment";
+                                if (string.IsNullOrEmpty(roll.StorLocCode))
+                                {
+                                    roll.StorLocCode = "BUNDLE";
+                                }
+                                _log.Debug("About to call AppData.GetLUIDForSSCC:");
+                                _log.Debug($"    roll.SSCC = {roll.SSCC}");
+                                var so = AppData.GetLUIDForSSCC(roll.SSCC);
+                                _log.Debug($"    so.SuccessFlag = {so.SuccessFlag}");
+                                if (so.SuccessFlag)
+                                {
+                                    _log.Debug($"    so.ReturnValue = {so.ReturnValue}");
+                                    if (so.ReturnValue is int)
+                                    {
+                                        luid = (int)so.ReturnValue;
+                                    }
+                                }
+                                else
+                                {
+                                    _log.Debug($"    so.ServiceException = {so.ServiceException}");
+                                }
+                                roll.LUID = luid;
+                                invIssue.AddScrapIssueLine(roll.ItemCode, Convert.ToDouble(roll.AdjustKgs * -1m), roll.StorLocCode, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, roll.YJNOrder, scrapGLOffset, roll.ScrapReason, shift);
+                                roll.ScrapReason = string.Empty;
+                                roll.Kgs += roll.AdjustKgs;
+                                roll.AdjustKgs = 0m;
+                                scrapsAdded = true;
+                            }
+                        }
+                        if (scrapsAdded)
+                        {
+                            if (invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
+                        }
+                    }
+
+                    using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
+                    {
+                        int line = 0;
+                        int luid = 0;
+                        foreach (var roll in packLabel.Rolls)
+                        {
+                            if (roll.AdjustKgs > 0m)
+                            {
+                                roll.ScrapReason = "Bundle weight adjustment";
+                                if (string.IsNullOrEmpty(roll.StorLocCode))
+                                {
+                                    roll.StorLocCode = "BUNDLE";
+                                }
+                                scrapGLOffset = string.Empty;
+                                _log.Debug("About to call AppData.GetLUIDForSSCC:");
+                                _log.Debug($"    roll.SSCC = {roll.SSCC}");
+                                var so = AppData.GetLUIDForSSCC(roll.SSCC);
+                                _log.Debug($"    so.SuccessFlag = {so.SuccessFlag}");
+                                if (so.SuccessFlag)
+                                {
+                                    _log.Debug($"    so.ReturnValue = {so.ReturnValue}");
+                                    if (so.ReturnValue is int)
+                                    {
+                                        luid = (int)so.ReturnValue;
+                                    }
+                                }
+                                else
+                                {
+                                    _log.Debug($"    so.ServiceException = {so.ServiceException}");
+                                }
+                                roll.LUID = luid;
+                                invReceipt.AddLine(0, roll.ItemCode, Convert.ToDouble(roll.AdjustKgs), roll.RollNo.Last(), roll.StorLocCode, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", packLabel.YJNOrder, false, line++, shift, "Pack", roll.ScrapReason, scrapGLOffset, true);
+                                roll.ScrapReason = string.Empty;
+                                roll.Kgs += roll.AdjustKgs;
+                                roll.AdjustKgs = 0m;
+                                receiptsAdded = true;
+                            }
+                        }
+                        if (receiptsAdded)
+                        {
+                            if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
+                        }
+                    }
+
+                }
+                packLabel.Qty = packLabel.TotalWeight;
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex.Message, ex);
+                throw ex;
+            }
+        }
+
         private void SetupDescribedTaskColumn()
         {
             // Setup a described task renderer, which draws a large icon
@@ -144,7 +298,8 @@ namespace RollLabelProdPack
             // Tell the column which property holds the identifier for the image for row.
             // We could also have installed an ImageGetter
             //this.olvColPackDesc.ImageAspectName = "ValidImage";
-            olvColPackDesc.ImageGetter = delegate (object rowObject) {
+            olvColPackDesc.ImageGetter = delegate (object rowObject)
+            {
                 if (rowObject is PackLabel)
                 {
                     var packLabel = rowObject as PackLabel;
@@ -206,16 +361,26 @@ namespace RollLabelProdPack
                     var packLabel = e.RowObject as PackLabel;
                     if (packLabel != null && packLabel.Valid)
                     {
-                        PrintPackLabel(packLabel);
-                    }
+                        try
+                        {
+                            Cursor = Cursors.WaitCursor;
+                            AdjustRollQuantities(packLabel);
+                            PrintPackLabel(packLabel);
+                            LoadPackLabels(chkReprint.Checked, txtOrder.Text);
+                        }
+                        finally
+                        {
+                            Cursor = Cursors.Arrow;
+                        }                    }
                 }
             }
-             catch (Exception ex)
+            catch (Exception ex)
             {
+                _log.Error(ex.Message, ex);
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Print Pack Labels", $"Exception has occurred in {AppUtility.GetLoggingText()} Load Pack Labels.\n\n{ex.Message}");
                 AppUtility.WriteToEventLog($"Exception has occurred in {AppUtility.GetLoggingText()} Print Pack Label.\n\n{ex.Message}", EventLogEntryType.Error, true);
             }
-      
+
         }
 
         private void SetupShowRollsHyperLinkColumn()
@@ -285,7 +450,7 @@ namespace RollLabelProdPack
                     DialogResult dr = frmRolls.ShowDialog();
                 }
             }
-               
+
         }
 
         private void PrintPackLabel(PackLabel packLabel)
@@ -307,7 +472,7 @@ namespace RollLabelProdPack
             for (int i = 0; i < packLabel.Copies; i++)
             {
                 sb.AppendFormat("{0},{1},{2},{3},{4}", packLabel.ItemCode, packLabel.ProductionDate.ToShortDateString(), packLabel.ItemName, packLabel.YJNOrder, packLabel.IRMS);
-                sb.AppendFormat(",{0},{1},{2},{3}", qty,packLabel.LotNo,packLabel.SSCC,packLabel.PMXSSCC);
+                sb.AppendFormat(",{0},{1},{2},{3}", qty, packLabel.LotNo, packLabel.SSCC, packLabel.PMXSSCC);
                 sb.AppendLine();
             }
             using (StreamWriter sw = File.CreateText(fileNamePackLabel))
@@ -320,7 +485,7 @@ namespace RollLabelProdPack
 
         private void chkReprint_CheckedChanged(object sender, EventArgs e)
         {
-            EnableReprint(chkReprint.Checked);        
+            EnableReprint(chkReprint.Checked);
         }
 
         private void EnableReprint(bool enable)
@@ -341,7 +506,7 @@ namespace RollLabelProdPack
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadPackLabels(chkReprint.Checked,txtOrder.Text);
+            LoadPackLabels(chkReprint.Checked, txtOrder.Text);
         }
 
         private void RebuildFilters()

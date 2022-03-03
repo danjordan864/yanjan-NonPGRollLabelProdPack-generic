@@ -26,6 +26,7 @@ namespace RollLabelProdPack.Library.Entities
         public string StorLocCode { get; set; }
         public string QualityStatus { get; set; }
         public string UOM { get; set; }
+        public decimal AdjustKgs { get; set; }
 
     }
 }

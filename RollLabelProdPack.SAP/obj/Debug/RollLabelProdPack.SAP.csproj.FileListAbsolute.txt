@@ -32,3 +32,5 @@ C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabel
 \\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabelProdPack.SAP.dll
 \\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabelProdPack.SAP.pdb
 C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\obj\Debug\RollLabelProdPack.SAP.csprojResolveAssemblyReference.cache
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\bin\Debug\log4net.dll
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.SAP\bin\Debug\log4net.xml

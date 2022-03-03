@@ -907,5 +907,33 @@ namespace RollLabelProdPack.Library.Data
 
 
         }
+
+        public static ServiceOutput GetLUIDForSSCC(string sscc)
+        {
+            ServiceOutput so = new ServiceOutput();
+            try
+            {
+                var databaseConnection = AppUtility.GetSAPConnectionString();
+                var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                {
+                    cnx.Open();
+                    using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 LUID FROM PMX_INVENTORY_REPORT_DETAIL WHERE SSCC = @sscc", cnx))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@sscc", sscc);
+                        so.ReturnValue = cmd.ExecuteScalar();
+                        so.SuccessFlag = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                so.SuccessFlag = false;
+                so.ServiceException = ex.Message;
+            }
+
+            return so;
+        }
     }
 }

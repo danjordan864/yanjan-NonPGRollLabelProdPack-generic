@@ -1,4 +1,5 @@
-﻿using SAPbobsCOM;
+﻿using log4net;
+using SAPbobsCOM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,13 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// <summary></summary>
         private bool _isNew = true;
 
+        private ILog _log;
+
         public InventoryReceipt(Company sapCompany)
         {
             _sapCompany = sapCompany;
             _receipt = (SAPbobsCOM.IDocuments)_sapCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
+            _log = LogManager.GetLogger(this.GetType());
         }
         #endregion Variables
 
@@ -77,9 +81,9 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         }
 
         public void AddLine(int baseEntry, string itemCode, double quantity, int prodBatchNo, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber,bool isScrap, int scrapLine,
-            string shift, string user, string scrapReason = null, string scrapGLOffset = null)
+            string shift, string user, string scrapReason = null, string scrapGLOffset = null, bool isAdjustment = false)
         {
-            _receiptLines.Add(new InventoryReceiptLine(_receipt, baseEntry, itemCode, quantity, prodBatchNo,  storageLoc, qualityStatus, batchNo, luid, sscc, uom, lotNumber,isScrap,scrapLine,shift,user,scrapReason,scrapGLOffset));
+            _receiptLines.Add(new InventoryReceiptLine(_receipt, baseEntry, itemCode, quantity, prodBatchNo,  storageLoc, qualityStatus, batchNo, luid, sscc, uom, lotNumber,isScrap,scrapLine,shift,user,scrapReason,scrapGLOffset,isAdjustment));
         }
 
         public BoObjectTypes SAPObjectType
@@ -126,6 +130,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         public bool Save()
         {
             int returnCode;
+            _log.Debug($"In Save: _receipt.DocNum = {_receipt.DocNum}");
             if (_receipt.DocNum == 0)
             {
                 returnCode = _receipt.Add();

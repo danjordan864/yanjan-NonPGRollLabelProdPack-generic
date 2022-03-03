@@ -1,4 +1,5 @@
-﻿using SAPbobsCOM;
+﻿using log4net;
+using SAPbobsCOM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
         /// <summary></summary>
          Document_Lines _line = null;
+
+        ILog _log = null;
 
         #endregion
 
@@ -47,11 +50,16 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
         #region constructors
 
+        public InventoryIssueLine()
+        {
+            _log = LogManager.GetLogger(this.GetType());
+        }
+
         /// <summary>
         /// Links the wrapper class to a given SAP B1 document line object
         /// </summary>
         /// <param name="line"></param>
-        public InventoryIssueLine(Document_Lines line)
+        public InventoryIssueLine(Document_Lines line) : this()
         {
             _line = line;
         }
@@ -62,7 +70,24 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// <param name="productionOrder">The SAP B1 document object that owns the line item.</param>
         /// <param name="itemCode">Line item code (item Primary key)</param>
         public InventoryIssueLine(IDocuments issue, int baseEntry, int baseLine, string itemCode, double quantity,  string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber)
+            : this()
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.Debug("In InventoryIssueLine - first constructor");
+                _log.Debug($"baseEntry = {baseEntry}");
+                _log.Debug($"baseLine = {baseLine}");
+                _log.Debug($"itemCode = {itemCode}");
+                _log.Debug($"quantity = {quantity}");
+                _log.Debug($"storageLoc = {storageLoc}");
+                _log.Debug($"qualityStatus = {qualityStatus}");
+                _log.Debug($"batchNo = {batchNo}");
+                _log.Debug($"luid = {luid}");
+                _log.Debug($"sscc = {sscc}");
+                _log.Debug($"uom = {uom}");
+                _log.Debug($"lotNumber = {lotNumber}");
+            }
+
             int index = -1;
             issue.Lines.BaseEntry = baseEntry;
             issue.Lines.BaseLine = baseLine;
@@ -139,7 +164,25 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
        
         public InventoryIssueLine(IDocuments issue, string itemCode, double quantity, string storageLoc, string qualityStatus, 
             string batchNo, int luid, string sscc, string uom, string lotNumber, string scrapOffsetCode, string scrapReason, string shift)
+            : this()
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.Debug("In InventoryIssueLine - second constructor");
+                _log.Debug($"itemCode = {itemCode}");
+                _log.Debug($"quantity = {quantity}");
+                _log.Debug($"storageLoc = {storageLoc}");
+                _log.Debug($"qualityStatus = {qualityStatus}");
+                _log.Debug($"batchNo = {batchNo}");
+                _log.Debug($"luid = {luid}");
+                _log.Debug($"sscc = {sscc}");
+                _log.Debug($"uom = {uom}");
+                _log.Debug($"lotNumber = {lotNumber}");
+                _log.Debug($"scrapOffsetCode = {scrapOffsetCode}");
+                _log.Debug($"scrapReason = {scrapReason}");
+                _log.Debug($"shift = {shift}");
+            }
+
             int index = -1;
             issue.Lines.Quantity = quantity;
             issue.Lines.BaseType = -1;

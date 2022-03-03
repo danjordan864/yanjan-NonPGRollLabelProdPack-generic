@@ -37,6 +37,7 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.txtValidationMessage = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.olvColAdjustKgs = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.olvRolls)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             this.olvRolls.AllColumns.Add(this.olvColItemCode);
             this.olvRolls.AllColumns.Add(this.olvColItemName);
             this.olvRolls.AllColumns.Add(this.olvColKgs);
+            this.olvRolls.AllColumns.Add(this.olvColAdjustKgs);
             this.olvRolls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.olvRolls.CellEditUseWholeCell = false;
@@ -55,12 +57,13 @@
             this.olvColYJNOrder,
             this.olvColItemCode,
             this.olvColItemName,
-            this.olvColKgs});
+            this.olvColKgs,
+            this.olvColAdjustKgs});
             this.olvRolls.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvRolls.Location = new System.Drawing.Point(0, 0);
             this.olvRolls.Name = "olvRolls";
-            this.olvRolls.Size = new System.Drawing.Size(795, 387);
+            this.olvRolls.Size = new System.Drawing.Size(863, 387);
             this.olvRolls.TabIndex = 0;
             this.olvRolls.UseCompatibleStateImageBehavior = false;
             this.olvRolls.View = System.Windows.Forms.View.Details;
@@ -93,7 +96,9 @@
             // olvColKgs
             // 
             this.olvColKgs.AspectName = "Kgs";
+            this.olvColKgs.AspectToStringFormat = "{0:0.0}";
             this.olvColKgs.Text = "Kgs";
+            this.olvColKgs.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.olvColKgs.Width = 80;
             // 
             // btnOk
@@ -114,7 +119,7 @@
             this.txtValidationMessage.Location = new System.Drawing.Point(0, 413);
             this.txtValidationMessage.Multiline = true;
             this.txtValidationMessage.Name = "txtValidationMessage";
-            this.txtValidationMessage.Size = new System.Drawing.Size(795, 84);
+            this.txtValidationMessage.Size = new System.Drawing.Size(863, 84);
             this.txtValidationMessage.TabIndex = 2;
             // 
             // label1
@@ -127,11 +132,20 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Validation Message";
             // 
+            // olvColAdjustKgs
+            // 
+            this.olvColAdjustKgs.AspectName = "AdjustKgs";
+            this.olvColAdjustKgs.AspectToStringFormat = "{0:N5}";
+            this.olvColAdjustKgs.IsEditable = false;
+            this.olvColAdjustKgs.Text = "Adjust kg";
+            this.olvColAdjustKgs.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.olvColAdjustKgs.Width = 100;
+            // 
             // FrmRollsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 549);
+            this.ClientSize = new System.Drawing.Size(862, 549);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtValidationMessage);
             this.Controls.Add(this.btnOk);
@@ -155,5 +169,6 @@
         private BrightIdeasSoftware.OLVColumn olvColYJNOrder;
         private System.Windows.Forms.TextBox txtValidationMessage;
         private System.Windows.Forms.Label label1;
+        private BrightIdeasSoftware.OLVColumn olvColAdjustKgs;
     }
 }
