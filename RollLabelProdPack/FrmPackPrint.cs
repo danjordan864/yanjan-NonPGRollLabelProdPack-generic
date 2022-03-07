@@ -42,10 +42,24 @@ namespace RollLabelProdPack
             olvBundles.UseHotItem = false;
             olvBundles.CellEditActivation = ObjectListView.CellEditActivateMode.SingleClick;
             olvBundles.CellEditStarting += OlvBundlesOnCellEditStarting;
+
+            int printColumnIndex = 0;
+            for (; olvBundles.ColumnsInDisplayOrder[printColumnIndex].AspectName != "PrintButtonText"; printColumnIndex++)
+                ;
+            if (printColumnIndex < olvBundles.ColumnsInDisplayOrder.Count)
+            {
+                var printColumn = olvBundles.ColumnsInDisplayOrder[printColumnIndex];
+                if (_log.IsDebugEnabled)
+                    _log.Debug($"About to install renderer for print column at {printColumn} ");
+                printColumn.Renderer = new PrintColumnButtonRenderer(ilPackPrint.Images["Print"]);
+                printColumn.IsButton = true;
+            }
+
+            olvBundles.ButtonClick += OlvBundles_ButtonClick;
             olvBundles.CellEditFinishing += OlvBundlesOnCellEditFinishing;
             olvBundles.SmallImageList = ilPackPrint;
             olvTotalWeight.AspectPutter = delegate (object obj, object newValue) { ((PackLabel)obj).TotalWeight = decimal.Parse(newValue.ToString()); };
-            
+
             olvColPrint.IsEditable = true;
             olvTotalWeight.IsEditable = true;
 
@@ -53,6 +67,29 @@ namespace RollLabelProdPack
             SetupPrintButton();
 
             LoadPackLabels(false);
+        }
+
+
+        private void OlvBundles_ButtonClick(object sender, CellClickEventArgs e)
+        {
+            if (e.Column.AspectName == "PrintButtonText")
+            {
+                var packLabel = e.Model as PackLabel;
+                if (packLabel != null && packLabel.Valid)
+                {
+                    try
+                    {
+                        Cursor = Cursors.WaitCursor;
+                        AdjustRollQuantities(packLabel);
+                        PrintPackLabel(packLabel);
+                        LoadPackLabels(chkReprint.Checked, txtOrder.Text);
+                    }
+                    finally
+                    {
+                        Cursor = Cursors.Arrow;
+                    }
+                }
+            }
         }
 
         private void OlvBundlesOnCellEditFinishing(object sender, CellEditEventArgs e)
@@ -358,20 +395,21 @@ namespace RollLabelProdPack
                 if (e.Column == olvColPrint)
                 {
                     e.Cancel = true;        // we don't want to edit anything
-                    var packLabel = e.RowObject as PackLabel;
-                    if (packLabel != null && packLabel.Valid)
-                    {
-                        try
-                        {
-                            Cursor = Cursors.WaitCursor;
-                            AdjustRollQuantities(packLabel);
-                            PrintPackLabel(packLabel);
-                            LoadPackLabels(chkReprint.Checked, txtOrder.Text);
-                        }
-                        finally
-                        {
-                            Cursor = Cursors.Arrow;
-                        }                    }
+                    //var packLabel = e.RowObject as PackLabel;
+                    //if (packLabel != null && packLabel.Valid)
+                    //{
+                    //    try
+                    //    {
+                    //        Cursor = Cursors.WaitCursor;
+                    //        AdjustRollQuantities(packLabel);
+                    //        PrintPackLabel(packLabel);
+                    //        LoadPackLabels(chkReprint.Checked, txtOrder.Text);
+                    //    }
+                    //    finally
+                    //    {
+                    //        Cursor = Cursors.Arrow;
+                    //    }
+                    //}
                 }
             }
             catch (Exception ex)

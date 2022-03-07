@@ -33,12 +33,12 @@
             this.olvBundles = new BrightIdeasSoftware.ObjectListView();
             this.olvColPackDesc = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvTotalWeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvCopies = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColPrint = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColAction = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvCopies = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColEmployee = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ilPackPrint = new System.Windows.Forms.ImageList(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlTop = new System.Windows.Forms.Panel();
             this.txtMatch = new System.Windows.Forms.TextBox();
             this.lblMatchText = new System.Windows.Forms.Label();
@@ -54,9 +54,9 @@
             // 
             this.olvBundles.AllColumns.Add(this.olvColPackDesc);
             this.olvBundles.AllColumns.Add(this.olvTotalWeight);
+            this.olvBundles.AllColumns.Add(this.olvCopies);
             this.olvBundles.AllColumns.Add(this.olvColPrint);
             this.olvBundles.AllColumns.Add(this.olvColAction);
-            this.olvBundles.AllColumns.Add(this.olvCopies);
             this.olvBundles.AllColumns.Add(this.olvColEmployee);
             this.olvBundles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -66,15 +66,15 @@
             this.olvBundles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColPackDesc,
             this.olvTotalWeight,
-            this.olvColPrint,
-            this.olvColAction,
             this.olvCopies,
-            this.olvColEmployee});
+            this.olvColPrint,
+            this.olvColAction});
             this.olvBundles.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvBundles.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvBundles.Location = new System.Drawing.Point(0, 36);
             this.olvBundles.Name = "olvBundles";
             this.olvBundles.Size = new System.Drawing.Size(718, 527);
+            this.olvBundles.SmallImageList = this.ilPackPrint;
             this.olvBundles.TabIndex = 0;
             this.olvBundles.UseCompatibleStateImageBehavior = false;
             this.olvBundles.UseHyperlinks = true;
@@ -85,6 +85,7 @@
             // 
             this.olvColPackDesc.AspectName = "Description";
             this.olvColPackDesc.Groupable = false;
+            this.olvColPackDesc.IsEditable = false;
             this.olvColPackDesc.Text = "Pack Label";
             this.olvColPackDesc.Width = 324;
             // 
@@ -96,32 +97,31 @@
             this.olvTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.olvTotalWeight.Width = 79;
             // 
+            // olvCopies
+            // 
+            this.olvCopies.AspectName = "Copies";
+            this.olvCopies.Text = "Copies";
+            // 
             // olvColPrint
             // 
-            this.olvColPrint.AspectName = "";
+            this.olvColPrint.AspectName = "PrintButtonText";
+            this.olvColPrint.IsEditable = false;
             this.olvColPrint.Text = "Print";
             // 
             // olvColAction
             // 
             this.olvColAction.AspectName = "";
             this.olvColAction.Hyperlink = true;
+            this.olvColAction.IsEditable = false;
             this.olvColAction.Text = "Action";
             this.olvColAction.Width = 100;
-            // 
-            // olvCopies
-            // 
-            this.olvCopies.AspectName = "Copies";
-            this.olvCopies.Text = "Copies";
             // 
             // olvColEmployee
             // 
             this.olvColEmployee.AspectName = "Employee";
+            this.olvColEmployee.DisplayIndex = 5;
+            this.olvColEmployee.IsVisible = false;
             this.olvColEmployee.Text = "Initials";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 15000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ilPackPrint
             // 
@@ -130,6 +130,11 @@
             this.ilPackPrint.Images.SetKeyName(0, "False");
             this.ilPackPrint.Images.SetKeyName(1, "True");
             this.ilPackPrint.Images.SetKeyName(2, "Print");
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 15000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // pnlTop
             // 

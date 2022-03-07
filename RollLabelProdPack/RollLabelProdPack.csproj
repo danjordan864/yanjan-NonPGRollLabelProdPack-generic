@@ -164,6 +164,9 @@
     <Compile Include="FrmShipScan.Designer.cs">
       <DependentUpon>FrmShipScan.cs</DependentUpon>
     </Compile>
+    <Compile Include="PrintColumnButtonRenderer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SelectOrderDialog.cs">
       <SubType>Form</SubType>
     </Compile>
