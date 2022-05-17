@@ -385,6 +385,8 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        public string PrintButtonText { get { return "Print"; } }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
