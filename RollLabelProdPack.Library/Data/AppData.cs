@@ -222,7 +222,6 @@ namespace RollLabelProdPack.Library.Data
                        MaxRollsPerPack = row.Field<int>("MaxRollsPerPack"),
                        Copies = noOfCopies,
                        Employee = ""
-
                    }).ToList();
                     serviceOutput.ReturnValue = packLabels;
                     serviceOutput.SuccessFlag = true;
@@ -261,8 +260,10 @@ namespace RollLabelProdPack.Library.Data
                        IRMS = row.Field<string>("IRMS"),
                        SSCC = row.Field<string>("SSCC"),
                        YJNOrder = row.Field<string>("YJNOrderNo"),
-                       Kgs = row.Field<decimal>("Kgs"),
-                       JumboRoll = string.IsNullOrEmpty(row.Field<string>("RollNo"))?"":row.Field<string>("RollNo").Substring(8, 2)
+                       NetKg = row.Field<decimal>("Kgs"),
+                       JumboRoll = string.IsNullOrEmpty(row.Field<string>("RollNo"))?"":row.Field<string>("RollNo").Substring(8, 2),
+                       TareKg = row.Field<decimal>("TareKg") /*,
+                       Kgs = row.Field<decimal>("Kgs") + row.Field<decimal>("TareKg")*/
                    }).ToList();
                     serviceOutput.ReturnValue = rolls;
                     serviceOutput.SuccessFlag = true;

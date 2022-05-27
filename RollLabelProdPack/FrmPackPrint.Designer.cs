@@ -33,6 +33,8 @@
             this.olvBundles = new BrightIdeasSoftware.ObjectListView();
             this.olvColPackDesc = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvTotalWeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvTotalTareWeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvTotalNetWeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvCopies = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColPrint = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColAction = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -54,6 +56,8 @@
             // 
             this.olvBundles.AllColumns.Add(this.olvColPackDesc);
             this.olvBundles.AllColumns.Add(this.olvTotalWeight);
+            this.olvBundles.AllColumns.Add(this.olvTotalTareWeight);
+            this.olvBundles.AllColumns.Add(this.olvTotalNetWeight);
             this.olvBundles.AllColumns.Add(this.olvCopies);
             this.olvBundles.AllColumns.Add(this.olvColPrint);
             this.olvBundles.AllColumns.Add(this.olvColAction);
@@ -66,6 +70,8 @@
             this.olvBundles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColPackDesc,
             this.olvTotalWeight,
+            this.olvTotalTareWeight,
+            this.olvTotalNetWeight,
             this.olvCopies,
             this.olvColPrint,
             this.olvColAction});
@@ -97,10 +103,28 @@
             this.olvTotalWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.olvTotalWeight.Width = 79;
             // 
+            // olvTotalTareWeight
+            // 
+            this.olvTotalTareWeight.AspectName = "TotalTareKg";
+            this.olvTotalTareWeight.AspectToStringFormat = "{0:0.0}";
+            this.olvTotalTareWeight.IsEditable = false;
+            this.olvTotalTareWeight.Text = "Tare Wt";
+            this.olvTotalTareWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.olvTotalTareWeight.Width = 69;
+            // 
+            // olvTotalNetWeight
+            // 
+            this.olvTotalNetWeight.AspectName = "TotalNetKg";
+            this.olvTotalNetWeight.AspectToStringFormat = "{0:0.0}";
+            this.olvTotalNetWeight.IsEditable = false;
+            this.olvTotalNetWeight.Text = "Net Wt";
+            this.olvTotalNetWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // olvCopies
             // 
             this.olvCopies.AspectName = "Copies";
             this.olvCopies.Text = "Copies";
+            this.olvCopies.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // olvColPrint
             // 
@@ -119,7 +143,7 @@
             // olvColEmployee
             // 
             this.olvColEmployee.AspectName = "Employee";
-            this.olvColEmployee.DisplayIndex = 5;
+            this.olvColEmployee.DisplayIndex = 7;
             this.olvColEmployee.IsVisible = false;
             this.olvColEmployee.Text = "Initials";
             // 
@@ -243,5 +267,7 @@
         private System.Windows.Forms.Label lblMatchText;
         private BrightIdeasSoftware.OLVColumn olvColEmployee;
         private BrightIdeasSoftware.OLVColumn olvTotalWeight;
+        private BrightIdeasSoftware.OLVColumn olvTotalTareWeight;
+        private BrightIdeasSoftware.OLVColumn olvTotalNetWeight;
     }
 }

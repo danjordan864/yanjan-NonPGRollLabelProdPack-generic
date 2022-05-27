@@ -32,6 +32,8 @@ namespace RollLabelProdPack.Library.Entities
         private int _copies;
         private string _employee;
         private decimal _totalWeight;
+        private decimal _totalTareKg;
+        private decimal _totalNetKg;
 
         public int ID
         {
@@ -55,7 +57,8 @@ namespace RollLabelProdPack.Library.Entities
             {
                 return _pmxsscc;
             }
-            set {
+            set
+            {
                 if (value != _pmxsscc)
                 {
                     _pmxsscc = value;
@@ -380,6 +383,38 @@ namespace RollLabelProdPack.Library.Entities
                 if (value != _totalWeight)
                 {
                     _totalWeight = value;
+                    TotalNetKg = _totalWeight - TotalTareKg;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public decimal TotalTareKg {
+            get
+            {
+                return _totalTareKg;
+            }
+            set
+            {
+                if (value != _totalTareKg)
+                {
+                    _totalTareKg = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public decimal TotalNetKg
+        {
+            get
+            {
+                return _totalNetKg;
+            }
+            set
+            {
+                if (value != _totalNetKg)
+                {
+                    _totalNetKg = value;
                     NotifyPropertyChanged();
                 }
             }

@@ -152,7 +152,9 @@ namespace RollLabelProdPack
                     so = AppData.GetPackLabelRolls(packLabel.ID);
                     if (!so.SuccessFlag) throw new ApplicationException($"Error getting pack label Rolls. Error:{so.ServiceException}");
                     packLabel.Rolls = so.ReturnValue as List<Roll>;
-                    packLabel.TotalWeight = packLabel.Rolls.Sum(t => t.Kgs);
+                    packLabel.TotalNetKg = packLabel.Rolls.Sum(t => t.NetKg);
+                    packLabel.TotalTareKg = packLabel.Rolls.Sum(t => t.TareKg);
+                    packLabel.TotalWeight = packLabel.TotalNetKg + packLabel.TotalTareKg;
 
                     //validate pack
                     if (packLabel.Rolls.Count() > packLabel.MaxRollsPerPack)
@@ -198,7 +200,7 @@ namespace RollLabelProdPack
             PackLabel packLabel = (PackLabel)sender;
             if (e.PropertyName == "TotalWeight")
             {
-                var totalAdjustment = packLabel.TotalWeight - packLabel.Qty;
+                var totalAdjustment = packLabel.TotalNetKg - packLabel.Qty;
                 foreach (Roll roll in packLabel.Rolls)
                 {
                     var adjustAmt = Math.Round(totalAdjustment / packLabel.Rolls.Count, 5);
@@ -257,6 +259,7 @@ namespace RollLabelProdPack
                                 scrapsAdded = true;
                             }
                         }
+
                         if (scrapsAdded)
                         {
                             if (invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
@@ -493,7 +496,7 @@ namespace RollLabelProdPack
 
         private void PrintPackLabel(PackLabel packLabel)
         {
-            var qty = packLabel.Qty.ToString("0.00");
+            var qty = packLabel.TotalNetKg.ToString("0.00");
             var labelPrintLocPack = AppUtility.GetBTTriggerLoc();
             var labelPrintExtension = AppUtility.GetLabelPrintExtension();
             var fileNamePackLabel = Path.Combine(labelPrintLocPack, "PackLabel" + labelPrintExtension);
