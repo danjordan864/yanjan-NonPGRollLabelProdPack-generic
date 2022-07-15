@@ -17,7 +17,7 @@ namespace RollLabelProdPack.Library.Utility
     public class AppUtility
     {
         #region production common routines
-        public static List<InventoryIssueDetail> RefreshIssueQty(int prodOrder, string prodLine, decimal productionQty)
+        public static List<InventoryIssueDetail> RefreshIssueQty(int prodOrder, string prodLine, decimal productionQty, int decimalPlaces = -1)
         {
             var plannedIssue = new List<InventoryIssueDetail>();
             var packingMtlLoc = GetPackingMtlLocation();
@@ -30,6 +30,12 @@ namespace RollLabelProdPack.Library.Utility
             foreach (var line in prodOrderLines)
             {
                 var qtyReq = line.PlannedIssueQty;
+                // RDJ 20220624 - handle case for box scrap where quantity can only have one decimal place. Make it so the calling
+                // code can dictate the number of decimal places to use.
+                if (decimalPlaces != -1)
+                {
+                    qtyReq = Math.Round(qtyReq, decimalPlaces);
+                }
                 if (line.PlannedIssueQty > 0) //scrap is set up as by-product negative line qty
                 {
                     var itemAvail = inputLocMaterial.Where(i => i.ItemCode == line.ItemCode).OrderBy(i => i.InDate).ThenBy(i => i.Batch).ToList();
@@ -48,9 +54,15 @@ namespace RollLabelProdPack.Library.Utility
                                 }
                                 else
                                 {
+                                    // RDJ 20220624
+                                    var itemQty = item.Quantity;
+                                    if (decimalPlaces != -1)
+                                    {
+                                        itemQty = Math.Round(itemQty, decimalPlaces);
+                                    }
                                     plannedIssue.Add(CreatePlannedIssueDetail(line.ItemCode, line.UOM, line.BaseEntry, line.BaseLine, item.StorageLocation, item.QualityStatus,
-                                        item.LUID, item.SSCC, qtyReq, item.Quantity, item.Batch, 0, line.BatchControlled, line.PackagingMtl));
-                                    qtyReq = qtyReq - item.Quantity;
+                                        item.LUID, item.SSCC, qtyReq, itemQty, item.Batch, 0, line.BatchControlled, line.PackagingMtl));
+                                    qtyReq = qtyReq - itemQty;
                                 }
                             }
                         }
@@ -549,11 +561,11 @@ namespace RollLabelProdPack.Library.Utility
         }
         public static string GetPackPrinterName()
         {
-            return ConfigurationManager.AppSettings["TubPalletPrinterName"];
+            return ConfigurationManager.AppSettings["PackPrinterName"];
         }
         public static string GetTubPalletPrinterName()
         {
-            return ConfigurationManager.AppSettings["PackPrinterName"];
+            return ConfigurationManager.AppSettings["TubPalletPrinterName"];
         }
         public static string GetLabelPrintExtension()
         {
@@ -584,6 +596,10 @@ namespace RollLabelProdPack.Library.Utility
             return ConfigurationManager.AppSettings["PGDefaultPackLabelFormat"];
         }
 
+        public static string GetPGDefaultTubCaseLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["PGDefaultTubCaseLabelFormat"];
+        }
         public static string GetPGDefaultTubPalletLabelFormat()
         {
             return ConfigurationManager.AppSettings["PGDefaultTubPalletLabelFormat"];

@@ -45,7 +45,7 @@ namespace RollLabelProdPack
             txtProductionLine.DataBindings.Add("Text", bindingSource1, "ProductionLine");
             txtItemCode.DataBindings.Add("Text", bindingSource1, "ItemCode");
             txtItemName.DataBindings.Add("Text", bindingSource1, "ItemDescription");
-            
+
             _loading = false;
         }
         private void btnSelect_Click(object sender, EventArgs e)
@@ -69,85 +69,166 @@ namespace RollLabelProdPack
                 }
             }
             RefreshOrderInfo();
-            
+
         }
 
 
         private void txtQty_Validated(object sender, EventArgs e)
         {
-            CheckReadyToProduce();
+            if (!string.IsNullOrEmpty(txtNumberOfCases.Text))
+            {
+                CheckReadyToProduce();
+            }
         }
 
         private void CheckReadyToProduce()
         {
-            if (string.IsNullOrEmpty(txtQty.Text) || txtQty.Text == "0" || string.IsNullOrEmpty(txtBatch.Text) || Convert.ToDecimal(txtQty.Text)%200 !=0)
+            string validationMessage = string.Empty;
+            btnProduce.Enabled = false;
+            lnkPlannedIssues.Enabled = false;
+            int qty = 0;
+            int numberOfCases = 0;
+            bool invalidQty = false;
+            bool invalidNumberOfCases = false;
+
+            if (string.IsNullOrEmpty(txtQty.Text))
             {
-                btnProduce.Enabled = false;
-                //cboToLine.Focus();
-                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input Quantity (Increments of 200)");
+                invalidQty = true;
+                validationMessage = "Quantity is required";
+            }
+
+            if (!invalidQty && !int.TryParse(txtQty.Text, out qty))
+            {
+                invalidQty = true;
+                validationMessage = "Quantity must be a number";
+            }
+
+            if (!invalidQty && qty <= 0)
+            {
+                invalidQty = true;
+                validationMessage = "Quantity must be greater than 0";
+            }
+
+            if (invalidQty)
+            {
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Invalid quantity", validationMessage);
+                txtQty.Focus();
+                txtQty.SelectAll();
                 return;
             }
-            else
+
+            if (string.IsNullOrEmpty(txtNumberOfCases.Text))
             {
-                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtQty.Text));
-                var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);
-                if (hasShortage.Count() > 0)
-                {
-                    using (FrmPlannedIssueDialog frmPlannedIssues = new FrmPlannedIssueDialog())
-                    {
-                        frmPlannedIssues.SetDataSource(_plannedIssue.Where(i => i.BatchControlled).ToList());
-                        DialogResult dr = frmPlannedIssues.ShowDialog();
-                    }
-                }
-                btnProduce.Enabled = true;
-                lnkPlannedIssues.Enabled = true;
+                invalidNumberOfCases = true;
+                validationMessage = "Number of cases is required";
             }
+
+            if (!invalidNumberOfCases && !int.TryParse(txtNumberOfCases.Text, out numberOfCases))
+            {
+                invalidNumberOfCases = true;
+                validationMessage = "Number of cases must be a number";
+            }
+
+            if (!invalidNumberOfCases && numberOfCases <= 0)
+            {
+                invalidNumberOfCases = true;
+                validationMessage = "Number of cases must be greater than 0";
+            }
+
+            if (invalidNumberOfCases)
+            {
+                DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Invalid number of cases", validationMessage);
+                txtNumberOfCases.Focus();
+                txtNumberOfCases.SelectAll();
+                return;
+            }
+
+            //if (string.IsNullOrEmpty(txtQty.Text) || txtQty.Text == "0" || string.IsNullOrEmpty(txtBatch.Text) || Convert.ToDecimal(txtQty.Text)%200 !=0)
+            //{
+            //    btnProduce.Enabled = false;
+            //    //cboToLine.Focus();
+            //    DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input Quantity (Increments of 200)");
+            //    return;
+            //}
+            //else
+            //{
+            _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(qty * numberOfCases));
+            var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);
+            if (hasShortage.Count() > 0)
+            {
+                using (FrmPlannedIssueDialog frmPlannedIssues = new FrmPlannedIssueDialog())
+                {
+                    frmPlannedIssues.SetDataSource(_plannedIssue.Where(i => i.BatchControlled).ToList());
+                    DialogResult dr = frmPlannedIssues.ShowDialog();
+                }
+            }
+            btnProduce.Enabled = true;
+            lnkPlannedIssues.Enabled = true;
+            //}
         }
 
         private void Produce()
         {
-            ServiceOutput so;
-            so = AppData.CreateSSCC();
-            if (!so.SuccessFlag) throw new ApplicationException($"Error Creating SSCC. Error:{so.ServiceException}");
-            var luid_sscc = (KeyValuePair<int, string>)so.ReturnValue;
-            luid = luid_sscc.Key;
-            sscc = luid_sscc.Value;
-            var defaultStatus = AppUtility.GetDefaultStatus();
-            var defaultUom = AppUtility.GetDefaultUom();
-
+            int qty = 0;
+            int numberOfCases = 0;
             var userNamePW = AppUtility.GetUserNameAndPasswordMix(_selectOrder.ProductionMachineNo);
-            var prodBatchNo = Convert.ToInt32(txtBatch.Text.Substring(txtBatch.Text.LastIndexOf("-") + 1));
-            using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
+            var prodBatchNo = _prodRun;
+            //var prodBatchNo =  Convert.ToInt32(txtBatch.Text.Substring(txtBatch.Text.LastIndexOf("-") + 1));
+            ServiceOutput so;
+            if (int.TryParse(txtQty.Text, out qty) && int.TryParse(txtNumberOfCases.Text, out numberOfCases))
             {
-                using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
+                using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
                 {
-                    foreach (var plIssue in _plannedIssue)
+                    using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))
                     {
-                        if (plIssue.ShortQty == 0)
+                        foreach (var plIssue in _plannedIssue)
                         {
-                            invIssue.AddOrderIssueLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.SAPOrderNo.ToString());
+                            if (plIssue.ShortQty == 0)
+                            {
+                                invIssue.AddOrderIssueLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.SAPOrderNo.ToString());
+                            }
+                            else
+                            {
+                                so = AppData.AddIssueShortage(_selectOrder.SAPOrderNo, plIssue.ItemCode, Convert.ToDecimal(plIssue.ShortQty));
+                                if (!so.SuccessFlag) throw new ApplicationException($"Error adding shortage. Error:{so.ServiceException}");
+                            }
                         }
-                        else
-                        {
-                            so = AppData.AddIssueShortage(_selectOrder.SAPOrderNo, plIssue.ItemCode, Convert.ToDecimal(plIssue.ShortQty));
-                            if (!so.SuccessFlag) throw new ApplicationException($"Error adding shortage. Error:{so.ServiceException}");
-                        }
+                        if (_plannedIssue.Sum(q => q.PlannedIssueQty) > 0 && invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                     }
-                    if (_plannedIssue.Sum(q => q.PlannedIssueQty) > 0 && invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
-                }
-                //var toProductionLineInputLoc = "TUBFIN1";//_prodLines.Where(p => p.Code == cboToLine.Text).Select(p => p.InputLocationCode).FirstOrDefault();
 
-                using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
-                {
-                    invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtQty.Text), prodBatchNo, _selectOrder.OutputLoc, defaultStatus, txtBatch.Text, luid, sscc, defaultUom, _selectOrder.SAPOrderNo.ToString(), false, 0, _selectOrder.Shift, _selectOrder.Employee);
-                    if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
-                    so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
-                    if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
-                    _prodRun = (int)so.ReturnValue;
-                    _prodRun += 1;
+                    for (int caseNumber = 0; caseNumber < numberOfCases; ++caseNumber)
+                    {
+                        so = AppData.CreateSSCC();
+                        if (!so.SuccessFlag) throw new ApplicationException($"Error Creating SSCC. Error:{so.ServiceException}");
+                        var luid_sscc = (KeyValuePair<int, string>)so.ReturnValue;
+                        luid = luid_sscc.Key;
+                        sscc = luid_sscc.Value;
+                        var defaultStatus = AppUtility.GetDefaultStatus();
+                        var defaultUom = AppUtility.GetDefaultUom();
+
+                        //var userNamePW = AppUtility.GetUserNameAndPasswordMix(_selectOrder.ProductionMachineNo);
+                        //var prodBatchNo = Convert.ToInt32(txtBatch.Text.Substring(txtBatch.Text.LastIndexOf("-") + 1));
+                        //using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
+                        //{
+                        //var toProductionLineInputLoc = "TUBFIN1";//_prodLines.Where(p => p.Code == cboToLine.Text).Select(p => p.InputLocationCode).FirstOrDefault();
+
+                        using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
+                        {
+                            invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtQty.Text), prodBatchNo, _selectOrder.OutputLoc, defaultStatus, txtBatch.Text, luid, sscc, defaultUom, _selectOrder.SAPOrderNo.ToString(), false, 0, _selectOrder.Shift, _selectOrder.Employee);
+                            if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
+                            so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
+                            if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
+                            _prodRun = (int)so.ReturnValue;
+                            _prodRun += 1;
+                        }
+
+                        //}
+
+                    }
                 }
+
             }
-            DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Tubs Produced", $"#{txtQty.Text} produced. Order: {txtOrderNo.Text}");
+            DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Tubs Produced", $"{txtNumberOfCases.Text} cases produced. Order: {txtOrderNo.Text}");
         }
 
         private void lnkPlannedIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -183,6 +264,7 @@ namespace RollLabelProdPack
         {
             txtQty.Text = "0";
             txtQty.Enabled = true;
+            txtNumberOfCases.Enabled = true;
             lnkPlannedIssues.Enabled = false;
             btnProduce.Enabled = false;
             luid = 0;
@@ -191,7 +273,7 @@ namespace RollLabelProdPack
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
             _prodRun = (int)so.ReturnValue;
             _prodRun += 1;
-            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_prodRun.ToString("000")}";
+            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_selectOrder.ProductionLine.Replace("TUB","T")}";
         }
 
         private void PrintTubLabel()
@@ -200,11 +282,11 @@ namespace RollLabelProdPack
             {
                 var labelPrintLoc = AppUtility.GetBTTriggerLoc();
                 var labelPrintExtension = AppUtility.GetLabelPrintExtension();
-                var fileNameRollLabels = Path.Combine(labelPrintLoc, "TubCaseLabel" + labelPrintExtension);
-                var formatFilePathResmixLabel = AppUtility.GetPGDefaultResmixLabelFormat();
+                var fileNameTubCaseLabels = Path.Combine(labelPrintLoc, "TubCaseLabel" + labelPrintExtension);
+                var formatFilePathTubCaseLabel = AppUtility.GetPGDefaultTubCaseLabelFormat(); // Shouldn't be AppUtility.GetPGDefaultResmixLabelFormat();
 
                 var sbMixLabel = new StringBuilder(5000);
-                sbMixLabel.AppendFormat(@"%BTW% /AF=""{0}"" /D=""%Trigger File Name%"" /PRN=""{1}"" /R=3 /P /DD", formatFilePathResmixLabel, _selectOrder.Printer);
+                sbMixLabel.AppendFormat(@"%BTW% /AF=""{0}"" /D=""%Trigger File Name%"" /PRN=""{1}"" /R=3 /P /DD", formatFilePathTubCaseLabel, _selectOrder.Printer);
                 sbMixLabel.AppendLine();
                 sbMixLabel.Append(@"%END%");
                 sbMixLabel.AppendLine();
@@ -213,13 +295,13 @@ namespace RollLabelProdPack
 
                 sbMixLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", _selectOrder.ItemCode, _selectOrder.ItemDescription, "", "", txtBatch.Text, sscc, Convert.ToDecimal(txtQty.Text));
 
-                using (StreamWriter sw = File.CreateText(fileNameRollLabels))
+                using (StreamWriter sw = File.CreateText(fileNameTubCaseLabels))
                 {
                     sw.Write(sbMixLabel.ToString());
                 }
                 DisplayToastNotification(WinFormUtils.ToastNotificationType.Success, "Success", "Tub case label printed. Please check printer.");
                 RefreshOrderInfo();
-               
+
             }
             catch (Exception ex)
             {
@@ -271,6 +353,12 @@ namespace RollLabelProdPack
             CheckReadyToProduce();
         }
 
-       
+        private void txtNumberOfCases_Validated(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtQty.Text))
+            {
+                CheckReadyToProduce();
+            }
+        }
     }
 }

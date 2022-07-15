@@ -1,4 +1,5 @@
-﻿using RollLabelProdPack.Library.Data;
+﻿using log4net;
+using RollLabelProdPack.Library.Data;
 using RollLabelProdPack.Library.Entities;
 using RollLabelProdPack.Library.Utility;
 using RollLabelProdPack.SAP.B1;
@@ -27,6 +28,7 @@ namespace RollLabelProdPack
         private List<InventoryIssueDetail> _plannedIssue;
         private int luid;
         private string sscc;
+        private ILog _log;
         public FrmBoxScrap()
         {
             InitializeComponent();
@@ -34,6 +36,7 @@ namespace RollLabelProdPack
 
         private void FrmBoxScrap_Load(object sender, EventArgs e)
         {
+            _log = LogManager.GetLogger(typeof(FrmBoxScrap));
             bindingSource1 = new BindingSource();
             bindingSource1.DataSource = _selectOrder;
             txtEmployee.DataBindings.Add("Text", bindingSource1, "Employee");
@@ -92,7 +95,7 @@ namespace RollLabelProdPack
             }
             else
             {
-                _plannedIssue =  AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtWeightKgs.Text));
+                _plannedIssue =  AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtWeightKgs.Text), 1);
                 var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);
                 if (hasShortage.Count() >0)
                 {
@@ -109,6 +112,7 @@ namespace RollLabelProdPack
 
         private void Produce()
         {
+            _log.Debug("In Produce");
             ServiceOutput so;
 
             so = AppData.CreateSSCC();
@@ -119,6 +123,7 @@ namespace RollLabelProdPack
 
             var userNamePW = AppUtility.GetUserNameAndPasswordFilm(_selectOrder.ProductionMachineNo);
             var prodBatchNo = AppUtility.GetOrderBatchNoFromChar(_selectOrder.BatchNo[0]);
+            _plannedIssue =  AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtWeightKgs.Text), 1);
             using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
             {
                 using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))

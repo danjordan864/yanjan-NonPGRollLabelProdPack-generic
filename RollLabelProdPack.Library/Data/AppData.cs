@@ -1,4 +1,5 @@
-﻿using RollLabelProdPack.Library.Entities;
+﻿using log4net;
+using RollLabelProdPack.Library.Entities;
 using RollLabelProdPack.Library.Utility;
 using System;
 using System.Collections.Generic;
@@ -634,6 +635,8 @@ namespace RollLabelProdPack.Library.Data
 
         public static ServiceOutput CreateSSCC()
         {
+            ILog log = LogManager.GetLogger(typeof(AppData));
+            log.Debug("Entered CreateSSCC");
             var serviceOutput = new ServiceOutput();
             var databaseConnection = AppUtility.GetPMXConnectionString();
             var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
@@ -654,6 +657,7 @@ namespace RollLabelProdPack.Library.Data
                     cmd.Parameters.Add(parm);
                     cmd.ExecuteNonQuery();
                     luid = (int)cmd.Parameters["@luid"].Value;
+                    log.DebugFormat("luid = {0}", luid);
                 }
                 using (SqlConnection cnx = new SqlConnection(databaseConnection))
                 using (SqlCommand cmd = new SqlCommand($"SELECT SSCC FROM PMX_LUID WHERE InternalKey = {luid}", cnx))
@@ -663,6 +667,7 @@ namespace RollLabelProdPack.Library.Data
                     cmd.CommandTimeout = commandTimeOut;
                     serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
                     sscc = serviceOutput.ResultSet.Tables[0].Rows[0]["SSCC"].ToString();
+                    log.DebugFormat("sscc = {0}", sscc);
                 }
                 serviceOutput.SuccessFlag = true;
                 serviceOutput.ReturnValue = new KeyValuePair<int, string>(luid, sscc);
@@ -672,7 +677,9 @@ namespace RollLabelProdPack.Library.Data
                 serviceOutput.CallStack = ex.StackTrace;
                 serviceOutput.MethodName = AppUtility.GetCurrentMethod();
                 serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+                log.Error(ex.Message, ex);
             }
+
             return serviceOutput;
         }
 

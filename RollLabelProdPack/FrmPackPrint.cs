@@ -24,6 +24,7 @@ namespace RollLabelProdPack
     {
         FloatingHTML m_htmlToast = new FloatingHTML();
         private ILog _log;
+        private bool _loading;
 
         public FrmPackPrint()
         {
@@ -34,6 +35,7 @@ namespace RollLabelProdPack
 
         private void FrmPackPrint_Load(object sender, EventArgs e)
         {
+            _loading = false;
             SetupDescribedTaskColumn();
             olvBundles.ShowImagesOnSubItems = true;
             olvBundles.RowHeight = 100;
@@ -79,10 +81,19 @@ namespace RollLabelProdPack
                 {
                     try
                     {
-                        Cursor = Cursors.WaitCursor;
-                        AdjustRollQuantities(packLabel);
-                        PrintPackLabel(packLabel);
-                        LoadPackLabels(chkReprint.Checked, txtOrder.Text);
+                        if (packLabel.TotalWeightEntered)
+                        {
+                            Cursor = Cursors.WaitCursor;
+                            AdjustRollQuantities(packLabel);
+                            PrintPackLabel(packLabel);
+                            LoadPackLabels(chkReprint.Checked, txtOrder.Text);
+                        }
+                        else
+                        {
+                            MessageBox.Show("You must enter the total weight.", "Total weight entry required", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            int rowIndex = e.RowIndex;
+                            olvBundles.EditSubItem((OLVListItem)olvBundles.Items[rowIndex], 1);
+                        }
                     }
                     finally
                     {
@@ -142,6 +153,7 @@ namespace RollLabelProdPack
             //timer1.Stop();
             try
             {
+                _loading = true;
                 var so = AppData.GetPackLabels(isReprint, order);
                 if (!so.SuccessFlag) throw new ApplicationException($"Error getting pack labels. Error:{so.ServiceException}");
                 var packLabels = so.ReturnValue as List<PackLabel>;
@@ -191,6 +203,7 @@ namespace RollLabelProdPack
             finally
             {
                 //timer1.Start();
+                _loading = false;
             }
 
         }
@@ -205,6 +218,10 @@ namespace RollLabelProdPack
                 {
                     var adjustAmt = Math.Round(totalAdjustment / packLabel.Rolls.Count, 5);
                     roll.AdjustKgs = adjustAmt;
+                }
+                if (!_loading && !packLabel.TotalWeightEntered)
+                {
+                    packLabel.TotalWeightEntered = true;
                 }
             }
         }
@@ -413,6 +430,11 @@ namespace RollLabelProdPack
                     //        Cursor = Cursors.Arrow;
                     //    }
                     //}
+                }
+                else if (e.Column == olvTotalWeight)
+                {
+                    var textBox = (TextBox)e.Control;
+                    textBox.Text = "";
                 }
             }
             catch (Exception ex)

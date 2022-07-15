@@ -34,6 +34,7 @@ namespace RollLabelProdPack.Library.Entities
         private decimal _totalWeight;
         private decimal _totalTareKg;
         private decimal _totalNetKg;
+        private bool _totalWeightEntered;
 
         public int ID
         {
@@ -384,8 +385,9 @@ namespace RollLabelProdPack.Library.Entities
                 {
                     _totalWeight = value;
                     TotalNetKg = _totalWeight - TotalTareKg;
-                    NotifyPropertyChanged();
+                    //NotifyPropertyChanged();
                 }
+                NotifyPropertyChanged();
             }
         }
 
@@ -415,6 +417,22 @@ namespace RollLabelProdPack.Library.Entities
                 if (value != _totalNetKg)
                 {
                     _totalNetKg = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool TotalWeightEntered
+        {
+            get
+            {
+                return _totalWeightEntered;
+            }
+            set
+            {
+                if (value != _totalWeightEntered)
+                {
+                    _totalWeightEntered = value;
                     NotifyPropertyChanged();
                 }
             }
