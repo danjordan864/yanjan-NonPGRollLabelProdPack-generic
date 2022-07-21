@@ -196,33 +196,41 @@ namespace RollLabelProdPack
                         if (_plannedIssue.Sum(q => q.PlannedIssueQty) > 0 && invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                     }
 
-                    for (int caseNumber = 0; caseNumber < numberOfCases; ++caseNumber)
+                    List<int> luids = new List<int>();
+                    List<string> ssccs = new List<string>();
+
+                    using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
                     {
-                        so = AppData.CreateSSCC();
-                        if (!so.SuccessFlag) throw new ApplicationException($"Error Creating SSCC. Error:{so.ServiceException}");
-                        var luid_sscc = (KeyValuePair<int, string>)so.ReturnValue;
-                        luid = luid_sscc.Key;
-                        sscc = luid_sscc.Value;
-                        var defaultStatus = AppUtility.GetDefaultStatus();
-                        var defaultUom = AppUtility.GetDefaultUom();
-
-                        //var userNamePW = AppUtility.GetUserNameAndPasswordMix(_selectOrder.ProductionMachineNo);
-                        //var prodBatchNo = Convert.ToInt32(txtBatch.Text.Substring(txtBatch.Text.LastIndexOf("-") + 1));
-                        //using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
-                        //{
-                        //var toProductionLineInputLoc = "TUBFIN1";//_prodLines.Where(p => p.Code == cboToLine.Text).Select(p => p.InputLocationCode).FirstOrDefault();
-
-                        using (InventoryReceipt invReceipt = (InventoryReceipt)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry, 0))
+                        for (int caseNumber = 0; caseNumber < numberOfCases; ++caseNumber)
                         {
+                            so = AppData.CreateSSCC();
+                            if (!so.SuccessFlag) throw new ApplicationException($"Error Creating SSCC. Error:{so.ServiceException}");
+                            var luid_sscc = (KeyValuePair<int, string>)so.ReturnValue;
+                            luid = luid_sscc.Key;
+                            sscc = luid_sscc.Value;
+                            luids.Add(luid);
+                            ssccs.Add(sscc);
+                            var defaultStatus = AppUtility.GetDefaultStatus();
+                            var defaultUom = AppUtility.GetDefaultUom();
+
+                            //var userNamePW = AppUtility.GetUserNameAndPasswordMix(_selectOrder.ProductionMachineNo);
+                            //var prodBatchNo = Convert.ToInt32(txtBatch.Text.Substring(txtBatch.Text.LastIndexOf("-") + 1));
+                            //using (SAPB1 sapB1 = new SAPB1(userNamePW.Key, userNamePW.Value))
+                            //{
+                            //var toProductionLineInputLoc = "TUBFIN1";//_prodLines.Where(p => p.Code == cboToLine.Text).Select(p => p.InputLocationCode).FirstOrDefault();
+
                             invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(txtQty.Text), prodBatchNo, _selectOrder.OutputLoc, defaultStatus, txtBatch.Text, luid, sscc, defaultUom, _selectOrder.SAPOrderNo.ToString(), false, 0, _selectOrder.Shift, _selectOrder.Employee);
-                            if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
-                            so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
-                            if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
-                            _prodRun = (int)so.ReturnValue;
-                            _prodRun += 1;
+
+                            //}
+
                         }
 
-                        //}
+                        if (invReceipt.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
+                        so = AppData.IncrementProductionRun(_selectOrder.SAPOrderNo);
+                        if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
+                        _prodRun = (int)so.ReturnValue;
+                        _prodRun += 1;
+                        PrintTubLabel(ssccs);
 
                     }
                 }
@@ -246,7 +254,7 @@ namespace RollLabelProdPack
             try
             {
                 Produce();
-                PrintTubLabel();
+                //PrintTubLabel();
             }
             catch (Exception ex)
             {
@@ -276,13 +284,13 @@ namespace RollLabelProdPack
             txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_selectOrder.ProductionLine.Replace("TUB","T")}";
         }
 
-        private void PrintTubLabel()
+        private void PrintTubLabel(List<string> ssccs)
         {
             try
             {
                 var labelPrintLoc = AppUtility.GetBTTriggerLoc();
                 var labelPrintExtension = AppUtility.GetLabelPrintExtension();
-                var fileNameTubCaseLabels = Path.Combine(labelPrintLoc, "TubCaseLabel" + labelPrintExtension);
+                var fileNameTubCaseLabels = Path.Combine(labelPrintLoc, $"TubCaseLabel{Guid.NewGuid().ToString()}" + labelPrintExtension);
                 var formatFilePathTubCaseLabel = AppUtility.GetPGDefaultTubCaseLabelFormat(); // Shouldn't be AppUtility.GetPGDefaultResmixLabelFormat();
 
                 var sbMixLabel = new StringBuilder(5000);
@@ -290,10 +298,14 @@ namespace RollLabelProdPack
                 sbMixLabel.AppendLine();
                 sbMixLabel.Append(@"%END%");
                 sbMixLabel.AppendLine();
-                sbMixLabel.Append("Item, ItemName, IRMS, LotNo, RollNo, SSCC, Qty");
+                sbMixLabel.Append("Item, ItemName, IRMS, LotNo, SSCC, Qty");
                 sbMixLabel.AppendLine();
 
-                sbMixLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", _selectOrder.ItemCode, _selectOrder.ItemDescription, "", "", txtBatch.Text, sscc, Convert.ToDecimal(txtQty.Text));
+                for (int i = 0; i < ssccs.Count; i++)
+                {
+                    sbMixLabel.AppendFormat("{0},{1},{2},{3},{4},{5}", _selectOrder.ItemCode, _selectOrder.ItemDescription, "", txtBatch.Text, ssccs[i], Convert.ToDecimal(txtQty.Text));
+                    sbMixLabel.AppendLine();
+                }
 
                 using (StreamWriter sw = File.CreateText(fileNameTubCaseLabels))
                 {

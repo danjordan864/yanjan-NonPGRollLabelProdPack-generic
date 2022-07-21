@@ -943,5 +943,46 @@ namespace RollLabelProdPack.Library.Data
 
             return so;
         }
+
+        public static ServiceOutput GetRollMinMaxKgForItem(string itemCode)
+        {
+            ServiceOutput so = new ServiceOutput();
+            try
+            {
+                var databaseConnection = AppUtility.GetSAPConnectionString();
+                var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                {
+                    cnx.Open();
+                    using (SqlCommand cmd = new SqlCommand("SELECT U_SII_MinRollKgs, U_SII_MaxRollKgs FROM OITM WHERE ItemCode = @itemCode", cnx))
+                    {
+                        cmd.CommandTimeout = commandTimeOut;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@itemCode", itemCode);
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.Read())
+                            {
+                                var minRollKg = rdr.GetDecimal(0);
+                                var maxRollKg = rdr.GetDecimal(1);
+                                so.ReturnValue = new RollMinMaxKg { MinRollKg = minRollKg, MaxRollKg = maxRollKg };
+                                so.SuccessFlag = true;
+                            }
+                            else
+                            {
+                                throw new ApplicationException($"Item {itemCode} not found in database");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                so.SuccessFlag = false;
+                so.ServiceException = ex.Message;
+            }
+
+            return so;
+        }
     }
 }

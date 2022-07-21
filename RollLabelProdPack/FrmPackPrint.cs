@@ -83,10 +83,33 @@ namespace RollLabelProdPack
                     {
                         if (packLabel.TotalWeightEntered)
                         {
-                            Cursor = Cursors.WaitCursor;
-                            AdjustRollQuantities(packLabel);
-                            PrintPackLabel(packLabel);
-                            LoadPackLabels(chkReprint.Checked, txtOrder.Text);
+                            var so = AppData.GetRollMinMaxKgForItem(packLabel.ItemCode);
+                            if (so.SuccessFlag)
+                            {
+                                RollMinMaxKg minMax = (RollMinMaxKg)so.ReturnValue;
+                                if (packLabel.TotalNetKg >= minMax.MinRollKg * packLabel.Rolls.Count &&
+                                    packLabel.TotalNetKg <= minMax.MaxRollKg * packLabel.Rolls.Count)
+                                {
+                                    Cursor = Cursors.WaitCursor;
+                                    AdjustRollQuantities(packLabel);
+                                    PrintPackLabel(packLabel);
+                                    LoadPackLabels(chkReprint.Checked, txtOrder.Text);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Total net weight is outside range for roll net weight times number of rolls",
+                                        "Total net weight out of range", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    int rowIndex = e.RowIndex;
+                                    olvBundles.EditSubItem((OLVListItem)olvBundles.Items[rowIndex], 1);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Item master is missing min/max roll weight. Please update in SAP before proceeding", 
+                                    "No min/max roll weight found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                int rowIndex = e.RowIndex;
+                                olvBundles.EditSubItem((OLVListItem)olvBundles.Items[rowIndex], 1);
+                            }
                         }
                         else
                         {
@@ -213,11 +236,20 @@ namespace RollLabelProdPack
             PackLabel packLabel = (PackLabel)sender;
             if (e.PropertyName == "TotalWeight")
             {
-                var totalAdjustment = packLabel.TotalNetKg - packLabel.Qty;
+                // RDJ 20220719 - Round total adjustment to 2 places
+                var totalAdjustment = Math.Round(packLabel.TotalNetKg - packLabel.Qty, 2);
                 foreach (Roll roll in packLabel.Rolls)
                 {
-                    var adjustAmt = Math.Round(totalAdjustment / packLabel.Rolls.Count, 5);
+                    // RDJ 20220719 - Use 2 decimal places instead of 5
+                    var adjustAmt = Math.Round(totalAdjustment / packLabel.Rolls.Count, 2);
                     roll.AdjustKgs = adjustAmt;
+                }
+                // RDJ 20220719 - add/subtract difference between total of AdjustKgs for all rolls and totalAdjustment
+                // to AdjustKgs for the first roll.
+                if (packLabel.Rolls.Count > 0)
+                {
+                    var difference = totalAdjustment - packLabel.Rolls.Sum(t => t.AdjustKgs);
+                    packLabel.Rolls[0].AdjustKgs += difference;
                 }
                 if (!_loading && !packLabel.TotalWeightEntered)
                 {
@@ -431,10 +463,19 @@ namespace RollLabelProdPack
                     //    }
                     //}
                 }
+                // RDJ 20220721 Don't require total weight to be entered if reprinting
                 else if (e.Column == olvTotalWeight)
                 {
-                    var textBox = (TextBox)e.Control;
-                    textBox.Text = "";
+                    if (!chkReprint.Checked)
+                    {
+                        var textBox = (TextBox)e.Control;
+                        textBox.Text = "";
+                    }
+                    else
+                    {
+                        var packLabel = e.RowObject as PackLabel;
+                        packLabel.TotalWeightEntered = true;
+                    }
                 }
             }
             catch (Exception ex)

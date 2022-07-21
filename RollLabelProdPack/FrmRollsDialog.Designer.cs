@@ -149,7 +149,7 @@
             // olvColAdjustKgs
             // 
             this.olvColAdjustKgs.AspectName = "AdjustKgs";
-            this.olvColAdjustKgs.AspectToStringFormat = "{0:N5}";
+            this.olvColAdjustKgs.AspectToStringFormat = "{0:N2}";
             this.olvColAdjustKgs.IsEditable = false;
             this.olvColAdjustKgs.Text = "Adjust kg";
             this.olvColAdjustKgs.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
