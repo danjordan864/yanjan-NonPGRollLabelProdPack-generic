@@ -29,9 +29,32 @@ namespace RollLabelProdPack
         private string sscc;
         private int _prodRun;
         private bool _loading;
+        private List<ProductionLineMachineNo> _prodLines;
+        private BindingSource prodLinesBindingSource;
+        private bool _orderChangeCausedComboSelectionChange = false;
+        private string _currentShift;
+        private string _currentEmployee;
+        private ProductionLineMachineNo _selectedLine;
+        private string _scrapItem = "N/A";
+        private BindingSource _frmTubBindingSource;
+        private int _scrapQty;
+
         public FrmTub()
         {
             InitializeComponent();
+        }
+
+        public string ScrapItem {
+            get {
+                if (string.IsNullOrEmpty(_scrapItem))
+                    return "N/A";
+                else
+                    return _scrapItem;
+            }
+            set
+            {
+                _scrapItem = value;
+            }
         }
 
         private void FrmTub_Load(object sender, EventArgs e)
@@ -45,7 +68,20 @@ namespace RollLabelProdPack
             txtProductionLine.DataBindings.Add("Text", bindingSource1, "ProductionLine");
             txtItemCode.DataBindings.Add("Text", bindingSource1, "ItemCode");
             txtItemName.DataBindings.Add("Text", bindingSource1, "ItemDescription");
+            casesProducedLabel.DataBindings.Add("Text", bindingSource1, "InvRolls");
+            maxCasesLabel.DataBindings.Add("Text", bindingSource1, "TargetRolls");
 
+            _frmTubBindingSource = new BindingSource();
+            _frmTubBindingSource.DataSource = this;
+            scrapItemLabel.DataBindings.Add("Text", _frmTubBindingSource, "ScrapItem");
+
+            ServiceOutput so = AppData.GetProdLines(false);
+            if (!so.SuccessFlag) throw new ApplicationException($"Error getting production lines: {so.ServiceException}");
+            List<ProductionLine> tubLines = ((List<ProductionLine>)so.ReturnValue).Where(t => t.Code.StartsWith("TUB")).ToList();
+            _prodLines = tubLines.Select(t => new ProductionLineMachineNo { ProductionLine = t.Code, ProductionMachineNo = t.LineNo, InputLocationCode = t.InputLocationCode, OutputLocationCode = t.OutputLocationCode, Printer = t.Printer }).OrderBy(t => t.ProductionLine).ToList();
+            _prodLines.Insert(0, new ProductionLineMachineNo { ProductionLine = "<Select Line>", ProductionMachineNo = "0" });
+            toLineComboBox.DataSource = _prodLines;
+            toLineComboBox.DisplayMember = "ProductionLine";
             _loading = false;
         }
         private void btnSelect_Click(object sender, EventArgs e)
@@ -62,10 +98,17 @@ namespace RollLabelProdPack
                 if (dr == DialogResult.OK)
                 {
                     _selectOrder = frmSignInDialog.SelectOrder;
+                    _currentShift = _selectOrder.Shift;
+                    _currentEmployee = _selectOrder.Employee;
                     txtQty.Text = "0";
                     //txtWeightKgs.Enabled = true;
                     txtProductionDateFull.Text = DateTime.Now.ToShortDateString();
                     bindingSource1.DataSource = _selectOrder;
+                    _orderChangeCausedComboSelectionChange = true;
+                    toLineComboBox.Enabled = true;
+                    toLineComboBox.SelectedItem = _prodLines.First(t => t.ProductionLine == _selectOrder.ProductionLine);
+                    _selectedLine = (ProductionLineMachineNo)toLineComboBox.SelectedItem;
+                    _orderChangeCausedComboSelectionChange = false;
                 }
             }
             RefreshOrderInfo();
@@ -270,6 +313,28 @@ namespace RollLabelProdPack
 
         private void RefreshOrderInfo()
         {
+            var so = AppData.GetProdOrder(_selectOrder.SAPOrderNo);
+            if (!so.SuccessFlag) throw new ApplicationException($"Error refreshing order information. Error:{so.ServiceException}");
+            _selectOrder = (RollLabelData)so.ReturnValue;
+            if (_currentShift != null)
+            {
+                _selectOrder.Shift = _currentShift;
+            }
+            if (_currentEmployee != null)
+            {
+                _selectOrder.Employee = _currentEmployee;
+            }
+            if (_selectedLine != null)
+            {
+                _selectOrder.ProductionLine = _selectedLine.ProductionLine;
+            }
+            bindingSource1.DataSource = _selectOrder;
+            ScrapItem = _selectOrder.ScrapItem;
+            bool enableScrapControls = ScrapItem != "N/A";
+            scrapQtyTextBox.Enabled = enableScrapControls;
+            scrapButton.Enabled = enableScrapControls;
+            _frmTubBindingSource.ResetBindings(false);
+
             txtQty.Text = "0";
             txtQty.Enabled = true;
             txtNumberOfCases.Enabled = true;
@@ -277,11 +342,11 @@ namespace RollLabelProdPack
             btnProduce.Enabled = false;
             luid = 0;
             sscc = null;
-            var so = AppData.GetLastProductionRun(_selectOrder.SAPOrderNo);
+            so = AppData.GetLastProductionRun(_selectOrder.SAPOrderNo);
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting next batch. Error:{so.ServiceException}");
             _prodRun = (int)so.ReturnValue;
             _prodRun += 1;
-            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}-{_selectOrder.ProductionLine.Replace("TUB","T")}";
+            txtBatch.Text = $"{_selectOrder.SAPOrderNo.ToString()}{_selectOrder.ProductionLine.Replace("TUB","T")}";
         }
 
         private void PrintTubLabel(List<string> ssccs)
@@ -371,6 +436,73 @@ namespace RollLabelProdPack
             {
                 CheckReadyToProduce();
             }
+        }
+
+        private void toLineComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!_orderChangeCausedComboSelectionChange)
+            {
+                ProductionLineMachineNo selectedLineMachineNo = (ProductionLineMachineNo)toLineComboBox.SelectedItem;
+                if (selectedLineMachineNo.ProductionMachineNo != "0")
+                {
+                    _selectOrder.ProductionLine = selectedLineMachineNo.ProductionLine;
+                    _selectOrder.ProductionMachineNo = selectedLineMachineNo.ProductionMachineNo;
+                    _selectOrder.InputLoc = selectedLineMachineNo.InputLocationCode;
+                    _selectOrder.OutputLoc = selectedLineMachineNo.OutputLocationCode;
+                    _selectOrder.Printer = selectedLineMachineNo.Printer;
+                    bindingSource1.ResetBindings(false);
+                    _selectedLine = selectedLineMachineNo;
+                    RefreshOrderInfo();
+                }
+            }
+        }
+
+        private void scrapQtyTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            //scrapButton.Enabled = false;
+            if (!string.IsNullOrEmpty(scrapQtyTextBox.Text))
+            {
+                if (int.TryParse(scrapQtyTextBox.Text, out _scrapQty))
+                {
+                    if (_scrapQty > 0)
+                    {
+                        //scrapButton.Enabled = true;
+                    }
+                    else
+                    {
+                        DisplayToastNotification(ToastNotificationType.Error, "Invalid scrap qty", "Please enter an integer > 0 for scrap qty");
+                        scrapQtyTextBox.Focus();
+                        scrapQtyTextBox.SelectAll();
+                        e.Cancel = true;
+                    }
+                }
+                else
+                {
+                    DisplayToastNotification(ToastNotificationType.Error, "Invalid scrap qty", "Please enter an integer for scrap qty");
+                    scrapQtyTextBox.Focus();
+                    scrapQtyTextBox.SelectAll();
+                    e.Cancel = true;
+                }
+            }
+            else
+            {
+                DisplayToastNotification(ToastNotificationType.Error, "No scrap qty entered", "Please enter a valid scrap qty");
+                scrapQtyTextBox.Focus();
+                e.Cancel = true;
+            }
+        }
+
+        private void scrapButton_Click(object sender, EventArgs e)
+        {
+            if (ValidateChildren())
+            {
+                DisplayToastNotification(ToastNotificationType.Success, "Button clicked", $"You clicked the scrap button. Scrap qty is: {_scrapQty}");
+            }
+        }
+
+        private void FrmTub_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = false;
         }
     }
 }

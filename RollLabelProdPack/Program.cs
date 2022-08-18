@@ -35,7 +35,8 @@ namespace RollLabelProdPack
             }
             else if (args.Length > 0 && args[0] != null && args[0] == "tub")
             {
-                Application.Run(new FrmTub());
+                //Application.Run(new FrmTub());
+                Application.Run(new frmTub2());
             }
             else
             {

@@ -17,6 +17,8 @@ namespace RollLabelProdPack
     {
         public RollLabelData SelectOrder { get; set; }
         private List<RollLabelData> _orders;
+        private string _itemGroupFilter = string.Empty;
+
         public SelectOrderDialog()
         {
             InitializeComponent();
@@ -26,11 +28,22 @@ namespace RollLabelProdPack
         {
             try
             {
+                // RDJ 20220812 - Save off item group for validating selections
+                _itemGroupFilter = itemGroupFilter;
                 var so = AppData.GetOpenProdOrders(itemGroupFilter);
                 if (!so.SuccessFlag) throw new ApplicationException("Error getting Production Orders. " + so.ServiceException);
                 _orders = so.ReturnValue as List<RollLabelData>;
-                var prodLines = _orders.Where(o => o.ProductionLine != null).Select(o => new { o.ProductionLine, o.ProductionMachineNo }).Distinct().OrderBy(o => o.ProductionLine).ToList();
-                prodLines.Insert(0, new { ProductionLine = "<-Please select an Production Line->", ProductionMachineNo = "0" });
+                List<ProductionLineMachineNo> prodLines = new List<ProductionLineMachineNo>();
+                prodLines = _orders.Where(o => o.ProductionLine != null).Select(o => new ProductionLineMachineNo { ProductionLine = o.ProductionLine, ProductionMachineNo = o.ProductionMachineNo, InputLocationCode = "", OutputLocationCode = "", Printer = "" }).OrderBy(o => o.ProductionLine).Distinct().ToList();
+                // RDJ 20220812 - If we are selecting TUB orders, get the list of production lines that are associated with tubs.
+                if (_itemGroupFilter == "TUB")
+                {
+                    so = AppData.GetProdLines(false);
+                    if (!so.SuccessFlag) throw new ApplicationException("Error getting tub production lines. " + so.ServiceException);
+                    List<ProductionLine> tubLines = ((List<ProductionLine>)so.ReturnValue).Where(t => t.Code.StartsWith("TUB")).ToList();
+                    prodLines = tubLines.Select(t => new ProductionLineMachineNo { ProductionLine = t.Code, ProductionMachineNo = t.LineNo, InputLocationCode = t.InputLocationCode, OutputLocationCode = t.OutputLocationCode, Printer = t.Printer }).OrderBy(t => t.ProductionLine).ToList();
+                }
+                prodLines.Insert(0, new ProductionLineMachineNo { ProductionLine = "<-Please select an Production Line->", ProductionMachineNo = "0" });
                 cboProductionLine.DisplayMember = "ProductionLine";
                 cboProductionLine.ValueMember = "ProductionMachineNo";
                 cboProductionLine.DataSource = prodLines;
@@ -51,6 +64,18 @@ namespace RollLabelProdPack
             SelectOrder = _orders.Where(o => o.SAPOrderNo == (int)cboProductionOrder.SelectedValue).FirstOrDefault();
             SelectOrder.Employee = txtEmployee.Text;
             SelectOrder.Shift = cboShift.Text;
+            // RDJ 20220812 - In the case of TUB orders, the production line is not necessarily the one associated with the production
+            // order. Use the line that was selected instead.
+            if (_itemGroupFilter == "TUB")
+            {
+                ProductionLineMachineNo selectedLineMachineNo = (ProductionLineMachineNo)cboProductionLine.SelectedItem;
+                SelectOrder.ProductionLine = selectedLineMachineNo.ProductionLine;
+                SelectOrder.ProductionMachineNo = selectedLineMachineNo.ProductionMachineNo;
+                SelectOrder.InputLoc = selectedLineMachineNo.InputLocationCode;
+                SelectOrder.OutputLoc = selectedLineMachineNo.OutputLocationCode;
+                SelectOrder.Printer = selectedLineMachineNo.Printer;
+            }
+
             if (ValidateSelectedOrder())
             {
                 this.DialogResult = DialogResult.OK;
@@ -75,7 +100,8 @@ namespace RollLabelProdPack
         {
             if (cboProductionLine.Text != "<-Please select an Production Line->")
             {
-                var ordersForProductLine = _orders.Where(o => o.ProductionLine == cboProductionLine.Text).ToList();
+                // RDJ 20220812 - If this is for TUBs then any TUB production line is OK
+                var ordersForProductLine = _orders.Where(o => _itemGroupFilter == "TUB" || o.ProductionLine == cboProductionLine.Text).ToList();
                 ordersForProductLine.Insert(0, new RollLabelData { YJNOrder = "<-Please select an Order->" });
                 cboProductionOrder.DisplayMember = "OrderDisplay";
                 cboProductionOrder.ValueMember = "SAPOrderNo";

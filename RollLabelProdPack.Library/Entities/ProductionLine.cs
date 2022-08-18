@@ -11,6 +11,7 @@ namespace RollLabelProdPack.Library.Entities
         public string Code { get; set; }
         public string LineNo { get; set; }
         public string InputLocationCode { get; set; }
-
+        public string OutputLocationCode { get; set; }
+        public string Printer { get; set; }
     }
 }

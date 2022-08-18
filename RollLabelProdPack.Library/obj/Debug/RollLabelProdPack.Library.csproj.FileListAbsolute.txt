@@ -21,6 +21,6 @@ C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollL
 \\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.csproj.CoreCompileInputs.cache
 \\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.dll
 \\tbond-pc\c$\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.pdb
-C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.csprojResolveAssemblyReference.cache
 C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\bin\Debug\log4net.dll
 C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\bin\Debug\log4net.xml
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack.Library\obj\Debug\RollLabelProdPack.Library.csprojResolveAssemblyReference.cache

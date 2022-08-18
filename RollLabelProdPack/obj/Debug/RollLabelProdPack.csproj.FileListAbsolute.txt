@@ -157,3 +157,6 @@ C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProd
 C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.FrmCasesDialog.resources
 C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\bin\Debug\log4net.dll
 C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\bin\Debug\log4net.xml
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.TubProductionUserControl.resources
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.frmTub2.resources
+C:\SynesisDev\Yanjan\RollLabelProdPack\RollLabelProdPack\obj\Debug\RollLabelProdPack.TubScrapUserControl.resources

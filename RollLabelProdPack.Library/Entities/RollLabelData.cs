@@ -53,5 +53,50 @@ namespace RollLabelProdPack.Library.Entities
             get { return TargetRolls - InvRolls; }
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("RollLabelData:");
+            sb.AppendLine("--------------");
+            sb.AppendLine($"\tProductionYear: {ProductionYear}");
+            sb.AppendLine($"\tProductionMonth: {ProductionMonth}");
+            sb.AppendLine($"\tProductionDate: {ProductionDate}");
+            sb.AppendLine($"\tAperatureDieNo: {AperatureDieNo}");
+            sb.AppendLine($"\tProductionShift: {ProductionShift}");
+            sb.AppendLine($"\tJumboRollNo: {JumboRollNo}");
+            sb.AppendLine($"\tSlitPosition: {SlitPosition}");
+            sb.AppendLine($"\tItemCode: {ItemCode}");
+            sb.AppendLine($"\tItemDescription: {ItemDescription}");
+            sb.AppendLine($"\tIRMS: {IRMS}");
+            sb.AppendLine($"\tFactoryCode: {FactoryCode}");
+            sb.AppendLine($"\tProductionMachineNo: {ProductionMachineNo}");
+            sb.AppendLine($"\tProductionLine: {ProductionLine}");
+            sb.AppendLine($"\tMaterialCode: {MaterialCode}");
+            sb.AppendLine($"\tProductName: {ProductName}");
+            sb.AppendLine($"\tBatchNo: {BatchNo}");
+            sb.AppendLine($"\tSAPOrderNo: {SAPOrderNo}");
+            sb.AppendLine($"\tSAPDocEntry: {SAPDocEntry}");
+            sb.AppendLine($"\tYJNOrder: {YJNOrder}");
+            sb.AppendLine($"\tOrderDisplay: {OrderDisplay}");
+            sb.AppendLine($"\tStartDate: {StartDate}");
+            sb.AppendLine($"\tDueDate: {DueDate}");
+            sb.AppendLine($"\tNoOfSlits: {NoOfSlits}");
+            sb.AppendLine($"\tEmployee: {Employee}");
+            sb.AppendLine($"\tShift: {Shift}");
+            sb.AppendLine($"\tRollNo: {RollNo}");
+            sb.AppendLine($"\tLUID: {LUID}");
+            sb.AppendLine($"\tSSCC: {SSCC}");
+            sb.AppendLine($"\tInputLoc: {InputLoc}");
+            sb.AppendLine($"\tOutputLoc: {OutputLoc}");
+            sb.AppendLine($"\tPrinter: {Printer}");
+            sb.AppendLine($"\tDefaultQualityStatus: {DefaultQualityStatus}");
+            sb.AppendLine($"\tScrapItem: {ScrapItem}");
+            sb.AppendLine($"\tTargetRolls: {TargetRolls}");
+            sb.AppendLine($"\tInvRolls: {InvRolls}");
+            sb.AppendLine($"\tMinRollKgs: {MinRollKgs}");
+            sb.AppendLine($"\tMaxRollKgs: {MaxRollKgs}");
+            sb.AppendLine($"\tScrapItemName: {ScrapItemName}");
+            return sb.ToString();
+        }
     }
 }

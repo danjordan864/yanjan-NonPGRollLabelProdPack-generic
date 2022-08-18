@@ -54,6 +54,8 @@ namespace RollLabelProdPack.Library.Data
                        OutputLoc = row.Field<string>("OutputLoc"),
                        Printer = row.Field<string>("Printer"),
                        DefaultQualityStatus = row.Field<string>("DefaultQualityStatus"),
+                       MinRollKgs = row.Field<decimal>("MinRollKgs"),
+                       MaxRollKgs = row.Field<decimal>("MaxRollKgs"),
                        ScrapItem = row.Field<string>("ScrapItem"),
                        ScrapItemName = row.Field<string>("ScrapItemName"),
                        ScrapLine = row.Field<int>("ScrapLine"),
@@ -584,7 +586,9 @@ namespace RollLabelProdPack.Library.Data
                     {
                          Code = row.Field<string>("Code"),
                          LineNo = row.Field<string>("MachineNo"),
-                         InputLocationCode = row.Field<string>("InputLocationCode")
+                         InputLocationCode = row.Field<string>("InputLocationCode"),
+                         OutputLocationCode = row.Field<string>("OutputLocationCode"),
+                         Printer = row.Field<string>("Printer")
                     }
                         
                    ).ToList();
