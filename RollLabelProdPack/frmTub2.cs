@@ -142,7 +142,7 @@ namespace RollLabelProdPack
                 tubProductionUserControl1.IssuesRefreshRequested += TubProductionUserControl1_IssuesRefreshRequested;
                 tubScrapUserControl1.ScrapRequested += TubScrapUserControl1_ScrapRequested;
                 tubScrapUserControl1.ValidationFailed += TubScrapUserControl1_ValidationFailed;
-                so = AppData.GetScrapReasons();
+                so = AppData.GetScrapReasons("TUB");
                 if (!so.SuccessFlag) throw new ApplicationException($"Error getting scrap reasons: {so.ServiceException}");
                 tubScrapUserControl1.ScrapReasons = (List<string>)so.ReturnValue;
             }

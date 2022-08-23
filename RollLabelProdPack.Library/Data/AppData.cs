@@ -536,7 +536,7 @@ namespace RollLabelProdPack.Library.Data
             return serviceOutput;
         }
 
-        public static ServiceOutput GetScrapReasons()
+        public static ServiceOutput GetScrapReasons(string itemGroupFilter = "")
         {
             var serviceOutput = new ServiceOutput();
             var databaseConnection = AppUtility.GetSAPConnectionString();
@@ -548,6 +548,10 @@ namespace RollLabelProdPack.Library.Data
                 {
                     cnx.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
+                    if (!string.IsNullOrEmpty(itemGroupFilter))
+                    {
+                        cmd.Parameters.AddWithValue("@itemGroupFilter", itemGroupFilter);
+                    }
                     cmd.CommandTimeout = commandTimeOut;
                     serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
                     List<string> scrapReasons = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
