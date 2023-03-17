@@ -23,5 +23,28 @@ namespace RollLabelProdPack.Library.Entities
         public bool BatchControlled { get; set; }
         public bool PackagingMtl { get; set; }
         public int InvGrpCode { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("InventoryDetail");
+            sb.AppendLine("---------------");
+            sb.AppendLine($"ItemCode = {ItemCode}");
+            sb.AppendLine($"ItemName = {ItemName}");
+            sb.AppendLine($"Warehouse = {Warehouse}");
+            sb.AppendLine($"StorageLocation = {StorageLocation}");
+            sb.AppendLine($"QualityStatus = {QualityStatus}");
+            sb.AppendLine($"Batch = {Batch}");
+            sb.AppendLine($"Lot = {Lot}");
+            sb.AppendLine($"UOM = {UOM}");
+            sb.AppendLine($"Quantity = {Quantity}");
+            sb.AppendLine($"LUID = {LUID}");
+            sb.AppendLine($"SSCC = {SSCC}");
+            sb.AppendLine($"InDate = {InDate}");
+            sb.AppendLine($"BatchControlled = {BatchControlled}");
+            sb.AppendLine($"PackagingMtl = {PackagingMtl}");
+            sb.AppendLine($"InvGrpCode = {InvGrpCode}");
+            return sb.ToString();
+        }
     }
 }

@@ -12,7 +12,18 @@ namespace RollLabelProdPack.Library.Entities
         public int BaseEntry { get; set; }
         public int BaseLine { get; set; }
         public double ShortQty { get; set; }
-        
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("InventoryIssueDetail");
+            sb.AppendLine("--------------------");
+            sb.AppendLine($"PlannedIssueQty = {PlannedIssueQty}");
+            sb.AppendLine($"BaseEntry = {BaseEntry}");
+            sb.AppendLine($"BaseLine = {BaseLine}");
+            sb.AppendLine($"ShortQty = {ShortQty}");
+            sb.Append(base.ToString());
+            return sb.ToString();
+        }
     }
 }

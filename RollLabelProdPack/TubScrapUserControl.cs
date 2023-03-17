@@ -43,18 +43,26 @@ namespace RollLabelProdPack
             get { return _order; }
             set
             {
-                _order = value;
-                if (!DesignMode && value != null)
+                // RDJ 20230315 Not using scrap right now. Ignore exceptions.
+                try
                 {
-                    _bindingSource.DataSource = _order;
-                    if (!string.IsNullOrEmpty(_order.ScrapItem) && _order.ScrapItem != "N/A")
+                    _order = value;
+                    if (!DesignMode && value != null)
                     {
-                        scrapItemLabel.DataBindings.Clear();
-                        scrapItemLabel.DataBindings.Add("Text", _bindingSource, "ScrapItem");
-                        scrapReasonsComboBox.Enabled = true;
-                        scrapQtyTextBox.Enabled = true;
-                        scrapButton.Enabled = true;
+                        _bindingSource.DataSource = _order;
+                        if (!string.IsNullOrEmpty(_order.ScrapItem) && _order.ScrapItem != "N/A")
+                        {
+                            scrapItemLabel.DataBindings.Clear();
+                            scrapItemLabel.DataBindings.Add("Text", _bindingSource, "ScrapItem");
+                            scrapReasonsComboBox.Enabled = true;
+                            scrapQtyTextBox.Enabled = true;
+                            scrapButton.Enabled = true;
+                        }
                     }
+
+                }
+                catch (Exception)
+                {
                 }
             }
         }
@@ -142,7 +150,7 @@ namespace RollLabelProdPack
 
     public delegate void TubScrapHandler(object source, TubScrapEventArgs e);
 
-    public class TubScrapEventArgs: EventArgs
+    public class TubScrapEventArgs : EventArgs
     {
         public int ScrapQty { get; set; }
         public string ScrapReason { get; set; }
@@ -150,7 +158,7 @@ namespace RollLabelProdPack
 
     public delegate void TubScrapValidationHandler(object source, TubScrapValidationEventArgs e);
 
-    public class TubScrapValidationEventArgs: EventArgs
+    public class TubScrapValidationEventArgs : EventArgs
     {
         public string ValidationMessage { get; set; }
     }

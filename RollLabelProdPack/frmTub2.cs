@@ -70,15 +70,19 @@ namespace RollLabelProdPack
                         //txtWeightKgs.Enabled = true;
                         //txtProductionDateFull.Text = DateTime.Now.ToShortDateString();
                         tubProductionUserControl1.Order = _selectOrder;
-                        tubScrapUserControl1.Order = _selectOrder;
+                        //tubScrapUserControl1.Order = _selectOrder;
                         _orderChangeCausedComboSelectionChange = true;
                         toLineComboBox.Enabled = true;
-                        toLineComboBox.SelectedItem = _prodLines.First(t => t.ProductionLine == _selectOrder.ProductionLine);
+                        if (_prodLines.Any(t => t.ProductionLine == _selectOrder.ProductionLine))
+                            toLineComboBox.SelectedItem = _prodLines.First(t => t.ProductionLine == _selectOrder.ProductionLine);
+                        else
+                            toLineComboBox.SelectedItem = _prodLines[0];
                         _selectedLine = (ProductionLineMachineNo)toLineComboBox.SelectedItem;
                         _orderChangeCausedComboSelectionChange = false;
                     }
                 }
-                RefreshOrderInfo();
+                if (_selectOrder != null)
+                    RefreshOrderInfo();
             }
             catch (Exception ex)
             {
@@ -91,6 +95,10 @@ namespace RollLabelProdPack
         {
             try
             {
+                if (_log.IsDebugEnabled)
+                {
+                    _log.Debug($"RefreshOrderInfo, before calling GetProdOrder, SAPOrderNo = {_selectOrder.SAPOrderNo}");
+                }
                 var so = AppData.GetProdOrder(_selectOrder.SAPOrderNo);
                 if (!so.SuccessFlag) throw new ApplicationException($"Error refreshing order information. Error:{so.ServiceException}");
                 _selectOrder = (RollLabelData)so.ReturnValue;
@@ -110,6 +118,8 @@ namespace RollLabelProdPack
                 if (_selectedLine != null)
                 {
                     _selectOrder.ProductionLine = _selectedLine.ProductionLine;
+                    _selectOrder.OutputLoc = _selectedLine.OutputLocationCode;
+                    _selectOrder.InputLoc = _selectedLine.InputLocationCode;
                     _selectOrder.BatchNo = $"{_selectOrder.SAPOrderNo.ToString()}{_selectOrder.ProductionLine.Replace("TUB", "T")}";
                 }
                 tubProductionUserControl1.Order = _selectOrder;
@@ -140,11 +150,12 @@ namespace RollLabelProdPack
                 toLineComboBox.DisplayMember = "ProductionLine";
                 tubProductionUserControl1.ValidationFailed += TubProductionUserControl1_ValidationFailed;
                 tubProductionUserControl1.IssuesRefreshRequested += TubProductionUserControl1_IssuesRefreshRequested;
-                tubScrapUserControl1.ScrapRequested += TubScrapUserControl1_ScrapRequested;
-                tubScrapUserControl1.ValidationFailed += TubScrapUserControl1_ValidationFailed;
-                so = AppData.GetScrapReasons("TUB");
-                if (!so.SuccessFlag) throw new ApplicationException($"Error getting scrap reasons: {so.ServiceException}");
-                tubScrapUserControl1.ScrapReasons = (List<string>)so.ReturnValue;
+                // RDJ 20230315 scrap not implemented
+                //tubScrapUserControl1.ScrapRequested += TubScrapUserControl1_ScrapRequested;
+                //tubScrapUserControl1.ValidationFailed += TubScrapUserControl1_ValidationFailed;
+                //so = AppData.GetScrapReasons("TUB");
+                //if (!so.SuccessFlag) throw new ApplicationException($"Error getting scrap reasons: {so.ServiceException}");
+                //tubScrapUserControl1.ScrapReasons = (List<string>)so.ReturnValue;
             }
             catch (Exception ex)
             {
@@ -157,7 +168,29 @@ namespace RollLabelProdPack
         {
             try
             {
+                if (_log.IsDebugEnabled)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("About to call AppUtility.RefreshIssueQty");
+                    sb.AppendLine("----------------------------------------");
+                    sb.AppendLine($"_selectOrder.SAPOrderNo = {_selectOrder.SAPOrderNo}");
+                    sb.AppendLine($"_selectOrder.ProductionLine = {_selectOrder.ProductionLine}");
+                    sb.AppendLine($"(decimal)(e.QtyPerCase * e.NumberOfCases) = {(decimal)(e.QtyPerCase * e.NumberOfCases)}");
+                    _log.Debug(sb.ToString());
+                }
                 _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(e.QtyPerCase * e.NumberOfCases));
+                if (_log.IsDebugEnabled)
+                {
+                    foreach (var issue in _plannedIssue)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine("Returned from AppUtility.RefreshIssueQty");
+                        sb.AppendLine("Planned issues:");
+                        sb.AppendLine("---------------");
+                        sb.AppendLine(issue.ToString());
+                        _log.Debug(sb.ToString());
+                    }
+                }
                 var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);
                 if (hasShortage.Count() > 0 || !e.ProduceRequested)
                 {
@@ -193,13 +226,48 @@ namespace RollLabelProdPack
                         {
                             if (plIssue.ShortQty == 0)
                             {
+                                if (_log.IsDebugEnabled)
+                                {
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.AppendLine("Calling AddOrderIssueLine:");
+                                    sb.AppendLine("--------------------------");
+                                    sb.AppendLine($"plIssue.BaseEntry = {plIssue.BaseEntry}");
+                                    sb.AppendLine($"plIssue.BaseLine = {plIssue.BaseLine}");
+                                    sb.AppendLine($"plIssue.ItemCode = {plIssue.ItemCode}");
+                                    sb.AppendLine($"plIssue.PlannedIssueQty = {plIssue.PlannedIssueQty}");
+                                    sb.AppendLine($"plIssue.StorageLocation = {plIssue.StorageLocation}");
+                                    sb.AppendLine($"plIssue.QualityStatus = {plIssue.QualityStatus}");
+                                    sb.AppendLine($"plIssue.Batch = {plIssue.Batch}");
+                                    sb.AppendLine($"plIssue.LUID = {plIssue.LUID}");
+                                    sb.AppendLine($"plIssue.SSCC = {plIssue.SSCC}");
+                                    sb.AppendLine($"plIssue.UOM = {plIssue.UOM}");
+                                    sb.AppendLine($"_selectOrder.SAPOrderNo.ToString() = {_selectOrder.SAPOrderNo.ToString()}");
+                                    _log.Debug(sb.ToString());
+                                }
                                 invIssue.AddOrderIssueLine(plIssue.BaseEntry, plIssue.BaseLine, plIssue.ItemCode, plIssue.PlannedIssueQty, plIssue.StorageLocation, plIssue.QualityStatus, plIssue.Batch, plIssue.LUID, plIssue.SSCC, plIssue.UOM, _selectOrder.SAPOrderNo.ToString());
                             }
                             else
                             {
+                                if (_log.IsDebugEnabled)
+                                {
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.AppendLine("Calling AddIssueShortage");
+                                    sb.AppendLine("------------------------");
+                                    sb.AppendLine($"_selectOrder.SAPOrderNo = {_selectOrder.SAPOrderNo}");
+                                    sb.AppendLine($"plIssue.ItemCode = {plIssue.ItemCode}");
+                                    sb.AppendLine($"plIssue.ShortQty = {Convert.ToDecimal(plIssue.ShortQty)}");
+                                    _log.Debug(sb.ToString());
+                                }
                                 so = AppData.AddIssueShortage(_selectOrder.SAPOrderNo, plIssue.ItemCode, Convert.ToDecimal(plIssue.ShortQty));
                                 if (!so.SuccessFlag) throw new ApplicationException($"Error adding shortage. Error:{so.ServiceException}");
                             }
+                        }
+                        if (_log.IsDebugEnabled)
+                        {
+                            var issueSum = _plannedIssue.Sum(q => q.PlannedIssueQty);
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendLine($"_plannedIssue.Sum(q => q.PlannedIssueQty) = {issueSum}");
+                            _log.Debug(sb.ToString());
                         }
                         if (_plannedIssue.Sum(q => q.PlannedIssueQty) > 0 && invIssue.Save() == false) { throw new B1Exception(sapB1.SapCompany, sapB1.GetLastExceptionMessage()); }
                     }
@@ -221,6 +289,7 @@ namespace RollLabelProdPack
                             var defaultStatus = AppUtility.GetDefaultStatus();
                             var defaultUom = AppUtility.GetDefaultUom();
 
+                            if (_log.IsDebugEnabled) _log.Debug($"_selectOrder.OutputLoc = {_selectOrder.OutputLoc}");
                             invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ItemCode, Convert.ToDouble(qtyPerCase), _prodRun, _selectOrder.OutputLoc, defaultStatus, _selectOrder.BatchNo, luid, sscc, defaultUom, _selectOrder.SAPOrderNo.ToString(), false, 0, _selectOrder.Shift, _selectOrder.Employee);
                         }
 
@@ -392,6 +461,10 @@ namespace RollLabelProdPack
                 if (!_orderChangeCausedComboSelectionChange)
                 {
                     ProductionLineMachineNo selectedLineMachineNo = (ProductionLineMachineNo)toLineComboBox.SelectedItem;
+                    StringBuilder sbDebugMsg = new StringBuilder();
+                    sbDebugMsg.AppendLine("selectedLineMachineNo = ");
+                    sbDebugMsg.AppendLine(selectedLineMachineNo.ToString());
+                    if (_log.IsDebugEnabled) _log.Debug(sbDebugMsg.ToString());
                     if (selectedLineMachineNo.ProductionMachineNo != "0")
                     {
                         _selectOrder.ProductionLine = selectedLineMachineNo.ProductionLine;
@@ -400,6 +473,7 @@ namespace RollLabelProdPack
                         _selectOrder.OutputLoc = selectedLineMachineNo.OutputLocationCode;
                         _selectOrder.Printer = selectedLineMachineNo.Printer;
                         _selectedLine = selectedLineMachineNo;
+                        if (_log.IsDebugEnabled) _log.Debug($"_selectOrder.OutputLoc = {_selectOrder.OutputLoc}");
                         RefreshOrderInfo();
                     }
                 }

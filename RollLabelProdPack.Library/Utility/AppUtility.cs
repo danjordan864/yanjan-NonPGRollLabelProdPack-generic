@@ -1,4 +1,5 @@
-﻿using RollLabelProdPack.Library.Data;
+﻿using log4net;
+using RollLabelProdPack.Library.Data;
 using RollLabelProdPack.Library.Email;
 using RollLabelProdPack.Library.Entities;
 using System;
@@ -19,11 +20,32 @@ namespace RollLabelProdPack.Library.Utility
         #region production common routines
         public static List<InventoryIssueDetail> RefreshIssueQty(int prodOrder, string prodLine, decimal productionQty, int decimalPlaces = -1)
         {
+            ILog log = LogManager.GetLogger(typeof(AppUtility));
             var plannedIssue = new List<InventoryIssueDetail>();
             var packingMtlLoc = GetPackingMtlLocation();
+            if (log.IsDebugEnabled) log.Debug("About to call GetProdLineInputMaterial");
+            if (log.IsDebugEnabled) log.Debug("--------------------------------------");
+            if (log.IsDebugEnabled) log.Debug($"prodLine = {prodLine}");
+            if (log.IsDebugEnabled) log.Debug($"packingMtlLoc = {packingMtlLoc}");
             var so = AppData.GetProdLineInputMaterial(prodLine, packingMtlLoc);
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting Prod. Line Input Material. Error:{so.ServiceException}");
             var inputLocMaterial = so.ReturnValue as List<InventoryDetail>;
+            if (log.IsDebugEnabled)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("inputLocMaterial");
+                sb.AppendLine("----------------");
+                if (inputLocMaterial.Count == 0)
+                    sb.AppendLine("None");
+                else
+                {
+                    foreach (var material in inputLocMaterial)
+                    {
+                        sb.AppendLine(material.ToString());
+                    }
+                }
+                log.Debug(sb.ToString());
+            }
             so = AppData.GetProdOrderIssueMaterial(prodOrder, productionQty);
             if (!so.SuccessFlag) throw new ApplicationException($"Error getting Issue Material. Error:{so.ServiceException}");
             var prodOrderLines = so.ReturnValue as List<InventoryIssueDetail>;
@@ -720,6 +742,37 @@ namespace RollLabelProdPack.Library.Utility
         {
             return ConfigurationManager.AppSettings["Resmix002ToLines"];
         }
+
+        public static string GetGenericTubLineCode()
+        {
+            var genericTubLineCode = ConfigurationManager.AppSettings["GenericTubLineCode"];
+            return genericTubLineCode == null ? "TUB" : genericTubLineCode;
+        }
+
+        public static string GetGenericTubLineMachineNo()
+        {
+            var genericTubLineMachineNo = ConfigurationManager.AppSettings["GenericTubLineMachineNo"];
+            return genericTubLineMachineNo == null ? "T0" : genericTubLineMachineNo;
+        }
+
+        public static string GetGenericTubInputLocationCode()
+        {
+            var genericTubInputLocationCode = ConfigurationManager.AppSettings["GenericTubInputLocationCode"];
+            return genericTubInputLocationCode == null ? "TUBRAW1" : genericTubInputLocationCode;
+        }
+
+        public static string GetGenericTubOutputLocationCode()
+        {
+            var genericTubOutputLocationCode = ConfigurationManager.AppSettings["GenericTubOutputLocationCode"];
+            return genericTubOutputLocationCode == null ? "TUBFIN1" : genericTubOutputLocationCode;
+        }
+
+        public static string GetGenericTubPrinter()
+        {
+            var genericTubPrinter = ConfigurationManager.AppSettings["GenericTubPrinter"];
+            return genericTubPrinter == null ? "DT-026_Zebra" : genericTubPrinter;
+        }
+
         #endregion
 
         #region html toast

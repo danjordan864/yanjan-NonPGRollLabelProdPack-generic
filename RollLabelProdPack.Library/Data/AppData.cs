@@ -13,6 +13,8 @@ namespace RollLabelProdPack.Library.Data
 {
     public class AppData
     {
+        private static ILog _log = LogManager.GetLogger(typeof(AppData));
+
         //_sii_rpr_sps_getProdOrder
         public static ServiceOutput GetProdOrder(int orderNo)
         {
@@ -71,6 +73,7 @@ namespace RollLabelProdPack.Library.Data
                 serviceOutput.CallStack = ex.StackTrace;
                 serviceOutput.MethodName = AppUtility.GetCurrentMethod();
                 serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+                _log.Error(ex.Message, ex);
             }
             return serviceOutput;
         }

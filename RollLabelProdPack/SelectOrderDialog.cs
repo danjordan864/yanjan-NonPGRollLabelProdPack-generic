@@ -42,6 +42,16 @@ namespace RollLabelProdPack
                     if (!so.SuccessFlag) throw new ApplicationException("Error getting tub production lines. " + so.ServiceException);
                     List<ProductionLine> tubLines = ((List<ProductionLine>)so.ReturnValue).Where(t => t.Code.StartsWith("TUB")).ToList();
                     prodLines = tubLines.Select(t => new ProductionLineMachineNo { ProductionLine = t.Code, ProductionMachineNo = t.LineNo, InputLocationCode = t.InputLocationCode, OutputLocationCode = t.OutputLocationCode, Printer = t.Printer }).OrderBy(t => t.ProductionLine).ToList();
+                    // RDJ 20230315 - Prepend a generic "TUB" line. The plan is for TUB orders going forward to use this "TUB" line.
+                    // The operator will still need to choose TUB1-TUB8 when reporting production.
+                    prodLines.Insert(0, new ProductionLineMachineNo
+                    {
+                        ProductionLine = AppUtility.GetGenericTubLineCode(),
+                        ProductionMachineNo = AppUtility.GetGenericTubLineMachineNo(),
+                        InputLocationCode = AppUtility.GetGenericTubInputLocationCode(),
+                        OutputLocationCode = AppUtility.GetGenericTubOutputLocationCode(),
+                        Printer = AppUtility.GetGenericTubPrinter()
+                    });
                 }
                 prodLines.Insert(0, new ProductionLineMachineNo { ProductionLine = "<-Please select an Production Line->", ProductionMachineNo = "0" });
                 cboProductionLine.DisplayMember = "ProductionLine";
@@ -101,7 +111,10 @@ namespace RollLabelProdPack
             if (cboProductionLine.Text != "<-Please select an Production Line->")
             {
                 // RDJ 20220812 - If this is for TUBs then any TUB production line is OK
-                var ordersForProductLine = _orders.Where(o => _itemGroupFilter == "TUB" || o.ProductionLine == cboProductionLine.Text).ToList();
+                //var ordersForProductLine = _orders.Where(o => _itemGroupFilter == "TUB" || o.ProductionLine == cboProductionLine.Text).ToList();
+                // RDJ 20230315 - TUB orders should now only be selected according to the production line.
+                // Eventually these will go to a generic "TUB" line.
+                var ordersForProductLine = _orders.Where(o => o.ProductionLine == cboProductionLine.Text).ToList();
                 ordersForProductLine.Insert(0, new RollLabelData { YJNOrder = "<-Please select an Order->" });
                 cboProductionOrder.DisplayMember = "OrderDisplay";
                 cboProductionOrder.ValueMember = "SAPOrderNo";

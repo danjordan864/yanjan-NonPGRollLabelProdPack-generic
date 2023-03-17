@@ -60,6 +60,7 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Scrap";
+            this.groupBox2.Visible = false;
             // 
             // btnSelect
             // 
@@ -104,6 +105,7 @@
             this.tubScrapUserControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tubScrapUserControl1.Name = "tubScrapUserControl1";
             this.tubScrapUserControl1.Order = null;
+            this.tubScrapUserControl1.ScrapReasons = null;
             this.tubScrapUserControl1.Size = new System.Drawing.Size(867, 72);
             this.tubScrapUserControl1.TabIndex = 0;
             // 
@@ -124,7 +126,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 596);
+            this.ClientSize = new System.Drawing.Size(927, 474);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.toLineComboBox);
             this.Controls.Add(this.label7);
