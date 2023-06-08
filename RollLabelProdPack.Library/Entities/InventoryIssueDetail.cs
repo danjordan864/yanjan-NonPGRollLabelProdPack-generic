@@ -1,18 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace RollLabelProdPack.Library.Entities
 {
-    public class InventoryIssueDetail:InventoryDetail
+    /// <summary>
+    /// Represents an inventory issue detail entity.
+    /// </summary>
+    public class InventoryIssueDetail : InventoryDetail
     {
+        /// <summary>
+        /// Gets or sets the planned issue quantity.
+        /// </summary>
         public double PlannedIssueQty { get; set; }
+
+        /// <summary>
+        /// Gets or sets the base entry.
+        /// </summary>
         public int BaseEntry { get; set; }
+
+        /// <summary>
+        /// Gets or sets the base line.
+        /// </summary>
         public int BaseLine { get; set; }
+
+        /// <summary>
+        /// Gets or sets the short quantity.
+        /// </summary>
         public double ShortQty { get; set; }
 
+        /// <summary>
+        /// Returns a string representation of the inventory issue detail.
+        /// </summary>
+        /// <returns>The string representation of the inventory issue detail.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

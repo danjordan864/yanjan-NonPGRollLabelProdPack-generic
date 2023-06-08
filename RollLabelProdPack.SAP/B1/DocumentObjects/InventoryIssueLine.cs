@@ -1,23 +1,32 @@
 ﻿using log4net;
 using SAPbobsCOM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RollLabelProdPack.SAP.B1.DocumentObjects
 {
     /// <summary>
     /// Wrapper class for the line items on a given document.
     /// </summary>
+    /// <remarks>
+    /// This code defines a wrapper class called InventoryIssueLine for the line items on a given document in SAP Business One (SAP B1). 
+    /// It includes properties to access various attributes of the line item, such as DocEntry, LineNumber, BaseEntry, and ItemCode. 
+    /// The class provides constructors to initialize instances of InventoryIssueLine and link them to SAP B1 document 
+    /// line objects.
+    /// 
+    /// The constructors allow you to set different properties of the InventoryIssueLine, such as base entry, 
+    /// base line, item code, quantity, storage location, quality status, batch number, LUID (Logistic Unit Identifier), 
+    /// SSCC (Serial Shipping Container Code), unit of measure, lot number, scrap offset code, scrap reason, and 
+    /// shift. These properties are set using the IDocuments and Document_Lines objects from the SAP B1 API. 
+    /// 
+    /// The class also includes a method called IsCommitted() to check whether the line item has been 
+    /// committed to the database.
+    /// </remarks>
     public class InventoryIssueLine
     {
 
         #region variables
 
         /// <summary></summary>
-         Document_Lines _line = null;
+        Document_Lines _line = null;
 
         ILog _log = null;
 
@@ -35,10 +44,24 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// </summary>
         public int LineNumber { get { return _line.LineNum; } }
 
-
+        /// <summary>
+        /// Gets the base entry of the line item.
+        /// </summary>
+        /// <remarks>
+        /// The base entry is the document entry of the document on which the line item is based. For example, 
+        /// in the case of a goods receipt, the base entry would be the purchase order or production order from 
+        /// which the goods were received.
+        /// </remarks>
+        /// <value>The base entry of the line item.</value>
         public int BaseEntry { get { return _line.BaseEntry; } }
 
-       
+        /// <summary>
+        /// Gets the base line number of the line item.
+        /// </summary>
+        /// <remarks>
+        /// The base line number is used to link the line item to its corresponding base document line in 
+        /// SAP Business One.
+        /// </remarks>
         public int BaseLine { get { return _line.BaseLine; } }
 
         /// <summary>
@@ -50,6 +73,12 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
         #region constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InventoryIssueLine"/> class.
+        /// </summary>
+        /// <remarks>
+        /// This constructor is used to create a default instance of the <see cref="InventoryIssueLine"/> class.
+        /// </remarks>
         public InventoryIssueLine()
         {
             _log = LogManager.GetLogger(this.GetType());
@@ -69,7 +98,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         /// </summary>
         /// <param name="productionOrder">The SAP B1 document object that owns the line item.</param>
         /// <param name="itemCode">Line item code (item Primary key)</param>
-        public InventoryIssueLine(IDocuments issue, int baseEntry, int baseLine, string itemCode, double quantity,  string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber)
+        public InventoryIssueLine(IDocuments issue, int baseEntry, int baseLine, string itemCode, double quantity, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber)
             : this()
         {
             if (_log.IsDebugEnabled)
@@ -111,7 +140,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
 
             //luid and sscc
-            if(luid != 0)
+            if (luid != 0)
             {
                 index = -1;
                 index = UDFIndexLocation(issue.Lines, "U_PMX_LUID");
@@ -161,8 +190,30 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             _line = issue.Lines;
         }
 
-       
-        public InventoryIssueLine(IDocuments issue, string itemCode, double quantity, string storageLoc, string qualityStatus, 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InventoryIssueLine"/> class with the specified parameters.
+        /// </summary>
+        /// <param name="issue">The SAP B1 document object that owns the line item.</param>
+        /// <param name="itemCode">The line item code (item Primary key).</param>
+        /// <param name="quantity">The quantity of the line item.</param>
+        /// <param name="storageLoc">The storage location for the line item.</param>
+        /// <param name="qualityStatus">The quality status of the line item.</param>
+        /// <param name="batchNo">The batch number for the line item (optional).</param>
+        /// <param name="luid">The LUID (optional).</param>
+        /// <param name="sscc">The SSCC (optional).</param>
+        /// <param name="uom">The unit of measure for the line item.</param>
+        /// <param name="lotNumber">The lot number for the line item (optional).</param>
+        /// <param name="scrapOffsetCode">The scrap offset code.</param>
+        /// <param name="scrapReason">The scrap reason for the line item.</param>
+        /// <param name="shift">The shift for the line item.</param>
+        /// <remarks>
+        /// This constructor initializes a new instance of the <see cref="InventoryIssueLine"/> class with the 
+        /// specified parameters. It sets the values for various properties of the SAP B1 document line object, 
+        /// such as quantity, item code, storage location, quality status, batch number, LUID, SSCC, unit of measure, 
+        /// lot number, scrap offset code, scrap reason, and shift.
+        /// </remarks>
+        public InventoryIssueLine(IDocuments issue, string itemCode, double quantity, string storageLoc, string qualityStatus,
             string batchNo, int luid, string sscc, string uom, string lotNumber, string scrapOffsetCode, string scrapReason, string shift)
             : this()
         {
@@ -252,7 +303,20 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
         #region methods
 
-        /// <summary></summary>
+        /// <summary>
+        /// Retrieves the index location of a user-defined field (UDF) within the document lines.
+        /// </summary>
+        /// <param name="issueLines">The SAP B1 document lines object.</param>
+        /// <param name="udfName">The name of the user-defined field.</param>
+        /// <returns>
+        /// The index location of the specified user-defined field within the document lines. Returns -1 
+        /// if the user-defined field is not found.
+        /// </returns>
+        /// <remarks>
+        /// This method searches for a user-defined field with the specified name within the SAP B1 document 
+        /// lines object. It returns the index location of the user-defined field if found, or -1 if the 
+        /// user-defined field is not found.
+        /// </remarks>
         private static int UDFIndexLocation(IDocument_Lines issueLines, string udfName)
         {
             int index = -1;

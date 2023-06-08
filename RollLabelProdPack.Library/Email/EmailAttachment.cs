@@ -1,38 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RollLabelProdPack.Library.Email
+﻿namespace RollLabelProdPack.Library.Email
 {
+    /// <summary>
+    /// Represents an email attachment.
+    /// </summary>
     public class EmailAttachment
     {
+        #region Variables
 
-        #region variables
-
-        /// <summary></summary>
+        /// <summary>
+        /// The path of the attachment file.
+        /// </summary>
         private string _attachmentPath = string.Empty;
 
         #endregion
 
-        #region properties
+        #region Properties
 
-        /// <summary></summary>
+        /// <summary>
+        /// Gets or sets the path of the attachment file.
+        /// </summary>
         public string AttachmentPath { get { return _attachmentPath; } set { _attachmentPath = value; } }
 
         #endregion
 
-        #region constructors
+        #region Constructors
 
-        /// <summary></summary>
+        /// <summary>
+        /// Initializes a new instance of the EmailAttachment class with the specified attachment path.
+        /// </summary>
+        /// <param name="attachment">The path of the attachment file.</param>
         public EmailAttachment(string attachment)
         {
             _attachmentPath = attachment;
         }
 
         #endregion
-
-
     }
 }

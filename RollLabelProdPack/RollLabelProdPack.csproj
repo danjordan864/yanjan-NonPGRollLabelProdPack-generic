@@ -110,6 +110,12 @@
     <Compile Include="FrmCasesDialog.Designer.cs">
       <DependentUpon>FrmCasesDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCoPack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCoPack.Designer.cs">
+      <DependentUpon>frmCoPack.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTub2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +191,12 @@
     <Compile Include="OSP\FloatingWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CoPackProductionUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CoPackProductionUserControl.Designer.cs">
+      <DependentUpon>CoPackProductionUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="TubProductionUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -212,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmCasesDialog.resx">
       <DependentUpon>FrmCasesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCoPack.resx">
+      <DependentUpon>frmCoPack.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTub2.resx">
       <DependentUpon>frmTub2.cs</DependentUpon>
@@ -256,6 +271,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="CoPackProductionUserControl.resx">
+      <DependentUpon>CoPackProductionUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TubProductionUserControl.resx">
       <DependentUpon>TubProductionUserControl.cs</DependentUpon>
     </EmbeddedResource>

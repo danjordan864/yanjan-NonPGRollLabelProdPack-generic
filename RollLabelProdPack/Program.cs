@@ -11,35 +11,53 @@ namespace RollLabelProdPack
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// <param name="args">Command-line arguments passed to the application.</param>
         [STAThread]
         static void Main(string[] args)
         {
+            // Enable visual styles for the application
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //valid input values are pack, production or manual
-            if (args.Length > 0 && args[0] != null && args[0] == "pack")
+
+            // Check the command-line arguments to determine the application behavior
+            if (args.Length > 0 && args[0] != null)
             {
-                Application.Run(new FrmPackPrint());
-            }
-            else if (args.Length > 0 && args[0] != null && args[0] == "tubpack")
-            {
-                Application.Run(new FrmTubPackPrint());
-            }
-            else if (args.Length > 0 && args[0] != null && args[0] == "mix")
-            {
-                Application.Run(new FrmMix());
-            }
-            else if (args.Length > 0 && args[0] != null && args[0] == "mask")
-            {
-                Application.Run(new FrmMask());
-            }
-            else if (args.Length > 0 && args[0] != null && args[0] == "tub")
-            {
-                //Application.Run(new FrmTub());
-                Application.Run(new frmTub2());
+                // Execute specific functionality based on the provided argument
+
+                if (args[0] == "pack")
+                {
+                    // Run the "FrmPackPrint" form for "pack" argument
+                    Application.Run(new FrmPackPrint());
+                }
+                else if (args[0] == "tubpack")
+                {
+                    // Run the "FrmTubPackPrint" form for "tubpack" argument
+                    Application.Run(new FrmTubPackPrint());
+                }
+                else if (args[0] == "mix")
+                {
+                    // Run the "FrmMix" form for "mix" argument
+                    Application.Run(new FrmMix());
+                }
+                else if (args[0] == "mask")
+                {
+                    // Run the "FrmMask" form for "mask" argument
+                    Application.Run(new FrmMask());
+                }
+                else if (args[0] == "tub")
+                {
+                    // Run the "frmTub2" form for "tub" argument
+                    Application.Run(new frmTub2());
+                }
+                else if (args[0] == "copack")
+                {
+                    // Run the "frmCoPack" form for "copack" argument
+                    Application.Run(new frmCoPack());
+                }
             }
             else
             {
+                // Run the default "FrmMain" form when no argument is provided
                 Application.Run(new FrmMain());
             }
         }

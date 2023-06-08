@@ -32,16 +32,25 @@ namespace RollLabelProdPack.SAP.B1
         /// </summary>
         public int LineNumber { get { return _line.LineNumber; } }
 
+        /// <summary>
+        /// Gets the issue type of the production order line.
+        /// </summary>
         public BoIssueMethod IssueType { get { return _line.ProductionOrderIssueType; } }
 
-        
+
         /// <summary>
         /// Line item code (item Primary key)
         /// </summary>
         public string ItemCode { get { return _line.ItemNo; } set { _line.ItemNo = value; } }
 
+        /// <summary>
+        /// Gets the base quantity of the production order line.
+        /// </summary>
         public double BaseQty { get { return _line.BaseQuantity; }}
 
+        /// <summary>
+        /// Gets the unit of measure code for the production order line.
+        /// </summary>
         public string UomCode { get { return _line.UoMCode; } }
 
 
@@ -106,7 +115,12 @@ namespace RollLabelProdPack.SAP.B1
 
         #region methods
 
-        /// <summary></summary>
+        /// <summary>
+        /// Finds the index of a user-defined field (UDF) in the production order line.
+        /// </summary>
+        /// <param name="sapOrder">The production order line object.</param>
+        /// <param name="udfName">The name of the user-defined field.</param>
+        /// <returns>The index of the user-defined field if found, or -1 if the field is not found.</returns>
         private static int UDFIndexLocation(IProductionOrders_Lines sapOrder, string udfName)
         {
             int index = -1;

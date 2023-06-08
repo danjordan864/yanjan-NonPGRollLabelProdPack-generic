@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RollLabelProdPack.Library.Entities
 {
+    /// <summary>
+    /// Represents a pack label.
+    /// </summary>
     public class PackLabel : INotifyPropertyChanged
     {
         private int _id;
@@ -36,12 +36,12 @@ namespace RollLabelProdPack.Library.Entities
         private decimal _totalNetKg;
         private bool _totalWeightEntered;
 
+        /// <summary>
+        /// Gets or sets the ID of the pack label.
+        /// </summary>
         public int ID
         {
-            get
-            {
-                return _id;
-            }
+            get { return _id; }
             set
             {
                 if (value != _id)
@@ -52,12 +52,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The PMXSSCC is a unique identifier for the pack label.
+        /// <summary>
+        /// Gets or sets the PMXSSCC of the pack label.
+        /// </summary>
         public string PMXSSCC
         {
-            get
-            {
-                return _pmxsscc;
-            }
+            get { return _pmxsscc; }
             set
             {
                 if (value != _pmxsscc)
@@ -68,12 +69,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The ItemCode represents the code of the item contained in the pack label.
+        /// <summary>
+        /// Gets or sets the item code of the pack label.
+        /// </summary>
         public string ItemCode
         {
-            get
-            {
-                return _itemCode;
-            }
+            get { return _itemCode; }
             set
             {
                 if (value != _itemCode)
@@ -84,12 +86,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The ItemName represents the name of the item contained in the pack label.
+        /// <summary>
+        /// Gets or sets the item name of the pack label.
+        /// </summary>
         public string ItemName
         {
-            get
-            {
-                return _itemName;
-            }
+            get { return _itemName; }
             set
             {
                 if (value != _itemName)
@@ -100,12 +103,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Description provides additional information about the pack label.
+        /// <summary>
+        /// Gets or sets the description of the pack label.
+        /// </summary>
         public string Description
         {
-            get
-            {
-                return _description;
-            }
+            get { return _description; }
             set
             {
                 if (value != _description)
@@ -116,12 +120,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The IRMS represents a specific identifier for the pack label.
+        /// <summary>
+        /// Gets or sets the IRMS of the pack label.
+        /// </summary>
         public string IRMS
         {
-            get
-            {
-                return _irms;
-            }
+            get { return _irms; }
             set
             {
                 if (value != _irms)
@@ -132,12 +137,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The YJNOrder represents the order associated with the pack label.
+        /// <summary>
+        /// Gets or sets the YJN order of the pack label.
+        /// </summary>
         public string YJNOrder
         {
-            get
-            {
-                return _yjnOrder;
-            }
+            get { return _yjnOrder; }
             set
             {
                 if (value != _yjnOrder)
@@ -148,12 +154,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The SSCC is a unique identifier for the pack label.
+        /// <summary>
+        /// Gets or sets the SSCC of the pack label.
+        /// </summary>
         public string SSCC
         {
-            get
-            {
-                return _sscc;
-            }
+            get { return _sscc; }
             set
             {
                 if (value != _sscc)
@@ -164,13 +171,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The SAPOrder represents the order associated with the pack label in the SAP system.
+        /// <summary>
+        /// Gets or sets the SAP order of the pack label.
+        /// </summary>
         public int SAPOrder
         {
-            get
-            {
-                return _sapOrder;
-            }
-
+            get { return _sapOrder; }
             set
             {
                 if (value != _sapOrder)
@@ -181,12 +188,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Created property represents the date and time when the pack label was created.
+        /// <summary>
+        /// Gets or sets the creation date and time of the pack label.
+        /// </summary>
         public DateTime Created
         {
-            get
-            {
-                return _created;
-            }
+            get { return _created; }
             set
             {
                 if (value != _created)
@@ -197,12 +205,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The ProductionDate represents the date when the pack label is produced.
+        /// <summary>
+        /// Gets or sets the production date of the pack label.
+        /// </summary>
         public DateTime ProductionDate
         {
-            get
-            {
-                return _productionDate;
-            }
+            get { return _productionDate; }
             set
             {
                 if (value != _productionDate)
@@ -213,12 +222,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The LotNo represents the lot number associated with the pack label.
+        /// <summary>
+        /// Gets or sets the lot number of the pack label.
+        /// </summary>
         public string LotNo
         {
-            get
-            {
-                return _lotNo;
-            }
+            get { return _lotNo; }
             set
             {
                 if (value != _lotNo)
@@ -229,12 +239,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The PalletType represents the type of pallet used for the pack label.
+        /// <summary>
+        /// Gets or sets the pallet type of the pack label.
+        /// </summary>
         public string PalletType
         {
-            get
-            {
-                return _palletType;
-            }
+            get { return _palletType; }
             set
             {
                 if (value != _palletType)
@@ -245,12 +256,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Printed property indicates whether the pack label has been printed.
+        /// <summary>
+        /// Gets or sets a value indicating whether the pack label has been printed.
+        /// </summary>
         public bool Printed
         {
-            get
-            {
-                return _printed;
-            }
+            get { return _printed; }
             set
             {
                 if (value != _printed)
@@ -261,12 +273,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Valid property indicates whether the pack label is valid.
+        /// <summary>
+        /// Gets or sets a value indicating whether the pack label is valid.
+        /// </summary>
         public bool Valid
         {
-            get
-            {
-                return _valid;
-            }
+            get { return _valid; }
             set
             {
                 if (value != _valid)
@@ -277,12 +290,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The ValidMessage provides information about the validity of the pack label.
+        /// <summary>
+        /// Gets or sets the valid message of the pack label.
+        /// </summary>
         public string ValidMessage
         {
-            get
-            {
-                return _validMessage;
-            }
+            get { return _validMessage; }
             set
             {
                 if (value != _validMessage)
@@ -293,12 +307,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Qty represents the quantity of the item in the pack label.
+        /// <summary>
+        /// Gets or sets the quantity of the item in the pack label.
+        /// </summary>
         public decimal Qty
         {
-            get
-            {
-                return _qty;
-            }
+            get { return _qty; }
             set
             {
                 if (value != _qty)
@@ -309,12 +324,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Rolls represent the list of rolls contained in the pack label.
+        /// <summary>
+        /// Gets or sets the list of rolls in the pack label.
+        /// </summary>
         public List<Roll> Rolls
         {
-            get
-            {
-                return _rolls;
-            }
+            get { return _rolls; }
             set
             {
                 if (value != _rolls)
@@ -325,12 +341,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The MaxRollsPerPack represents the maximum number of rolls allowed in the pack label.
+        /// <summary>
+        /// Gets or sets the maximum number of rolls allowed in the pack label.
+        /// </summary>
         public int MaxRollsPerPack
         {
-            get
-            {
-                return _maxRollsPerPack;
-            }
+            get { return _maxRollsPerPack; }
             set
             {
                 if (value != _maxRollsPerPack)
@@ -341,12 +358,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Copies represent the number of copies to be printed for the pack label.
+        /// <summary>
+        /// Gets or sets the number of copies to be printed for the pack label.
+        /// </summary>
         public int Copies
         {
-            get
-            {
-                return _copies;
-            }
+            get { return _copies; }
             set
             {
                 if (value != _copies)
@@ -357,12 +375,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The Employee represents the employee associated with the pack label.
+        /// <summary>
+        /// Gets or sets the employee associated with the pack label.
+        /// </summary>
         public string Employee
         {
-            get
-            {
-                return _employee;
-            }
+            get { return _employee; }
             set
             {
                 if (value != _employee)
@@ -373,12 +392,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The TotalWeight represents the total weight of the pack label.
+        /// <summary>
+        /// Gets or sets the total weight of the pack label.
+        /// </summary>
         public decimal TotalWeight
         {
-            get
-            {
-                return _totalWeight;
-            }
+            get { return _totalWeight; }
             set
             {
                 if (value != _totalWeight)
@@ -391,27 +411,32 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
-        public decimal TotalTareKg {
-            get
-            {
-                return _totalTareKg;
-            }
+        // Internal comment: The TotalTareKg represents the total tare weight of the pack label.
+        /// <summary>
+        /// Gets or sets the total tare weight of the pack label.
+        /// </summary>
+        public decimal TotalTareKg
+        {
+            get { return _totalTareKg; }
             set
             {
                 if (value != _totalTareKg)
                 {
                     _totalTareKg = value;
-                    NotifyPropertyChanged();
+                    TotalNetKg = TotalWeight - _totalTareKg;
+                    //NotifyPropertyChanged();
                 }
+                NotifyPropertyChanged();
             }
         }
 
+        // Internal comment: The TotalNetKg represents the total net weight of the pack label.
+        /// <summary>
+        /// Gets or sets the total net weight of the pack label.
+        /// </summary>
         public decimal TotalNetKg
         {
-            get
-            {
-                return _totalNetKg;
-            }
+            get { return _totalNetKg; }
             set
             {
                 if (value != _totalNetKg)
@@ -422,12 +447,13 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        // Internal comment: The TotalWeightEntered indicates whether the total weight has been entered for the pack label.
+        /// <summary>
+        /// Gets or sets a value indicating whether the total weight has been entered for the pack label.
+        /// </summary>
         public bool TotalWeightEntered
         {
-            get
-            {
-                return _totalWeightEntered;
-            }
+            get { return _totalWeightEntered; }
             set
             {
                 if (value != _totalWeightEntered)
@@ -438,16 +464,19 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
-        public string PrintButtonText { get { return "Print"; } }
-
+        // Internal comment: Event raised when a property value changes.
+        /// <summary>
+        /// Event raised when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        /// <summary>
+        /// Notifies listeners that a property value has changed.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that has changed.</param>
+        protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

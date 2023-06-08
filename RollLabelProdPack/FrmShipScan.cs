@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace RollLabelProdPack
 {
+    /// <summary>
+    /// Represents a ship scan form
+    /// </summary>
     public partial class FrmShipScan : Form
     {
+        /// <summary>
+        /// Initialize a new instance of FrmShipScan.
+        /// </summary>
         public FrmShipScan()
         {
             InitializeComponent();

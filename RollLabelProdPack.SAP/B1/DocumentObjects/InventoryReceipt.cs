@@ -23,12 +23,23 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
         private ILog _log;
 
+        /// <summary>
+        /// Initializes a new instance of the InventoryReceipt class with the specified SAP company.
+        /// </summary>
+        /// <param name="sapCompany">The SAP company object.</param>
+        /// <remarks>
+        /// The constructor of the InventoryReceipt class initializes a new instance of the class with the 
+        /// provided SAP company object. The constructor assigns the SAP company object, creates a new SAP 
+        /// Business One document object of type oInventoryGenEntry (inventory general entry), and initializes 
+        /// the logger using log4net.
+        /// </remarks>
         public InventoryReceipt(Company sapCompany)
         {
             _sapCompany = sapCompany;
             _receipt = (SAPbobsCOM.IDocuments)_sapCompany.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oInventoryGenEntry);
             _log = LogManager.GetLogger(this.GetType());
         }
+
         #endregion Variables
 
         #region Properties
@@ -80,12 +91,70 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             }
         }
 
-        public void AddLine(int baseEntry, string itemCode, double quantity, int prodBatchNo, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber,bool isScrap, int scrapLine,
+        /// <summary>
+        /// Adds a line item to the inventory receipt.
+        /// </summary>
+        /// <param name="baseEntry">The base entry of the line item.</param>
+        /// <param name="itemCode">The item code of the line item.</param>
+        /// <param name="quantity">The quantity of the line item.</param>
+        /// <param name="prodBatchNo">The production batch number of the line item.</param>
+        /// <param name="storageLoc">The storage location of the line item.</param>
+        /// <param name="qualityStatus">The quality status of the line item.</param>
+        /// <param name="batchNo">The batch number of the line item.</param>
+        /// <param name="luid">The LUID of the line item.</param>
+        /// <param name="sscc">The SSCC of the line item.</param>
+        /// <param name="uom">The unit of measure of the line item.</param>
+        /// <param name="lotNumber">The lot number of the line item.</param>
+        /// <param name="isScrap">Specifies if the line item is a scrap.</param>
+        /// <param name="scrapLine">The scrap line number.</param>
+        /// <param name="shift">The shift of the line item.</param>
+        /// <param name="user">The user associated with the line item.</param>
+        /// <param name="scrapReason">The scrap reason of the line item. (Optional)</param>
+        /// <param name="scrapGLOffset">The scrap GL offset of the line item. (Optional)</param>
+        /// <param name="isAdjustment">Specifies if the line item is an adjustment. (Default: false)</param>
+        /// <remarks>
+        /// The method adds a line item to the inventory receipt with various parameters such as base entry, 
+        /// item code, quantity, production batch number, storage location, quality status, batch number, LUID, 
+        /// SSCC, unit of measure, lot number, scrap information, shift, user, scrap reason, scrap GL offset, 
+        /// and adjustment flag.
+        /// </remarks>
+        public void AddLine(int baseEntry, string itemCode, double quantity, int prodBatchNo, string storageLoc, string qualityStatus, string batchNo, int luid, string sscc, string uom, string lotNumber, bool isScrap, int scrapLine,
             string shift, string user, string scrapReason = null, string scrapGLOffset = null, bool isAdjustment = false)
         {
-            _receiptLines.Add(new InventoryReceiptLine(_receipt, baseEntry, itemCode, quantity, prodBatchNo,  storageLoc, qualityStatus, batchNo, luid, sscc, uom, lotNumber,isScrap,scrapLine,shift,user,scrapReason,scrapGLOffset,isAdjustment));
+            if (_log.IsDebugEnabled)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("In InventoryReceipt.AddLine:");
+                sb.AppendLine($"baseEntry: {baseEntry}");
+                sb.AppendLine($"itemCode: {itemCode}");
+                sb.AppendLine($"quantity: {quantity}");
+                sb.AppendLine($"prodBatchNo: {prodBatchNo}");
+                sb.AppendLine($"storageLoc: {storageLoc}");
+                sb.AppendLine($"qualityStatus: {qualityStatus}");
+                sb.AppendLine($"batchNo: {batchNo}");
+                sb.AppendLine($"luid: {luid}");
+                sb.AppendLine($"sscc: {sscc}");
+                sb.AppendLine($"uom: {uom}");
+                sb.AppendLine($"lotNumber: {lotNumber}");
+                sb.AppendLine($"isScrap: {isScrap}");
+                sb.AppendLine($"scrapLine: {scrapLine}");
+                sb.AppendLine($"shift: {shift}");
+                sb.AppendLine($"user: {user}");
+                sb.AppendLine($"scrapReason: {scrapReason}");
+                sb.AppendLine($"scrapGLOffset: {scrapGLOffset}");
+                sb.Append($"isAdjustment: {isAdjustment}");
+                _log.Debug(sb.ToString());
+            }
+            _receiptLines.Add(new InventoryReceiptLine(_receipt, baseEntry, itemCode, quantity, prodBatchNo, storageLoc, qualityStatus, batchNo, luid, sscc, uom, lotNumber, isScrap, scrapLine, shift, user, scrapReason, scrapGLOffset, isAdjustment));
         }
 
+        /// <summary>
+        /// Gets the SAP B1 object type of the inventory receipt.
+        /// </summary>
+        /// <remarks>
+        /// The property retrieves the SAP B1 object type of the inventory receipt using the BoObjectTypes 
+        /// enumeration.
+        /// </remarks>
         public BoObjectTypes SAPObjectType
         {
             get
@@ -94,6 +163,14 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <remarks>
+        /// This method is used to perform cleanup tasks and release unmanaged resources. It releases the reference 
+        /// to the _receipt object by calling ReleaseComObject, sets it to null, and triggers garbage collection with 
+        /// GC.Collect().
+        /// </remarks>
         public void Dispose()
         {
             System.Runtime.InteropServices.Marshal.ReleaseComObject(_receipt);
@@ -101,45 +178,112 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             GC.Collect();
         }
 
+        /// <summary>
+        /// Loads the User Defined Fields (UDF) dictionary for the root SAP B1 object.
+        /// </summary>
+        /// <remarks>
+        /// This method is used to load the User Defined Fields (UDF) dictionary for the root SAP B1 object. 
+        /// It iterates over the UDF fields of the _receipt object and adds them to the _userDefinedFieldsDictionary, 
+        /// using the UDF name as the key and the index position as the value.
+        /// </remarks>
         public void LoadUDFDictionary()
         {
             for (int i = 0; i < _receipt.UserFields.Fields.Count; i++)
                 _userDefinedFieldsDictionary.Add(_receipt.UserFields.Fields.Item(i).Name, i);
         }
 
+        /// <summary>
+        /// Sets the value of a User Defined Field (UDF) based on the specified key.
+        /// </summary>
+        /// <param name="key">The key of the UDF.</param>
+        /// <param name="value">The value to be set.</param>
+        /// <remarks>
+        /// This method is used to set the value of a User Defined Field (UDF) based on the specified key. 
+        /// It takes two parameters: key, which represents the key of the UDF, and value, which is the value 
+        /// to be set. The method accesses the UDF field in the _receipt object using the key and assigns the 
+        /// provided value to it.
+        /// </remarks>
         public void SetUDFValue(string key, dynamic value)
         {
             _receipt.UserFields.Fields.Item(_userDefinedFieldsDictionary[key]).Value = value;
         }
 
-        public void SetUDFValue(int key, dynamic value)
+        /// <summary>
+        /// Sets the value of a User Defined Field (UDF) based on the specified position.
+        /// </summary>
+        /// <param name="pos">The position of the UDF.</param>
+        /// <param name="value">The value to be set.</param>
+        /// <remarks>
+        /// This method is used to set the value of a User Defined Field (UDF) based on the specified 
+        /// integer position. It takes two parameters: pos, which represents the position of the UDF, 
+        /// and value, which is the value to be set. The method accesses the UDF field in the _receipt object 
+        /// using the position and assigns the provided value to it.
+        /// </remarks>
+        public void SetUDFValue(int pos, dynamic value)
         {
-            _receipt.UserFields.Fields.Item(key).Value = value;
+            _receipt.UserFields.Fields.Item(pos).Value = value;
         }
 
+        /// <summary>
+        /// Gets the value of a User Defined Field (UDF) based on the specified key.
+        /// </summary>
+        /// <param name="key">The key of the UDF.</param>
+        /// <returns>The value of the UDF.</returns>
+        /// <remarks>
+        /// This method is used to retrieve the value of a User Defined Field (UDF) based on the specified key. 
+        /// It takes a single parameter key, which represents the key of the UDF. The method accesses the UDF 
+        /// field in the _receipt object using the key and returns its value.
+        /// </remarks>
         public dynamic GetUDFValue(string key)
         {
             return _receipt.UserFields.Fields.Item(_userDefinedFieldsDictionary[key]).Value;
         }
 
-        public dynamic GetUDFValue(int key)
+        /// <summary>
+        /// Gets the value of a User Defined Field (UDF) based on the specified position.
+        /// </summary>
+        /// <param name="pos">The position of the UDF.</param>
+        /// <returns>The value of the UDF.</returns>
+        /// <remarks>
+        /// This method is used to retrieve the value of a User Defined Field (UDF) based on the specified 
+        /// position. It takes a single parameter pos, which represents the position of the UDF. The method 
+        /// accesses the UDF field in the _receipt object using the position and returns its value.
+        /// </remarks>
+        public dynamic GetUDFValue(int pos)
         {
-            return _receipt.UserFields.Fields.Item(key).Value;
+            return _receipt.UserFields.Fields.Item(pos).Value;
         }
 
+        /// <summary>
+        /// Saves the inventory receipt document.
+        /// </summary>
+        /// <returns>True if the document is successfully saved; otherwise, false.</returns>
+        /// <remarks>
+        /// The method is used to save the inventory receipt document. The method doesn't take any parameters 
+        /// and returns a boolean value indicating whether the document was successfully saved or not.
+        /// 
+        /// If the DocNum property of the _receipt object is zero, it means a new document should be added. 
+        /// Otherwise, an existing document should be updated. After calling the appropriate method (Add or 
+        /// Update), the return code is checked. If it is non-zero, an exception is thrown with the error 
+        /// details retrieved from the SAP company. Finally, the method returns true to indicate a successful 
+        /// save operation.
+        /// </remarks>
         public bool Save()
         {
             int returnCode;
             _log.Debug($"In Save: _receipt.DocNum = {_receipt.DocNum}");
+
             if (_receipt.DocNum == 0)
             {
+                // Add new document
                 returnCode = _receipt.Add();
-
             }
             else
             {
+                // Update existing document
                 returnCode = _receipt.Update();
             }
+
             if (returnCode != 0)
             {
                 int errorCode = 0;
@@ -149,6 +293,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
                 throw new Exception(string.Format("(APIs.InventoryReceipt)ERROR: {0}-{1}", errorCode, errorMessage));
             }
+
             return true;
         }
 

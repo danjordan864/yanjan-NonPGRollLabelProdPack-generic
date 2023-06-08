@@ -18,6 +18,12 @@ using WinFormUtils;
 
 namespace RollLabelProdPack
 {
+    /// <summary>
+    /// Partial class representing a tub production form.
+    /// </summary>
+    /// <remarks>
+    /// Deprecated; <see cref="frmTub2"/>
+    /// </remarks>
     public partial class FrmTub : Form
     {
         FloatingHTML m_htmlToast = new FloatingHTML();
