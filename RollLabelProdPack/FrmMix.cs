@@ -32,6 +32,7 @@ namespace RollLabelProdPack
         private string sscc;
         private int _prodRun;
         private bool _loading;
+        private bool _isClosing;
 
         /// <summary>
         /// Initializes a new instance of the FrmMix class.
@@ -49,6 +50,8 @@ namespace RollLabelProdPack
         private void FrmMix_Load(object sender, EventArgs e)
         {
             _loading = true;
+            _isClosing = false;
+            txtWeightKgs.GotFocus += txtWeightKgs_GotFocus;
             bindingSource1 = new BindingSource();
             bindingSource1.DataSource = _selectOrder;
             txtEmployee.DataBindings.Add("Text", bindingSource1, "Employee");
@@ -68,6 +71,16 @@ namespace RollLabelProdPack
             cboToLine.DataSource = pls;
 
             _loading = false;
+        }
+
+        /// <summary>
+        /// Handles the GotFocus event of the txtWeightKgs text box.
+        /// </summary>
+        /// <param name="sender">The sender object</param>
+        /// <param name="e">The event arguments</param>
+        private void txtWeightKgs_GotFocus(object sender, EventArgs e)
+        {
+            txtWeightKgs.SelectAll();
         }
 
         /// <summary>
@@ -118,7 +131,8 @@ namespace RollLabelProdPack
         /// <param name="e">The event arguments.</param>
         private void txtWeightKgs_Validated(object sender, EventArgs e)
         {
-            CheckReadyToProduce();
+            if (!_isClosing)
+                CheckReadyToProduce();
         }
 
 
@@ -267,6 +281,11 @@ namespace RollLabelProdPack
         /// <param name="e">The event arguments.</param>
         private void btnProduce_Click(object sender, EventArgs e)
         {
+            if (!ValidateChildren())
+            {
+                return;
+            }
+
             Cursor.Current = Cursors.WaitCursor;
             try
             {
@@ -391,7 +410,8 @@ namespace RollLabelProdPack
         /// <param name="e">The event arguments.</param>
         private void txtBatch_Validated(object sender, EventArgs e)
         {
-            CheckReadyToProduce();
+            if (!_isClosing)
+                CheckReadyToProduce();
         }
 
         /// <summary>
@@ -430,5 +450,33 @@ namespace RollLabelProdPack
             }
         }
 
+        private void txtWeightKgs_Validating(object sender, CancelEventArgs e)
+        {
+            decimal kgs = 0m;
+            var valid = false;
+            if (!decimal.TryParse(txtWeightKgs.Text, out kgs))
+            {
+                DisplayToastNotification(ToastNotificationType.Error, "Weight Entry Error", "Please enter a valid number");
+            }
+            else if (kgs < 0 || kgs > 210)
+            {
+                DisplayToastNotification(ToastNotificationType.Error, "Weight Entry Error", "Weight must be less than or equal to 210 kg");
+            }
+            else
+            {
+                valid = true;
+            }
+            if (!valid)
+            {
+                txtWeightKgs.Focus();
+                txtWeightKgs.SelectAll();
+                e.Cancel = true;
+            }
+        }
+
+        private void FrmMix_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _isClosing = true;
+        }
     }
 }

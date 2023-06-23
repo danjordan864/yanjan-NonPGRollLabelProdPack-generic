@@ -167,7 +167,7 @@ namespace RollLabelProdPack
                     _selectOrder.OutputLoc = _selectedLine.OutputLocationCode;
                     _selectOrder.InputLoc = _selectedLine.InputLocationCode;
                     _selectOrder.Printer = _selectedLine.Printer;
-                    _selectOrder.BatchNo = $"{_selectOrder.SAPOrderNo.ToString()}{_selectOrder.ProductionLine.Replace("TUB", "T")}";
+                    _selectOrder.BatchNo = $"{_selectOrder.SAPOrderNo.ToString()}-{_selectOrder.ProductionLine.Replace("TUB", "T")}";
                 }
 
                 // Update the order information in the user controls
