@@ -1,5 +1,0 @@
-C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\bin\x86\Release\RollLabelProdPack.Library.dll
-C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\bin\x86\Release\RollLabelProdPack.Library.pdb
-C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\obj\x86\Release\RollLabelProdPack.Library.csprojResolveAssemblyReference.cache
-C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\obj\x86\Release\RollLabelProdPack.Library.dll
-C:\SynesisDev\YanJan\SourceCode\2015\RollLabelProdPack\RollLabelProdPack\RollLabelProdPack.Library\obj\x86\Release\RollLabelProdPack.Library.pdb
