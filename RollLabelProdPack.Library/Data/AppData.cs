@@ -93,6 +93,68 @@ namespace RollLabelProdPack.Library.Data
         }
 
         /// <summary>
+        /// Retrieves the co-pack pallet labels.
+        /// </summary>
+        /// <param name="isReprint">Specifies whether to retrieve reprint labels.</param>
+        /// <param name="order">The order to filter the labels (optional).</param>
+        /// <returns>A <see cref="ServiceOutput"/> object containing the retrieved co-pack pallet labels.</returns>
+        public static ServiceOutput GetCoPackPalletLabels(bool isReprint, string order)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var noOfCopies = Convert.ToInt32(AppUtility.GetDefaultCoPackCopies());
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getCoPackPalletLabels", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@rePrint", isReprint ? 1 : 0);
+                    cmd.Parameters.AddWithValue("@order", order);
+
+                    serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
+                    IList<CoPackPalletLabel> coPackPalletLabels = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
+                        new CoPackPalletLabel
+                        {
+                            // Set properties based on retrieved data
+                            ID = row.Field<int>("ID"),
+                            PMXSSCC = row.Field<string>("PMXSSCC"),
+                            ItemCode = row.Field<string>("ItemCode"),
+                            ItemName = row.Field<string>("ItemName"),
+                            IRMS = row.Field<string>("IRMS"),
+                            YJNOrder = row.Field<string>("YJNOrder"),
+                            SSCC = row.Field<string>("SSCC"),
+                            SAPOrder = row.Field<int>("SAPOrder"),
+                            LotNo = $"YJWR{row.Field<string>("YJNOrder")}",
+                            PalletType = "NONE",
+                            Printed = row.Field<string>("Printed") == "Y" ? true : false,
+                            Created = ConvertSAPDateAndTime(row["DateCreated"], row["TimeCreated"]),
+                            ProductionDate = row.Field<DateTime>("ProductionDate"),
+                            Qty = row.Field<decimal>("Qty"),
+                            MaxCasesPerPack = row.Field<int>("MaxCasesPerPack"),
+                            Copies = noOfCopies,
+                            Employee = ""
+                        }).ToList();
+
+                    serviceOutput.ReturnValue = coPackPalletLabels;
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+
+            return serviceOutput;
+        }
+
+        /// <summary>
         /// Retrieves a list of open production orders filtered by item group.
         /// </summary>
         /// <param name="itemGroupFilter">The item group filter to apply to the retrieval.</param>

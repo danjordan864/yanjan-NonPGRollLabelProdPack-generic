@@ -54,6 +54,11 @@ namespace RollLabelProdPack
                     // Run the "frmCoPack" form for "copack" argument
                     Application.Run(new frmCoPack());
                 }
+                else if (args[0] == "copackprint")
+                {
+                    // Run the "frmCoPackPrint" form for "copackprint" argument
+                    Application.Run(new FrmCoPackPrint());
+                }
             }
             else
             {

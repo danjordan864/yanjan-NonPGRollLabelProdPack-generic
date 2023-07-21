@@ -391,6 +391,15 @@ namespace RollLabelProdPack.Library.Utility
             }
         }
 
+        /// <summary>
+        /// Retrieves the value of the co-pack pallet printer name from the configuration settings.
+        /// </summary>
+        /// <returns>The value of the co-pack pallet printer name.</returns>
+        public static string GetCoPackPalletPrinterName()
+        {
+            return ConfigurationManager.AppSettings["CoPackPalletPrinterName"];
+        }
+
 
         /// <summary></summary>
         /// <summary>
@@ -1494,6 +1503,29 @@ namespace RollLabelProdPack.Library.Utility
         public static string GetDefaultPackCopies()
         {
             return ConfigurationManager.AppSettings["DefaultPackCopies"];
+        }
+
+        /// <summary>
+        /// Retrieves the default number of co-pack pallet label copies from the application configuration file.
+        /// </summary>
+        /// <returns>A default value of 2 if DefaultCoPackCopies isn't specified or &lt;= 0; otherwise the
+        /// value of DefaultCoPackCopies from the configuration file as an integer.</returns>
+        public static int GetDefaultCoPackCopies()
+        {
+            var defaultCoPackCopies = 2;
+            var defaultCoPackCopiesStr = ConfigurationManager.AppSettings["DefaultCoPackCopies"];
+            if (!string.IsNullOrEmpty(defaultCoPackCopiesStr))
+            {
+                var defaultCoPackCopiesConfigValue = -1;
+                if (int.TryParse(defaultCoPackCopiesStr, out defaultCoPackCopiesConfigValue))
+                {
+                    if (defaultCoPackCopiesConfigValue > 0)
+                    {
+                        defaultCoPackCopies = defaultCoPackCopiesConfigValue;
+                    }
+                }
+            }
+            return defaultCoPackCopies;
         }
 
         /// <summary>

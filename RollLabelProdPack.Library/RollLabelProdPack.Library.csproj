@@ -76,6 +76,7 @@
     <Compile Include="Data\RollMinMaxKg.cs" />
     <Compile Include="Email\EmailAttachment.cs" />
     <Compile Include="Email\EmailItem.cs" />
+    <Compile Include="Entities\CoPackPalletLabel.cs" />
     <Compile Include="Entities\TubPalletLabel.cs" />
     <Compile Include="Entities\PackLabel.cs" />
     <Compile Include="Entities\ProductionLine.cs" />

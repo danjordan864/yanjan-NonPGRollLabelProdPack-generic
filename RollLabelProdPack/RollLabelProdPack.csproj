@@ -122,6 +122,12 @@
     <Compile Include="frmTub2.Designer.cs">
       <DependentUpon>frmTub2.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmCoPackPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCoPackPrint.Designer.cs">
+      <DependentUpon>FrmCoPackPrint.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmTubPackPrint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmTub2.resx">
       <DependentUpon>frmTub2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCoPackPrint.resx">
+      <DependentUpon>FrmCoPackPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTubPackPrint.resx">
       <DependentUpon>FrmTubPackPrint.cs</DependentUpon>

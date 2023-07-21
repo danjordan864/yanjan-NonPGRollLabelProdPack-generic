@@ -351,6 +351,9 @@ namespace RollLabelProdPack
 
                         // Print the pallet label
                         PrintCoPackPalletLabel(palletSSCC);
+
+                        // Get the ID for the new "bundle" update the printed status
+                        SetPalletPrintedStatus(palletSSCC);
                     }
                 }
                 // Display success notification
@@ -362,6 +365,28 @@ namespace RollLabelProdPack
                 // Log and display error notification
                 _log.Error(ex.Message, ex);
                 DisplayToastNotification(ToastNotificationType.Error, "Produce", ex.Message, 10000);
+            }
+        }
+
+        /// <summary>
+        /// Updates the printed status of the co-pack pallet
+        /// </summary>
+        /// <param name="palletSSCC"></param>
+        private void SetPalletPrintedStatus(string palletSSCC)
+        {
+            var so = AppData.GetBundlePackLabel(palletSSCC);
+            if (so.SuccessFlag)
+            {
+                var packLabels = (IList<PackLabel>)so.ReturnValue;
+                var soUpdate = AppData.UpdatePackLabel(packLabels[0].ID, packLabels[0].Qty, "Y");
+                if (!soUpdate.SuccessFlag)
+                {
+                    throw new ApplicationException($"SetPalletPrintedStatus: {so.ServiceException}");
+                }
+            }
+            else
+            {
+                throw new ApplicationException($"SetPalletPrintedStatus: {so.ServiceException}");
             }
         }
 
@@ -518,6 +543,9 @@ namespace RollLabelProdPack
                 // Get the format file path for co-pack labels
                 var formatFilePathCoPackLabel = AppUtility.GetPGDefaultCoPackLabelFormat();
 
+                // Get default number of copies
+                var copies = AppUtility.GetDefaultCoPackCopies();
+
                 // Create a StringBuilder to build the label content
                 var sbMixLabel = new StringBuilder(5000);
 
@@ -527,7 +555,7 @@ namespace RollLabelProdPack
                 }
 
                 // Append the label print command to the StringBuilder
-                sbMixLabel.AppendFormat(@"%BTW% /AF=""{0}"" /D=""%Trigger File Name%"" /PRN=""{1}"" /R=3 /P /DD", formatFilePathCoPackLabel, _selectOrder.Printer);
+                sbMixLabel.AppendFormat(@"%BTW% /AF=""{0}"" /D=""%Trigger File Name%"" /PRN=""{1}"" /C={2} /R=3 /P /DD", formatFilePathCoPackLabel, _selectOrder.Printer, copies);
                 sbMixLabel.AppendLine();
                 sbMixLabel.Append(@"%END%");
                 sbMixLabel.AppendLine();
