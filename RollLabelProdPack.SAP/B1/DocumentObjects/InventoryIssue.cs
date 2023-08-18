@@ -286,12 +286,14 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
 
             if (_log.IsDebugEnabled)
             {
+                var luidIndex = InventoryIssueLine.UDFIndexLocation(_issue.Lines, "U_PMX_LUID");
+                _log.Debug($"luidIndex = {luidIndex}");
                 _log.Debug($"Issue lines:\n");
-                _log.Debug(string.Format("{0,5} {1,-10} {2,8} {3,20} {4,9} {5,-12}",
-                    "Line", "Item", "Quantity", "Has 2nd Batch Number", "UDF Index", "Batch Number"));
-                _log.Debug(string.Format("{0,5} {1,-10} {2,8} {3,-20} {4,9} {5,-12}",
+                _log.Debug(string.Format("{0,5} {1,-10} {2,8} {3,20} {4,9} {5,-12} {6,8}",
+                    "Line", "Item", "Quantity", "Has 2nd Batch Number", "UDF Index", "Batch Number", "LUID"));
+                _log.Debug(string.Format("{0,5} {1,-10} {2,8} {3,-20} {4,9} {5,-12} {6,8}",
                     new String('-', 5), new String('-', 10), new String('-', 8), new String('-', 20), new String('-', 9),
-                    new String('-', 12)));
+                    new String('-', 12), new String('-',8)));
                 foreach (var lineNumber in _issueItems.Keys)
                 {
                     var itemCode = _issueItems[lineNumber];
@@ -301,8 +303,8 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                         var hasBatchNumber2 = ((RollLabelProdPack.Library.Entities.Item)so.ReturnValue).HasSecondBatchNumber;
                         _issue.Lines.SetCurrentLine(lineNumber);
                         var udfIndex = InventoryIssueLine.UDFIndexLocation(_issue.Lines, "U_PMX_BATC");
-                        _log.Debug(string.Format("  {0,5} {1,-10} {2,8} {3,-20} {4,9} {5,-12}", lineNumber, itemCode, _issue.Lines.Quantity, hasBatchNumber2, udfIndex,
-                            _issue.Lines.UserFields.Fields.Item(udfIndex).Value));
+                        _log.Debug(string.Format("  {0,5} {1,-10} {2,8} {3,-20} {4,9} {5,-12} {6,8}", lineNumber, itemCode, _issue.Lines.Quantity, hasBatchNumber2, udfIndex,
+                            _issue.Lines.UserFields.Fields.Item(udfIndex).Value, _issue.Lines.UserFields.Fields.Item(luidIndex).Value));
                     }
                 }
             }

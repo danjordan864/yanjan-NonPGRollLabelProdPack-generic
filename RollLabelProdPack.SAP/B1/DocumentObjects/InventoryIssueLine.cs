@@ -145,7 +145,11 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             {
                 index = -1;
                 index = UDFIndexLocation(issue.Lines, "U_PMX_LUID");
-                if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = luid.ToString(); }
+                if (_log.IsDebugEnabled) { _log.Debug($"UDFIndexLocation for U_PMX_LUID = {index}"); }
+                if (index != -1) {
+                    issue.Lines.UserFields.Fields.Item(index).Value = luid.ToString();
+                    if (_log.IsDebugEnabled) { _log.Debug($"U_PMX_LUID set to {issue.Lines.UserFields.Fields.Item(index).Value}"); }
+                }
 
                 //sscc
                 index = -1;
@@ -174,6 +178,21 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             index = UDFIndexLocation(issue.Lines, "U_SII_LotNo");
             if (index != -1) { issue.Lines.UserFields.Fields.Item(index).Value = lotNumber; }
 
+            if (!string.IsNullOrEmpty(batchNo))
+            {
+                issue.Lines.BatchNumbers.BatchNumber = batchNo;
+                issue.Lines.BatchNumbers.Quantity = quantity;
+                issue.Lines.BatchNumbers.Notes = lotNumber;
+                //Batch
+                index = UDFIndexLocation(issue.Lines, "U_PMX_BATC");
+                if (_log.IsDebugEnabled) { _log.Debug($"UDFIndexLocation for U_PMX_BATC = {index}"); }
+                if (index != -1)
+                {
+                    issue.Lines.UserFields.Fields.Item(index).Value = batchNo;
+                    if (_log.IsDebugEnabled) { _log.Debug($"U_PMX_BATC set to {issue.Lines.UserFields.Fields.Item(index).Value}"); }
+                }
+            }
+
             // Check to see whether the item is expecting a second batch number. If it is true,
             // then try to populate it; otherwise don't.
             var so = AppData.GetItem(itemCode);
@@ -182,18 +201,15 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
                 var item = (RollLabelProdPack.Library.Entities.Item)so.ReturnValue;
                 if (item.HasSecondBatchNumber)
                 {
-                    if (!string.IsNullOrEmpty(batchNo))
+                    if (!string.IsNullOrEmpty(lotNumber))
                     {
-                        issue.Lines.BatchNumbers.BatchNumber = batchNo;
-                        issue.Lines.BatchNumbers.Quantity = quantity;
-                        issue.Lines.BatchNumbers.Notes = lotNumber;
-                        //Batch
-                        index = UDFIndexLocation(issue.Lines, "U_PMX_BATC");
-                        if (_log.IsDebugEnabled) { _log.Debug($"UDFIndexLocation for U_PMX_BATC = {index}"); }
+                        //Lot Number (2nd batch number)
+                        index = UDFIndexLocation(issue.Lines, "U_PMX_BAT2");
+                        if (_log.IsDebugEnabled) { _log.Debug($"UDFIndexLocation for U_PMX_BAT2 = {index}"); }
                         if (index != -1)
                         {
-                            issue.Lines.UserFields.Fields.Item(index).Value = batchNo;
-                            if (_log.IsDebugEnabled) { _log.Debug($"U_PMX_BATC set to {issue.Lines.UserFields.Fields.Item(index).Value}"); }
+                            issue.Lines.UserFields.Fields.Item(index).Value = lotNumber;
+                            if (_log.IsDebugEnabled) { _log.Debug($"U_PMX_BAT2 set to {issue.Lines.UserFields.Fields.Item(index).Value}"); }
                         }
                     }
                 }

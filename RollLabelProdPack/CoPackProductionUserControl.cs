@@ -351,5 +351,30 @@ namespace RollLabelProdPack
             public string LotNumber { get; set; }
         }
 
+        private void lotNumberTextBox_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lotNumberTextBox.Text))
+            {
+                lotNumberTextBox.PasswordChar = '*';
+            }
+        }
+
+        private void lotNumberTextBox_Enter(object sender, EventArgs e)
+        {
+            lotNumberTextBox.PasswordChar = (char)0;
+        }
+
+        private void lotNumberConfirmTextBox_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lotNumberConfirmTextBox.Text))
+            {
+                lotNumberConfirmTextBox.PasswordChar = '*';
+            }
+        }
+
+        private void lotNumberConfirmTextBox_Enter(object sender, EventArgs e)
+        {
+            lotNumberConfirmTextBox.PasswordChar = (char)0;
+        }
     }
 }

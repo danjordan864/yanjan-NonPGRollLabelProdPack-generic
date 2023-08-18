@@ -69,6 +69,7 @@
             this.lnkPlannedIssues.Name = "lnkPlannedIssues";
             this.lnkPlannedIssues.Size = new System.Drawing.Size(105, 13);
             this.lnkPlannedIssues.TabIndex = 151;
+            this.lnkPlannedIssues.TabStop = true;
             this.lnkPlannedIssues.Text = "View Planned Issues";
             this.lnkPlannedIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkPlannedIssues_LinkClicked);
             // 
@@ -240,24 +241,32 @@
             // 
             // lotNumberTextBox
             // 
+            this.lotNumberTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.lotNumberTextBox.Enabled = false;
             this.lotNumberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lotNumberTextBox.Location = new System.Drawing.Point(81, 32);
             this.lotNumberTextBox.MaxLength = 15;
             this.lotNumberTextBox.Name = "lotNumberTextBox";
+            this.lotNumberTextBox.ShortcutsEnabled = false;
             this.lotNumberTextBox.Size = new System.Drawing.Size(180, 26);
             this.lotNumberTextBox.TabIndex = 0;
+            this.lotNumberTextBox.Enter += new System.EventHandler(this.lotNumberTextBox_Enter);
+            this.lotNumberTextBox.Leave += new System.EventHandler(this.lotNumberTextBox_Leave);
             this.lotNumberTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lotNumberTextBox_Validating);
             // 
             // lotNumberConfirmTextBox
             // 
+            this.lotNumberConfirmTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.lotNumberConfirmTextBox.Enabled = false;
             this.lotNumberConfirmTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lotNumberConfirmTextBox.Location = new System.Drawing.Point(392, 32);
             this.lotNumberConfirmTextBox.MaxLength = 15;
             this.lotNumberConfirmTextBox.Name = "lotNumberConfirmTextBox";
+            this.lotNumberConfirmTextBox.ShortcutsEnabled = false;
             this.lotNumberConfirmTextBox.Size = new System.Drawing.Size(180, 26);
             this.lotNumberConfirmTextBox.TabIndex = 1;
+            this.lotNumberConfirmTextBox.Enter += new System.EventHandler(this.lotNumberConfirmTextBox_Enter);
+            this.lotNumberConfirmTextBox.Leave += new System.EventHandler(this.lotNumberConfirmTextBox_Leave);
             this.lotNumberConfirmTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.lotNumberConfirmTextBox_Validating);
             // 
             // label2

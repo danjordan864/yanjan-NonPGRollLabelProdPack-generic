@@ -1613,5 +1613,47 @@ namespace RollLabelProdPack.Library.Data
 
             return so;
         }
+
+        public static ServiceOutput GetItem(string itemCode)
+        {
+            ServiceOutput so = new ServiceOutput();
+            try
+            {
+                var databaseConnection = AppUtility.GetSAPConnectionString();
+                var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                {
+                    cnx.Open();
+                    using (SqlCommand cmd = new SqlCommand("SELECT ItemCode, U_PMX_HBN2 FROM OITM WHERE ItemCode = @itemCode", cnx))
+                    {
+                        cmd.CommandTimeout = commandTimeOut;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("@itemCode", itemCode);
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.Read())
+                            {
+                                var itemCodeStr = rdr.GetString(0);
+                                var hasBatchNumberStr = rdr.GetString(1);
+                                so.ReturnValue = new Item(itemCodeStr, hasBatchNumberStr == "Y");
+                                so.SuccessFlag = true;
+                            }
+                            else
+                            {
+                                throw new ApplicationException($"Item {itemCode} not found in database");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                so.SuccessFlag = false;
+                so.ServiceException = ex.Message;
+            }
+
+            return so;
+
+        }
     }
 }
