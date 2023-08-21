@@ -229,13 +229,13 @@ namespace RollLabelProdPack
                 // Position 1 (numeric) represents the year of the oldest feeder in pack
                 // Positions 2-4 (numeric) represent the Julian date of the oldest feeder in pack
                 // Positions 5-8 (uppercase letter or numeric) represent the CM QA plant code
-                // Position 9 (numeric) represents the day # of CM production for single feeder lot
+                // Position 9 (uppercase letter or numeric) represents the day # of CM production for single feeder lot
                 // Position 10 (numeric) represents the production line
                 // Position 11 is a space
                 // Position 12 (numeric) represents the year of CM production
                 // Positions 13-15 (numeric) represent the Julian date of CM production
 
-                Regex r = new Regex(@"\d{4}[\dA-Z]{4}\d{2} \d{4}");
+                Regex r = new Regex(@"\d{4}[\dA-Z]{5}\d{1} \d{4}");
                 if (!r.IsMatch(lotNumberTextBox.Text))
                 {
                     // If the lot number format is invalid, raise the ValidationFailed event with the appropriate error message
