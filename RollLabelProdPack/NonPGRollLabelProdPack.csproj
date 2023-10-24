@@ -86,6 +86,12 @@
     <Compile Include="FrmAdjustResmix.Designer.cs">
       <DependentUpon>FrmAdjustResmix.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMainMedline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMainMedline.Designer.cs">
+      <DependentUpon>FrmMainMedline.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,18 @@
     </Compile>
     <Compile Include="frmCoPack.Designer.cs">
       <DependentUpon>frmCoPack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPackPrintMedline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPackPrintMedline.Designer.cs">
+      <DependentUpon>FrmPackPrintMedline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReprintOrderRollsDialogMedline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReprintOrderRollsDialogMedline.Designer.cs">
+      <DependentUpon>FrmReprintOrderRollsDialogMedline.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTub2.cs">
       <SubType>Form</SubType>
@@ -182,8 +200,32 @@
     <Compile Include="FrmShipScan.Designer.cs">
       <DependentUpon>FrmShipScan.cs</DependentUpon>
     </Compile>
+    <Compile Include="MedlineSelectionsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MedlineSelectionsUserControl.Designer.cs">
+      <DependentUpon>MedlineSelectionsUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NoCustomerSelectedUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NoCustomerSelectedUserControl.Designer.cs">
+      <DependentUpon>NoCustomerSelectedUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NonPGStartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NonPGStartForm.Designer.cs">
+      <DependentUpon>NonPGStartForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrintColumnButtonRenderer.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MedlineSelectOrderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MedlineSelectOrderDialog.Designer.cs">
+      <DependentUpon>MedlineSelectOrderDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectOrderDialog.cs">
       <SubType>Form</SubType>
@@ -219,6 +261,9 @@
       <DependentUpon>FrmAdjustResmix.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmMainMedline.resx">
+      <DependentUpon>FrmMainMedline.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +278,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCoPack.resx">
       <DependentUpon>frmCoPack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPackPrintMedline.resx">
+      <DependentUpon>FrmPackPrintMedline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReprintOrderRollsDialogMedline.resx">
+      <DependentUpon>FrmReprintOrderRollsDialogMedline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTub2.resx">
       <DependentUpon>frmTub2.cs</DependentUpon>
@@ -266,6 +317,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmShipScan.resx">
       <DependentUpon>FrmShipScan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedlineSelectionsUserControl.resx">
+      <DependentUpon>MedlineSelectionsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NoCustomerSelectedUserControl.resx">
+      <DependentUpon>NoCustomerSelectedUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NonPGStartForm.resx">
+      <DependentUpon>NonPGStartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MedlineSelectOrderDialog.resx">
+      <DependentUpon>MedlineSelectOrderDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectOrderDialog.resx">
       <DependentUpon>SelectOrderDialog.cs</DependentUpon>

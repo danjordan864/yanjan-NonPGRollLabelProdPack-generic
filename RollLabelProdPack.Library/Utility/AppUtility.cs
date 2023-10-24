@@ -1314,6 +1314,15 @@ namespace RollLabelProdPack.Library.Utility
         }
 
         /// <summary>
+        /// Retrieves the default roll label format file name for the Medline roll label from the configuration settings.
+        /// </summary>
+        /// <returns>The default roll label format file name for the Medline roll label</returns>
+        public static string GetMedlineDefaultRollLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["MedlineDefaultRollLabelFormat"];
+        }
+
+        /// <summary>
         /// Retrieves the default label file for the P&G scrap label format from the configuration settings.
         /// </summary>
         /// <returns>The default label file for the P&G scrap label format.</returns>

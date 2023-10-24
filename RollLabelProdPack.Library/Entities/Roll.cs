@@ -12,6 +12,9 @@ namespace RollLabelProdPack.Library.Entities
         private decimal _tareKg;
         private decimal _adjustKgs;
         private decimal _netKg;
+        private decimal _squareMeters;
+        private string _poNumber;
+        private decimal _quantity;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Roll"/> class.
@@ -89,6 +92,19 @@ namespace RollLabelProdPack.Library.Entities
             set
             {
                 _kgs = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public decimal Quantity
+        {
+            get
+            {
+                return _quantity;
+            }
+            set
+            {
+                _quantity = value;
                 NotifyPropertyChanged();
             }
         }
@@ -194,6 +210,37 @@ namespace RollLabelProdPack.Library.Entities
             set
             {
                 _netKg = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of Square Meters on the roll
+        /// </summary>
+        public decimal SquareMeters
+        {
+            get
+            {
+                return _squareMeters;
+            }
+            set
+            {
+                _squareMeters = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the PO Number on the roll
+        /// </summary>
+        public string PONumber {
+            get
+            {
+                return _poNumber;
+            }
+            set
+            {
+                _poNumber = value;
                 NotifyPropertyChanged();
             }
         }

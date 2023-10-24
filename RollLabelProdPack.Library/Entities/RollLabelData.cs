@@ -212,6 +212,20 @@ namespace RollLabelProdPack.Library.Entities
         }
 
         /// <summary>
+        /// Gets or sets the Width in mm
+        /// </summary>
+        public decimal WidthInMM
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the PO Number
+        /// </summary>
+        public string PONumber { get; set; }
+
+        /// <summary>
         /// Returns a string representation of the <see cref="RollLabelData"/> object.
         /// </summary>
         /// <returns>A string representation of the object.</returns>
@@ -258,6 +272,7 @@ namespace RollLabelProdPack.Library.Entities
             sb.AppendLine($"\tMinRollKgs: {MinRollKgs}");
             sb.AppendLine($"\tMaxRollKgs: {MaxRollKgs}");
             sb.AppendLine($"\tScrapItemName: {ScrapItemName}");
+            sb.AppendLine($"\tWidthInMM: {WidthInMM}");
             return sb.ToString();
         }
     }

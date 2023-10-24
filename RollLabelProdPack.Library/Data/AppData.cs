@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace RollLabelProdPack.Library.Data
 {
@@ -14,7 +15,9 @@ namespace RollLabelProdPack.Library.Data
     /// </summary>
     public class AppData
     {
-        private static ILog _log = LogManager.GetLogger(typeof(AppData));
+        private static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger
+            (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType); 
 
         /// <summary>
         /// Retrieves production order details for a given order number.
@@ -86,7 +89,7 @@ namespace RollLabelProdPack.Library.Data
                 serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
 
                 // Log the exception
-                _log.Error(ex.Message, ex);
+                log.Error(ex.Message, ex);
             }
 
             return serviceOutput;
@@ -158,22 +161,39 @@ namespace RollLabelProdPack.Library.Data
         /// Retrieves a list of open production orders filtered by item group.
         /// </summary>
         /// <param name="itemGroupFilter">The item group filter to apply to the retrieval.</param>
+        /// <param name="customerCode">Customer Code</param>
         /// <returns>A <see cref="ServiceOutput"/> object containing the list of open production orders.</returns>
-        public static ServiceOutput GetOpenProdOrders(string itemGroupFilter)
+        public static ServiceOutput GetOpenProdOrders(string itemGroupFilter, string customerCode = "")
         {
             var serviceOutput = new ServiceOutput();
             var databaseConnection = AppUtility.GetSAPConnectionString();
             var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            //var numberOfAppenders = log.Logger.Repository.GetAppenders().Count();
+            //MessageBox.Show($"{numberOfAppenders} appenders defined");
+            //MessageBox.Show($"log.IsDebugEnabled = {log.IsDebugEnabled}");
+            log.Debug($"itemGroupFilter = {itemGroupFilter}");
+            log.Debug($"customerCode = {customerCode}");
+            log.Debug($"databaseConnection = {databaseConnection}");
+            log.Debug($"commandTimeOut = {commandTimeOut}");
+
 
             try
             {
+                var storedProcedureName = "_sii_rpr_sps_getFGProdOrders";
+                if (customerCode != string.Empty)
+                    storedProcedureName = "_sii_rpr_sps_getNonPGProdOrders";
+
+                log.Debug($"storedProcedureName = {storedProcedureName}");
+
                 using (SqlConnection cnx = new SqlConnection(databaseConnection))
-                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getFGProdOrders", cnx))
+                using (SqlCommand cmd = new SqlCommand(storedProcedureName, cnx))
                 {
                     cnx.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandTimeout = commandTimeOut;
                     cmd.Parameters.AddWithValue("@itemGroupFilter", itemGroupFilter);
+                    if (customerCode != string.Empty)
+                        cmd.Parameters.AddWithValue("@customerCode", customerCode);
 
                     serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
                     IList<RollLabelData> openProdOrders = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
@@ -208,7 +228,9 @@ namespace RollLabelProdPack.Library.Data
                             ScrapItemName = row.Field<string>("ScrapItemName"),
                             ScrapLine = row.Field<int>("ScrapLine"),
                             TargetRolls = row.Field<int>("TargetRolls"),
-                            InvRolls = row.Field<int>("InvRolls")
+                            InvRolls = row.Field<int>("InvRolls"),
+                            WidthInMM = row.Field<decimal>("WidthInMM"),
+                            PONumber = row.Field<string>("PONumber")
                         }).ToList();
 
                     serviceOutput.ReturnValue = openProdOrders;
@@ -220,6 +242,7 @@ namespace RollLabelProdPack.Library.Data
                 serviceOutput.CallStack = ex.StackTrace;
                 serviceOutput.MethodName = AppUtility.GetCurrentMethod();
                 serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+                log.Error("Exception thrown in GetOpenProdOrders", ex);
             }
 
             return serviceOutput;
@@ -367,7 +390,7 @@ namespace RollLabelProdPack.Library.Data
             try
             {
                 using (SqlConnection cnx = new SqlConnection(databaseConnection))
-                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getPackLabels", cnx))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getPackLabelsNonPG", cnx))
                 {
                     cnx.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -396,7 +419,8 @@ namespace RollLabelProdPack.Library.Data
                             Qty = row.Field<decimal>("Qty"),
                             MaxRollsPerPack = row.Field<int>("MaxRollsPerPack"),
                             Copies = noOfCopies,
-                            Employee = ""
+                            Employee = "",
+                            TotalWeight = row.IsNull("TotalWeight") ? 0 : row.Field<decimal>("TotalWeight")
                         }).ToList();
 
                     serviceOutput.ReturnValue = packLabels;
@@ -427,7 +451,7 @@ namespace RollLabelProdPack.Library.Data
             try
             {
                 using (SqlConnection cnx = new SqlConnection(databaseConnection))
-                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getPackLabelRolls", cnx))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getPackLabelRollsNonPG", cnx))
                 {
                     cnx.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -445,7 +469,8 @@ namespace RollLabelProdPack.Library.Data
                             IRMS = row.Field<string>("IRMS"),
                             SSCC = row.Field<string>("SSCC"),
                             YJNOrder = row.Field<string>("YJNOrderNo"),
-                            NetKg = row.Field<decimal>("Kgs"),
+                            Quantity = row.Field<decimal>("Quantity"),
+                            //NetKg = row.Field<decimal>("Kgs"),
                             JumboRoll = string.IsNullOrEmpty(row.Field<string>("RollNo")) ? "" : row.Field<string>("RollNo").Substring(8, 2),
                             TareKg = row.Field<decimal>("TareKg")
                         }).ToList();
@@ -579,7 +604,7 @@ namespace RollLabelProdPack.Library.Data
         /// </summary>
         /// <param name="yjnOrderNo">The YJN order number.</param>
         /// <returns>A <see cref="ServiceOutput"/> object containing the retrieved rolls.</returns>
-        public static ServiceOutput GetRollsForOrder(string yjnOrderNo)
+        public static ServiceOutput GetRollsForOrder(string yjnOrderNo, string customerCode = "")
         {
             var serviceOutput = new ServiceOutput();
             var databaseConnection = AppUtility.GetSAPConnectionString();
@@ -588,12 +613,13 @@ namespace RollLabelProdPack.Library.Data
             try
             {
                 using (SqlConnection cnx = new SqlConnection(databaseConnection))
-                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getRollsForProdOrder", cnx))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_sps_getRollsForNonPGProdOrder", cnx))
                 {
                     cnx.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandTimeout = commandTimeOut;
                     cmd.Parameters.AddWithValue("@yjnOrderNo", yjnOrderNo);
+                    cmd.Parameters.AddWithValue("@customerCode", customerCode);
 
                     serviceOutput.ResultSet = AppUtility.PopulateDataSet(cmd);
                     IList<Roll> rolls = serviceOutput.ResultSet.Tables[0].AsEnumerable().Select(row =>
@@ -607,11 +633,13 @@ namespace RollLabelProdPack.Library.Data
                            PG_SSCC = row.Field<string>("PG_SSCC"),
                            LUID = row.Field<int>("LUID"),
                            YJNOrder = row.Field<string>("YJNOrderNo"),
-                           Kgs = row.Field<decimal>("Kgs"),
+                           //Kgs = row.Field<decimal>("Kgs"),
+                           SquareMeters = row.Field<decimal>("SquareMeters"),
                            JumboRoll = row.Field<string>("RollNo").Substring(8, 2),
                            StorLocCode = row.Field<string>("StorLocCode"),
                            QualityStatus = row.Field<string>("QualityStatus"),
-                           UOM = row.Field<string>("UOM")
+                           UOM = row.Field<string>("UOM"),
+                           PONumber = row.Field<string>("PONumber")
                        }).ToList();
 
                     serviceOutput.ReturnValue = rolls;
@@ -1493,6 +1521,43 @@ namespace RollLabelProdPack.Library.Data
                 serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
             }
             return serviceOutput;
+        }
+
+        /// <summary>
+        /// Update the contents of the @SII_PG_BUNDLE table corresponding to the PackLabel object
+        /// </summary>
+        /// <param name="packLabel">The PackLabel object for which the @SII_PG_BUNDLE data need to be updated</param>
+        /// <param name="printed">"Y" or "N" to indicate whether the label has been printed</param>
+        /// <returns></returns>
+        public static ServiceOutput UpdatePackLabel(PackLabel packLabel, string printed)
+        {
+            var serviceOutput = new ServiceOutput();
+            var databaseConnection = AppUtility.GetSAPConnectionString();
+            var commandTimeOut = AppUtility.GetSqlCommandTimeOut();
+            try
+            {
+                using (SqlConnection cnx = new SqlConnection(databaseConnection))
+                using (SqlCommand cmd = new SqlCommand("_sii_rpr_spu_updatePackLabelNonPG", cnx))
+                {
+                    cnx.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = commandTimeOut;
+                    cmd.Parameters.AddWithValue("@id", packLabel.ID);
+                    cmd.Parameters.AddWithValue("@qty", packLabel.Qty);
+                    cmd.Parameters.AddWithValue("@weight", packLabel.TotalWeight);
+                    cmd.Parameters.AddWithValue("@printed", printed);
+                    cmd.ExecuteNonQuery();
+                    serviceOutput.SuccessFlag = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceOutput.CallStack = ex.StackTrace;
+                serviceOutput.MethodName = AppUtility.GetCurrentMethod();
+                serviceOutput.ServiceException = $"Method:{serviceOutput.MethodName}. Error:{ex.Message}";
+            }
+            return serviceOutput;
+
         }
 
         /// <summary>
