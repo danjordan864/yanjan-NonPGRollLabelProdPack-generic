@@ -730,7 +730,8 @@ namespace RollLabelProdPack
             var labelPrintExtension = AppUtility.GetLabelPrintExtension();
             var fileNamePackLabel = Path.Combine(labelPrintLocPack, "PackLabel" + labelPrintExtension);
             var packLabelPrinter = AppUtility.GetPackPrinterName();
-            var formatFilePathPackLabel = AppUtility.GetPGDefaultPackLabelFormat();
+            //var formatFilePathPackLabel = AppUtility.GetPGDefaultPackLabelFormat();
+            var formatFilePathPackLabel = AppUtility.GetMedlineDefaultPackLabelFormat();
 
             // Create the content of the label file using a StringBuilder
             var sb = new StringBuilder(5000);
@@ -738,14 +739,14 @@ namespace RollLabelProdPack
             sb.AppendLine();
             sb.Append(@"%END%");
             sb.AppendLine();
-            sb.Append("Supplier Product, Production Date, Item Desc., Order No., Cust. Part No.(IRMS), Qty, Kg, Customer Shipping Lot, SSCC, PMXSSCC");
+            sb.Append("Supplier Product, Production Date, Item Desc., Order No., Cust. Part No.(IRMS), Qty, Kg, Customer Shipping Lot, SSCC, PMXSSCC, PO Number, # Rolls");
             sb.AppendLine();
 
             // Add the label data for the specified number of copies
             for (int i = 0; i < packLabel.Copies; i++)
             {
                 sb.AppendFormat("{0},{1},{2},{3},{4}", packLabel.ItemCode, packLabel.ProductionDate.ToShortDateString(), packLabel.ItemName, packLabel.YJNOrder, packLabel.IRMS);
-                sb.AppendFormat(",{0},{1},{2},{3},{4}", qty, totalNetKg, packLabel.LotNo, packLabel.SSCC, packLabel.PMXSSCC);
+                sb.AppendFormat(",{0},{1},{2},{3},{4},{5},{6}", qty, totalNetKg, packLabel.LotNo, packLabel.SSCC, packLabel.PMXSSCC, packLabel.PONumber, packLabel.NumRolls);
                 sb.AppendLine();
             }
 

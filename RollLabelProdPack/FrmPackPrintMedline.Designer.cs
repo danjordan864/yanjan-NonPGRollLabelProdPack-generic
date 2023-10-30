@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPackPrint));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPackPrintMedline));
             this.olvBundles = new BrightIdeasSoftware.ObjectListView();
             this.olvColPackDesc = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvTotalWeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -232,15 +232,15 @@
             this.chkReprint.UseVisualStyleBackColor = true;
             this.chkReprint.CheckedChanged += new System.EventHandler(this.chkReprint_CheckedChanged);
             // 
-            // FrmPackPrint
+            // FrmPackPrintMedline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 563);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.olvBundles);
-            this.Name = "FrmPackPrint";
-            this.Text = "Pack Print";
+            this.Name = "FrmPackPrintMedline";
+            this.Text = "Medline Pack Print";
             this.Load += new System.EventHandler(this.FrmPackPrint_Load);
             ((System.ComponentModel.ISupportInitialize)(this.olvBundles)).EndInit();
             this.pnlTop.ResumeLayout(false);

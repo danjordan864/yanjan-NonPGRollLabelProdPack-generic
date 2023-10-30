@@ -24,6 +24,19 @@ namespace RollLabelProdPack
             {
                 // Execute specific functionality based on the provided argument
 
+                switch (args[0].ToUpper())
+                {
+                    case "MEDLINEPACK":
+                        Application.Run(new FrmPackPrintMedline());
+                        break;
+
+                    case "MEDLINEFILM":
+                    default:
+                        Application.Run(new FrmMainMedline());
+                        break;
+                }
+
+
                 //if (args[0] == "pack")
                 //{
                 //    // Run the "FrmPackPrint" form for "pack" argument

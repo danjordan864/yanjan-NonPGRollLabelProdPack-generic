@@ -420,7 +420,9 @@ namespace RollLabelProdPack.Library.Data
                             MaxRollsPerPack = row.Field<int>("MaxRollsPerPack"),
                             Copies = noOfCopies,
                             Employee = "",
-                            TotalWeight = row.IsNull("TotalWeight") ? 0 : row.Field<decimal>("TotalWeight")
+                            TotalWeight = row.IsNull("TotalWeight") ? 0 : row.Field<decimal>("TotalWeight"),
+                            NumRolls = row.Field<int>("NumRolls"),
+                            PONumber = row.Field<string>("PONumber")
                         }).ToList();
 
                     serviceOutput.ReturnValue = packLabels;

@@ -35,6 +35,8 @@ namespace RollLabelProdPack.Library.Entities
         private decimal _totalTareKg;
         private decimal _totalNetKg;
         private bool _totalWeightEntered;
+        private int _numRolls;
+        private string _poNumber;
 
         /// <summary>
         /// Gets or sets the ID of the pack label.
@@ -461,6 +463,36 @@ namespace RollLabelProdPack.Library.Entities
                     _totalWeightEntered = value;
                     NotifyPropertyChanged();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the number of rolls on the pack label.
+        /// </summary>
+        public int NumRolls
+        {
+            get { return _numRolls; }
+            set
+            {
+                _numRolls = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the purchase order (PO) number for the pack label
+        /// </summary>
+        public string PONumber
+        {
+            get
+            {
+                return _poNumber;
+            }
+
+            set
+            {
+                _poNumber = value;
+                NotifyPropertyChanged();
             }
         }
 

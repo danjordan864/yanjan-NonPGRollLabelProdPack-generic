@@ -1350,6 +1350,15 @@ namespace RollLabelProdPack.Library.Utility
         }
 
         /// <summary>
+        /// Retrieves the default label file for the Medline pack label format from the configuration settings.
+        /// </summary>
+        /// <returns>The default label file for the Medline pack label format</returns>
+        public static string GetMedlineDefaultPackLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["MedlineDefaultPackLabelFormat"];
+        }
+
+        /// <summary>
         /// Retrieves the default label file for the P&G tub/case label format from the configuration settings.
         /// </summary>
         /// <returns>The default label file for the P&G tub/case label format.</returns>

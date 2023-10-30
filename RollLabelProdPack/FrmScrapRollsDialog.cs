@@ -46,7 +46,7 @@ namespace RollLabelProdPack
         private void FrmScrapRollsDialog_Load(object sender, EventArgs e)
         {
             // Get the rolls for the YJNOrderNo
-            var so = AppData.GetRollsForOrder(YJNOrderNo);
+            var so = AppData.GetRollsForOrder(YJNOrderNo, "C1007");
 
             // Check if the operation to get the rolls was successful
             if (!so.SuccessFlag)

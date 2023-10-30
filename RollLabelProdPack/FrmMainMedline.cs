@@ -111,6 +111,17 @@ namespace RollLabelProdPack
             chkSP16.Visible = noSlitPos > 15;
             chkSP17.Visible = noSlitPos > 16;
             chkSP18.Visible = noSlitPos > 17;
+            chkSP19.Visible = noSlitPos > 18;
+            chkSP20.Visible = noSlitPos > 19;
+            chkSP21.Visible = noSlitPos > 20;
+            chkSP22.Visible = noSlitPos > 21;
+            chkSP23.Visible = noSlitPos > 22;
+            chkSP24.Visible = noSlitPos > 23;
+            chkSP25.Visible = noSlitPos > 24;
+            chkSP26.Visible = noSlitPos > 25;
+            chkSP27.Visible = noSlitPos > 26;
+            chkSP28.Visible = noSlitPos > 27;
+            chkSP29.Visible = noSlitPos > 28;
 
             // Enable the txtDie and txtLengthLM text boxes
             txtDie.Enabled = true;
@@ -139,7 +150,7 @@ namespace RollLabelProdPack
                 {
                     // Disable the btnGenerateRolls button and display an error notification
                     btnGenerateRolls.Enabled = false;
-                    DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input values No. Of Slits, Die No., and first roll weight.");
+                    DisplayToastNotification(WinFormUtils.ToastNotificationType.Error, "Complete Form", "Please input values No. Of Slits, Die No., and Linear meters.");
 
                     // Reset rolls and return
                     _rolls = null;
@@ -832,7 +843,7 @@ namespace RollLabelProdPack
         /// <param name="e">The event arguments.</param>
         private void boxScrapToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FrmBoxScrap frmBoxScrap = new FrmBoxScrap();
+            FrmBoxScrapMedline frmBoxScrap = new FrmBoxScrapMedline();
             // Show the FrmBoxScrap form
             frmBoxScrap.Show();
         }
@@ -998,7 +1009,7 @@ namespace RollLabelProdPack
                     foreach (var roll in _rolls)
                     {
                         // Add a scrap issue line to the inventory issue document for each roll
-                        invIssue.AddScrapIssueLine(roll.ItemCode, Convert.ToDouble(roll.Kgs), roll.StorLocCode, roll.QualityStatus, roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, _selectOrder.YJNOrder, scrapGLOffset, roll.ScrapReason, _selectOrder.Shift);
+                        invIssue.AddScrapIssueLine(roll.ItemCode, Convert.ToDouble(roll.SquareMeters), roll.StorLocCode, roll.QualityStatus, roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, _selectOrder.YJNOrder, scrapGLOffset, roll.ScrapReason, _selectOrder.Shift);
                     }
 
                     // Save the inventory issue document
@@ -1027,7 +1038,7 @@ namespace RollLabelProdPack
                         }
 
                         // Add a line to the inventory receipt document for each roll
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.Kgs), roll.RollNo.Last(), scrapLocCode, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, true, _selectOrder.ScrapLine, _selectOrder.Shift, _selectOrder.Employee, roll.ScrapReason, scrapGLOffset);
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.SquareMeters), roll.RollNo.Last(), scrapLocCode, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, true, _selectOrder.ScrapLine, _selectOrder.Shift, _selectOrder.Employee, roll.ScrapReason, scrapGLOffset);
 
                         // Save the inventory receipt document
                         if (invReceipt.Save() == false)
