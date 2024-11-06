@@ -95,6 +95,10 @@ namespace RollLabelProdPack.Library.Utility
                 {
                     qtyReq = Math.Round(qtyReq, decimalPlaces);
                 }
+                else
+                {
+                    qtyReq = Math.Round(qtyReq, 2);
+                }
 
                 if (line.PlannedIssueQty > 0) // Scrap is set up as by-product negative line quantity
                 {
@@ -124,6 +128,10 @@ namespace RollLabelProdPack.Library.Utility
                                     if (decimalPlaces != -1)
                                     {
                                         itemQty = Math.Round(itemQty, decimalPlaces);
+                                    }
+                                    else
+                                    {
+                                        itemQty = Math.Round(itemQty, 2);
                                     }
 
                                     plannedIssue.Add(CreatePlannedIssueDetail(line.ItemCode, line.UOM, line.BaseEntry, line.BaseLine, item.StorageLocation, item.QualityStatus,

@@ -28,10 +28,10 @@ namespace RollLabelProdPack
         private string _currentScrapItem;
         private string _currentYJNOrder;
         private int _currentScrapLine;
-        private bool _orderChangeCausedComboSelectionChange = false;
+        //private bool _orderChangeCausedComboSelectionChange = false;
         private RollLabelData _selectOrder;
         private List<ProductionLineMachineNo> _prodLines;
-        private ProductionLineMachineNo _selectedLine;
+        //private ProductionLineMachineNo _selectedLine;
         private List<InventoryIssueDetail> _plannedIssue;
         private int luid;
         private string sscc;
@@ -84,8 +84,8 @@ namespace RollLabelProdPack
 
                         coPackProductionUserControl1.Order = _selectOrder;
 
-                        _orderChangeCausedComboSelectionChange = true;
-                        _orderChangeCausedComboSelectionChange = false;
+                        //_orderChangeCausedComboSelectionChange = true;
+                        //_orderChangeCausedComboSelectionChange = false;
                     }
                 }
                 if (_selectOrder != null)
@@ -131,15 +131,15 @@ namespace RollLabelProdPack
                 {
                     _selectOrder.Employee = _currentEmployee;
                 }
-                if (_selectedLine != null)
-                {
-                    _selectOrder.ProductionLine = _selectedLine.ProductionLine;
-                    _selectOrder.ProductionMachineNo = _selectedLine.ProductionMachineNo;
-                    _selectOrder.OutputLoc = _selectedLine.OutputLocationCode;
-                    _selectOrder.InputLoc = _selectedLine.InputLocationCode;
-                    _selectOrder.Printer = _selectedLine.Printer;
-                    _selectOrder.BatchNo = $"{_selectOrder.SAPOrderNo.ToString()}{_selectOrder.ProductionLine.Replace("TUB", "T")}";
-                }
+                //if (_selectedLine != null)
+                //{
+                //    _selectOrder.ProductionLine = _selectedLine.ProductionLine;
+                //    _selectOrder.ProductionMachineNo = _selectedLine.ProductionMachineNo;
+                //    _selectOrder.OutputLoc = _selectedLine.OutputLocationCode;
+                //    _selectOrder.InputLoc = _selectedLine.InputLocationCode;
+                //    _selectOrder.Printer = _selectedLine.Printer;
+                //    _selectOrder.BatchNo = $"{_selectOrder.SAPOrderNo.ToString()}{_selectOrder.ProductionLine.Replace("TUB", "T")}";
+                //}
 
                 // Update the co-pack production user control with the updated order
                 coPackProductionUserControl1.Order = _selectOrder;
@@ -698,7 +698,7 @@ namespace RollLabelProdPack
                 }
 
                 // Refresh the planned issues based on the quantity per case and number of cases
-                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(e.QtyPerCase * e.NumberOfCases));
+                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(e.QtyPerCase * e.NumberOfCases), 1);
 
                 if (_log.IsDebugEnabled)
                 {

@@ -15,7 +15,7 @@ namespace RollLabelProdPack.SAP.B1
         /// <summary></summary>
         private ProductionOrders _prodOrder = null;
         /// <summary></summary>
-        private BoObjectTypes _objectType = BoObjectTypes.oProductionOrders;
+        //private BoObjectTypes _objectType = BoObjectTypes.oProductionOrders;
         /// <summary></summary>
         private List<ProductionOrderLine> _productionOrderLines = new List<ProductionOrderLine>();
         /// <summary></summary>

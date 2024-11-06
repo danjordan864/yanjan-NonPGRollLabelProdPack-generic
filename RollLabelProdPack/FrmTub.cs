@@ -34,9 +34,9 @@ namespace RollLabelProdPack
         private int luid;
         private string sscc;
         private int _prodRun;
-        private bool _loading;
+        //private bool _loading;
         private List<ProductionLineMachineNo> _prodLines;
-        private BindingSource prodLinesBindingSource;
+        //private BindingSource prodLinesBindingSource;
         private bool _orderChangeCausedComboSelectionChange = false;
         private string _currentShift;
         private string _currentEmployee;
@@ -65,7 +65,7 @@ namespace RollLabelProdPack
 
         private void FrmTub_Load(object sender, EventArgs e)
         {
-            _loading = true;
+            //_loading = true;
             bindingSource1 = new BindingSource();
             bindingSource1.DataSource = _selectOrder;
             txtEmployee.DataBindings.Add("Text", bindingSource1, "Employee");
@@ -88,7 +88,7 @@ namespace RollLabelProdPack
             _prodLines.Insert(0, new ProductionLineMachineNo { ProductionLine = "<Select Line>", ProductionMachineNo = "0" });
             toLineComboBox.DataSource = _prodLines;
             toLineComboBox.DisplayMember = "ProductionLine";
-            _loading = false;
+            //_loading = false;
         }
         private void btnSelect_Click(object sender, EventArgs e)
         {
@@ -201,7 +201,7 @@ namespace RollLabelProdPack
             //}
             //else
             //{
-            _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(qty * numberOfCases));
+            _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(qty * numberOfCases), 2);
             var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);
             if (hasShortage.Count() > 0)
             {

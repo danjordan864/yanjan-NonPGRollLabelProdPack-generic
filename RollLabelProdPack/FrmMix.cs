@@ -31,7 +31,7 @@ namespace RollLabelProdPack
         private int luid;
         private string sscc;
         private int _prodRun;
-        private bool _loading;
+        //private bool _loading;
         private bool _isClosing;
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace RollLabelProdPack
         /// <param name="e">The event arguments.</param>
         private void FrmMix_Load(object sender, EventArgs e)
         {
-            _loading = true;
+            //_loading = true;
             _isClosing = false;
             txtWeightKgs.GotFocus += txtWeightKgs_GotFocus;
             bindingSource1 = new BindingSource();
@@ -70,7 +70,7 @@ namespace RollLabelProdPack
             pls.Insert(0, "Select To Line");
             cboToLine.DataSource = pls;
 
-            _loading = false;
+            //_loading = false;
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace RollLabelProdPack
             else
             {
                 // Refresh the planned issue quantity based on the selected order and entered weight
-                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtWeightKgs.Text));
+                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtWeightKgs.Text), 2);
 
                 // Check if there are any shortages in the planned issue
                 var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);

@@ -19,7 +19,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         private IDocuments _receipt = null;
         private List<InventoryReceiptLine> _receiptLines = new List<InventoryReceiptLine>();
         /// <summary></summary>
-        private bool _isNew = true;
+        //private bool _isNew = true;
 
         private ILog _log;
 
@@ -76,7 +76,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             {
                 if (_receipt.GetByKey(docEntry) == false)
                     throw new B1Exception(sapCompany, $"Unable to retrieve Issue {docEntry} from {sapCompany.CompanyName}");
-                _isNew = false;
+                //_isNew = false;
 
                 // lines
                 // -------------------------------------------------------------------------------------

@@ -33,8 +33,8 @@ namespace RollLabelProdPack
         private List<ProductionLineMachineNo> _prodLines;
         private ProductionLineMachineNo _selectedLine;
         private List<InventoryIssueDetail> _plannedIssue;
-        private int luid;
-        private string sscc;
+        //private int luid;
+        //private string sscc;
         private int _prodRun;
         private ILog _log;
 
@@ -275,7 +275,7 @@ namespace RollLabelProdPack
                 }
 
                 // Refresh the planned issue quantities
-                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(e.QtyPerCase * e.NumberOfCases));
+                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, (decimal)(e.QtyPerCase * e.NumberOfCases), 1);
 
                 if (_log.IsDebugEnabled)
                 {

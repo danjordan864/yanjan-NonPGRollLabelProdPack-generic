@@ -164,7 +164,7 @@ namespace RollLabelProdPack
                 else
                 {
                     // Calculate the planned issue quantity
-                    _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtLengthLM.Text) * _selectOrder.WidthInMM * 0.001m * Convert.ToDecimal(txtNoOfSlits.Text));
+                    _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtLengthLM.Text) * _selectOrder.WidthInMM * 0.001m * Convert.ToDecimal(txtNoOfSlits.Text), 2);
 
                     // Check if there are shortages in the planned issue
                     var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);
@@ -570,7 +570,7 @@ namespace RollLabelProdPack
                     $"#{_rolls.Count.ToString()} rolls produced. Order: {txtYJNProdOrder.Text}, Roll No. {txtJumboRoll.Text}");
 
                 // Update issues right before production
-                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtLengthLM.Text) * .001m * _selectOrder.WidthInMM * Convert.ToDecimal(txtNoOfSlits.Text));
+                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtLengthLM.Text) * .001m * _selectOrder.WidthInMM * Convert.ToDecimal(txtNoOfSlits.Text), 2);
 
                 // Initialize InventoryIssue object
                 using (InventoryIssue invIssue = (InventoryIssue)sapB1.B1Factory(SAPbobsCOM.BoObjectTypes.oInventoryGenExit, 0))

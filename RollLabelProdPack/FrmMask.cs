@@ -123,7 +123,7 @@ namespace RollLabelProdPack
             else
             {
                 // Refresh the planned issue quantities based on the input values.
-                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtNoOfMasks.Text));
+                _plannedIssue = AppUtility.RefreshIssueQty(_selectOrder.SAPOrderNo, _selectOrder.ProductionLine, Convert.ToDecimal(txtNoOfMasks.Text), 2);
 
                 // Check if there are shortages with batch control.
                 var hasShortage = _plannedIssue.Where(i => i.ShortQty > 0 && i.BatchControlled);

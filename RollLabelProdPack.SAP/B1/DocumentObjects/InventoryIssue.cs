@@ -25,7 +25,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
         private IDocuments _issue = null;
         private List<InventoryIssueLine> _issueLines = new List<InventoryIssueLine>();
         /// <summary></summary>
-        private bool _isNew = true;
+        //private bool _isNew = true;
 
         /// <summary>
         /// Initializes a new instance of the InventoryIssue class with the specified SAP Company.
@@ -89,7 +89,7 @@ namespace RollLabelProdPack.SAP.B1.DocumentObjects
             {
                 if (_issue.GetByKey(docEntry) == false)
                     throw new B1Exception(sapCompany, $"Unable to retrieve Issue {docEntry} from {sapCompany.CompanyName}");
-                _isNew = false;
+                //_isNew = false;
 
                 // lines
                 // -------------------------------------------------------------------------------------
