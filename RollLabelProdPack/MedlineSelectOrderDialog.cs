@@ -42,7 +42,8 @@ namespace RollLabelProdPack
                 _itemGroupFilter = itemGroupFilter;
 
                 // Get the open production orders based on the item group filter
-                var so = AppData.GetOpenProdOrders(itemGroupFilter, "C1007");
+                //var so = AppData.GetOpenProdOrders(itemGroupFilter, "C1007");
+                var so = AppData.GetOpenProdOrders(itemGroupFilter, AppUtility.GetMedlineCustomerID());
 
                 // Throw an exception if there was an error getting the production orders
                 if (!so.SuccessFlag)

@@ -1420,6 +1420,11 @@ namespace RollLabelProdPack.Library.Utility
             return ConfigurationManager.AppSettings["MaskUOMLabel"];
         }
 
+        public static string GetMedlineCustomerID()
+        {
+            return ConfigurationManager.AppSettings["MedlineCustomerID"];
+        }
+
         /// <summary>
         /// Gets the Yanjan production month code based on the order start date.
         /// </summary>

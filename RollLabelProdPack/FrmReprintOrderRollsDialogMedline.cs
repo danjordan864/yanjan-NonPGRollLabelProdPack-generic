@@ -1,5 +1,6 @@
 ﻿using RollLabelProdPack.Library.Data;
 using RollLabelProdPack.Library.Entities;
+using RollLabelProdPack.Library.Utility;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,7 +47,8 @@ namespace RollLabelProdPack
         private void FrmReprintOrderRollsDialog_Load(object sender, EventArgs e)
         {
             // Retrieve rolls for the order
-            var so = AppData.GetRollsForOrder(YJNOrderNo, "C1007");
+            //var so = AppData.GetRollsForOrder(YJNOrderNo, "C1007");
+            var so = AppData.GetRollsForOrder(YJNOrderNo, AppUtility.GetMedlineCustomerID());
             if (!so.SuccessFlag)
                 throw new ApplicationException($"Failed to get rolls for order. Error:{so.ServiceException}");
 
