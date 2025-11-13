@@ -12,7 +12,7 @@ namespace RollLabelProdPack
 {
     public partial class NonPGStartForm : Form
     {
-        private UserControl[] customerSelectionUserControls = { new NoCustomerSelectedUserControl(), new MedlineSelectionsUserControl() };
+        private UserControl[] customerSelectionUserControls = { new NoCustomerSelectedUserControl(), new MedlineSelectionsUserControl(), new RocklineSelectionsUserControl() };
 
         public NonPGStartForm()
         {

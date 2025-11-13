@@ -50,7 +50,8 @@
             this.CustomerComboBox.FormattingEnabled = true;
             this.CustomerComboBox.Items.AddRange(new object[] {
             "<Select One>",
-            "Medline"});
+            "Medline",
+            "Rockline"});
             this.CustomerComboBox.Location = new System.Drawing.Point(144, 25);
             this.CustomerComboBox.Name = "CustomerComboBox";
             this.CustomerComboBox.Size = new System.Drawing.Size(121, 28);
