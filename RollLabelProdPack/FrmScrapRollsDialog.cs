@@ -27,6 +27,12 @@ namespace RollLabelProdPack
         private List<Roll> _rolls = null;
 
         /// <summary>
+        /// Gets or sets the customer identifier used when retrieving rolls for the order.
+        /// Defaults to the Medline customer when not specified.
+        /// </summary>
+        public string CustomerId { get; set; } = AppUtility.GetMedlineCustomerID();
+
+        /// <summary>
         /// Gets or sets the form's list of selected rolls
         /// </summary>
         public List<Roll> SelectedRolls { get; set; }
@@ -48,7 +54,7 @@ namespace RollLabelProdPack
         {
             // Get the rolls for the YJNOrderNo
             //var so = AppData.GetRollsForOrder(YJNOrderNo, "C1007");
-            var so = AppData.GetRollsForOrder(YJNOrderNo, AppUtility.GetMedlineCustomerID());
+            var so = AppData.GetRollsForOrder(YJNOrderNo, CustomerId);
 
 
             // Check if the operation to get the rolls was successful

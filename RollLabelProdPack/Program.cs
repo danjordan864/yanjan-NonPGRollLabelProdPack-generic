@@ -30,7 +30,18 @@ namespace RollLabelProdPack
                         Application.Run(new FrmPackPrintMedline());
                         break;
 
+                    case "ROCKLINEPACK":
+                        Application.Run(new FrmPackPrintRockline());
+                        break;
+
+                    case "ROCKLINEFILM":
+                        Application.Run(new FrmMainRockline());
+                        break;
+
                     case "MEDLINEFILM":
+                        Application.Run(new FrmMainMedline());
+                        break;
+
                     default:
                         Application.Run(new FrmMainMedline());
                         break;

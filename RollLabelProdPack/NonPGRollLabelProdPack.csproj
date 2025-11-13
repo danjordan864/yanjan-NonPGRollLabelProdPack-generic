@@ -92,11 +92,23 @@
     <Compile Include="FrmBoxScrapMedline.Designer.cs">
       <DependentUpon>FrmBoxScrapMedline.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmBoxScrapRockline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBoxScrapRockline.Designer.cs">
+      <DependentUpon>FrmBoxScrapRockline.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMainMedline.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMainMedline.Designer.cs">
       <DependentUpon>FrmMainMedline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMainRockline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMainRockline.Designer.cs">
+      <DependentUpon>FrmMainRockline.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -134,11 +146,23 @@
     <Compile Include="FrmPackPrintMedline.Designer.cs">
       <DependentUpon>FrmPackPrintMedline.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPackPrintRockline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPackPrintRockline.Designer.cs">
+      <DependentUpon>FrmPackPrintRockline.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmReprintOrderRollsDialogMedline.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmReprintOrderRollsDialogMedline.Designer.cs">
       <DependentUpon>FrmReprintOrderRollsDialogMedline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmReprintOrderRollsDialogRockline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmReprintOrderRollsDialogRockline.Designer.cs">
+      <DependentUpon>FrmReprintOrderRollsDialogRockline.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTub2.cs">
       <SubType>Form</SubType>
@@ -212,6 +236,12 @@
     <Compile Include="MedlineSelectionsUserControl.Designer.cs">
       <DependentUpon>MedlineSelectionsUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="RocklineSelectionsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RocklineSelectionsUserControl.Designer.cs">
+      <DependentUpon>RocklineSelectionsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="NoCustomerSelectedUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -233,11 +263,23 @@
     <Compile Include="MedlineSelectOrderDialog.Designer.cs">
       <DependentUpon>MedlineSelectOrderDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="RocklineSelectOrderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RocklineSelectOrderDialog.Designer.cs">
+      <DependentUpon>RocklineSelectOrderDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectOrderDialogMedline.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SelectOrderDialogMedline.Designer.cs">
       <DependentUpon>SelectOrderDialogMedline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectOrderDialogRockline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectOrderDialogRockline.Designer.cs">
+      <DependentUpon>SelectOrderDialogRockline.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectOrderDialog.cs">
       <SubType>Form</SubType>
@@ -276,8 +318,14 @@
     <EmbeddedResource Include="FrmBoxScrapMedline.resx">
       <DependentUpon>FrmBoxScrapMedline.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmBoxScrapRockline.resx">
+      <DependentUpon>FrmBoxScrapRockline.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMainMedline.resx">
       <DependentUpon>FrmMainMedline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMainRockline.resx">
+      <DependentUpon>FrmMainRockline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -297,8 +345,14 @@
     <EmbeddedResource Include="FrmPackPrintMedline.resx">
       <DependentUpon>FrmPackPrintMedline.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmPackPrintRockline.resx">
+      <DependentUpon>FrmPackPrintRockline.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmReprintOrderRollsDialogMedline.resx">
       <DependentUpon>FrmReprintOrderRollsDialogMedline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmReprintOrderRollsDialogRockline.resx">
+      <DependentUpon>FrmReprintOrderRollsDialogRockline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTub2.resx">
       <DependentUpon>frmTub2.cs</DependentUpon>
@@ -336,6 +390,9 @@
     <EmbeddedResource Include="MedlineSelectionsUserControl.resx">
       <DependentUpon>MedlineSelectionsUserControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RocklineSelectionsUserControl.resx">
+      <DependentUpon>RocklineSelectionsUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NoCustomerSelectedUserControl.resx">
       <DependentUpon>NoCustomerSelectedUserControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -345,8 +402,14 @@
     <EmbeddedResource Include="MedlineSelectOrderDialog.resx">
       <DependentUpon>MedlineSelectOrderDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RocklineSelectOrderDialog.resx">
+      <DependentUpon>RocklineSelectOrderDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectOrderDialogMedline.resx">
       <DependentUpon>SelectOrderDialogMedline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectOrderDialogRockline.resx">
+      <DependentUpon>SelectOrderDialogRockline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectOrderDialog.resx">
       <DependentUpon>SelectOrderDialog.cs</DependentUpon>

@@ -1331,6 +1331,15 @@ namespace RollLabelProdPack.Library.Utility
         }
 
         /// <summary>
+        /// Retrieves the default roll label format file name for the Rockline roll label from the configuration settings.
+        /// </summary>
+        /// <returns>The default roll label format file name for the Rockline roll label.</returns>
+        public static string GetRocklineDefaultRollLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["RocklineDefaultRollLabelFormat"];
+        }
+
+        /// <summary>
         /// Retrieves the default label file for the P&G scrap label format from the configuration settings.
         /// </summary>
         /// <returns>The default label file for the P&G scrap label format.</returns>
@@ -1364,6 +1373,15 @@ namespace RollLabelProdPack.Library.Utility
         public static string GetMedlineDefaultPackLabelFormat()
         {
             return ConfigurationManager.AppSettings["MedlineDefaultPackLabelFormat"];
+        }
+
+        /// <summary>
+        /// Retrieves the default label file for the Rockline pack label format from the configuration settings.
+        /// </summary>
+        /// <returns>The default label file for the Rockline pack label format.</returns>
+        public static string GetRocklineDefaultPackLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["RocklineDefaultPackLabelFormat"];
         }
 
         /// <summary>
@@ -1423,6 +1441,11 @@ namespace RollLabelProdPack.Library.Utility
         public static string GetMedlineCustomerID()
         {
             return ConfigurationManager.AppSettings["MedlineCustomerID"];
+        }
+
+        public static string GetRocklineCustomerID()
+        {
+            return ConfigurationManager.AppSettings["RocklineCustomerID"];
         }
 
         /// <summary>
