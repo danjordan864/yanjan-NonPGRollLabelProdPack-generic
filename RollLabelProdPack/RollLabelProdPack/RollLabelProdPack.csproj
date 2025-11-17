@@ -234,17 +234,34 @@
   <ItemGroup>
     <None Include="Resources\One.jpeg" />
   </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="SAPbobsCOM">
-      <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
-      <VersionMajor>9</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="'$(PlatformTarget)' == 'x86' Or '$(Platform)' == 'x86'">
+      <ItemGroup>
+        <COMReference Include="SAPbobsCOM">
+          <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
+          <VersionMajor>9</VersionMajor>
+          <VersionMinor>3</VersionMinor>
+          <Lcid>0</Lcid>
+          <WrapperTool>tlbimp</WrapperTool>
+          <Isolated>False</Isolated>
+          <EmbedInteropTypes>True</EmbedInteropTypes>
+        </COMReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <COMReference Include="SAPbobsCOM">
+          <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
+          <VersionMajor>10</VersionMajor>
+          <VersionMinor>0</VersionMinor>
+          <Lcid>0</Lcid>
+          <WrapperTool>tlbimp</WrapperTool>
+          <Isolated>False</Isolated>
+          <EmbedInteropTypes>True</EmbedInteropTypes>
+        </COMReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
