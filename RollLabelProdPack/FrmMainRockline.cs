@@ -254,6 +254,8 @@ namespace RollLabelProdPack
                             IRMS = _selectOrder.IRMS,
                             //Kgs = Convert.ToDecimal(txtLengthLM.Text)
                             SquareMeters = _selectOrder.WidthInMM * 0.001m * Convert.ToDecimal(txtLengthLM.Text),
+                            // Quantity in square yards
+                            Quantity = Math.Round(_selectOrder.WidthInMM * 0.001m * Convert.ToDecimal(txtLengthLM.Text) * 1.19599m, 2),
                             PONumber = _selectOrder.PONumber
                         };
 
@@ -286,7 +288,7 @@ namespace RollLabelProdPack
         {
             using (RocklineSelectOrderDialog frmSignInDialog = new RocklineSelectOrderDialog())
             {
-                frmSignInDialog.SetDataSource("FF");
+                frmSignInDialog.SetDataSource("OTHER");
                 DialogResult dr = frmSignInDialog.ShowDialog();
 
                 if (dr == DialogResult.OK)
@@ -709,13 +711,21 @@ namespace RollLabelProdPack
                 sbRollLabel.AppendLine();
                 sbRollLabel.Append(@"%END%");
                 sbRollLabel.AppendLine();
-                sbRollLabel.Append("Item, ItemName, IRMS, LotNo, RollNo, SSCC, Qty, PONumber");
+                sbRollLabel.Append("PurchaseOrder,CustomerPartNumber,ItemNumber,RollNumber,Width,LotNumber,Quantity,UOM");
                 sbRollLabel.AppendLine();
 
                 // Append the roll information to the StringBuilder
                 foreach (var roll in _rolls)
                 {
-                    sbRollLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7}", roll.Scrap ? _selectOrder.ScrapItem : roll.ItemCode, roll.Scrap ? "Scrap" : roll.ItemName, roll.IRMS, roll.YJNOrder, roll.RollNo, roll.SSCC, roll.SquareMeters, roll.PONumber);
+                    sbRollLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7}", 
+                        _selectOrder.PONumber,
+                        _selectOrder.IRMS,
+                        roll.Scrap ? _selectOrder.ScrapItem : roll.ItemCode, 
+                        roll.RollNo,
+                        _selectOrder.WidthInMM / 25.4m,
+                        _selectOrder.YJNOrder,
+                        roll.Quantity,
+                        roll.UOM);
                     sbRollLabel.AppendLine();
                 }
 

@@ -59,6 +59,17 @@
             this.txtEmployee = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.chkSP27 = new System.Windows.Forms.CheckBox();
+            this.chkSP28 = new System.Windows.Forms.CheckBox();
+            this.chkSP29 = new System.Windows.Forms.CheckBox();
+            this.chkSP24 = new System.Windows.Forms.CheckBox();
+            this.chkSP25 = new System.Windows.Forms.CheckBox();
+            this.chkSP26 = new System.Windows.Forms.CheckBox();
+            this.chkSP23 = new System.Windows.Forms.CheckBox();
+            this.chkSP22 = new System.Windows.Forms.CheckBox();
+            this.chkSP21 = new System.Windows.Forms.CheckBox();
+            this.chkSP20 = new System.Windows.Forms.CheckBox();
+            this.chkSP19 = new System.Windows.Forms.CheckBox();
             this.txtWidthMM = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txtRollsLeft = new System.Windows.Forms.TextBox();
@@ -97,19 +108,8 @@
             this.olvRolls = new BrightIdeasSoftware.ObjectListView();
             this.olvColScrap = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColRollNo = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColSquareMeters = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColSquareYards = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColScrapReason = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.chkSP24 = new System.Windows.Forms.CheckBox();
-            this.chkSP25 = new System.Windows.Forms.CheckBox();
-            this.chkSP26 = new System.Windows.Forms.CheckBox();
-            this.chkSP23 = new System.Windows.Forms.CheckBox();
-            this.chkSP22 = new System.Windows.Forms.CheckBox();
-            this.chkSP21 = new System.Windows.Forms.CheckBox();
-            this.chkSP20 = new System.Windows.Forms.CheckBox();
-            this.chkSP19 = new System.Windows.Forms.CheckBox();
-            this.chkSP27 = new System.Windows.Forms.CheckBox();
-            this.chkSP28 = new System.Windows.Forms.CheckBox();
-            this.chkSP29 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -508,6 +508,182 @@
             this.splitContainer1.Size = new System.Drawing.Size(1237, 617);
             this.splitContainer1.SplitterDistance = 655;
             this.splitContainer1.TabIndex = 5;
+            // 
+            // chkSP27
+            // 
+            this.chkSP27.AutoSize = true;
+            this.chkSP27.Checked = true;
+            this.chkSP27.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP27.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP27.Location = new System.Drawing.Point(314, 114);
+            this.chkSP27.Name = "chkSP27";
+            this.chkSP27.Size = new System.Drawing.Size(38, 17);
+            this.chkSP27.TabIndex = 31;
+            this.chkSP27.Tag = "27";
+            this.chkSP27.Text = "27";
+            this.chkSP27.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP27.UseVisualStyleBackColor = true;
+            this.chkSP27.Visible = false;
+            // 
+            // chkSP28
+            // 
+            this.chkSP28.AutoSize = true;
+            this.chkSP28.Checked = true;
+            this.chkSP28.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP28.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP28.Location = new System.Drawing.Point(352, 114);
+            this.chkSP28.Name = "chkSP28";
+            this.chkSP28.Size = new System.Drawing.Size(38, 17);
+            this.chkSP28.TabIndex = 32;
+            this.chkSP28.Tag = "28";
+            this.chkSP28.Text = "28";
+            this.chkSP28.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP28.UseVisualStyleBackColor = true;
+            this.chkSP28.Visible = false;
+            // 
+            // chkSP29
+            // 
+            this.chkSP29.AutoSize = true;
+            this.chkSP29.Checked = true;
+            this.chkSP29.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP29.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP29.Location = new System.Drawing.Point(390, 114);
+            this.chkSP29.Name = "chkSP29";
+            this.chkSP29.Size = new System.Drawing.Size(38, 17);
+            this.chkSP29.TabIndex = 33;
+            this.chkSP29.Tag = "29";
+            this.chkSP29.Text = "29";
+            this.chkSP29.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP29.UseVisualStyleBackColor = true;
+            this.chkSP29.Visible = false;
+            // 
+            // chkSP24
+            // 
+            this.chkSP24.AutoSize = true;
+            this.chkSP24.Checked = true;
+            this.chkSP24.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP24.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP24.Location = new System.Drawing.Point(200, 114);
+            this.chkSP24.Name = "chkSP24";
+            this.chkSP24.Size = new System.Drawing.Size(38, 17);
+            this.chkSP24.TabIndex = 28;
+            this.chkSP24.Tag = "24";
+            this.chkSP24.Text = "24";
+            this.chkSP24.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP24.UseVisualStyleBackColor = true;
+            this.chkSP24.Visible = false;
+            // 
+            // chkSP25
+            // 
+            this.chkSP25.AutoSize = true;
+            this.chkSP25.Checked = true;
+            this.chkSP25.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP25.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP25.Location = new System.Drawing.Point(238, 114);
+            this.chkSP25.Name = "chkSP25";
+            this.chkSP25.Size = new System.Drawing.Size(38, 17);
+            this.chkSP25.TabIndex = 29;
+            this.chkSP25.Tag = "25";
+            this.chkSP25.Text = "25";
+            this.chkSP25.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP25.UseVisualStyleBackColor = true;
+            this.chkSP25.Visible = false;
+            // 
+            // chkSP26
+            // 
+            this.chkSP26.AutoSize = true;
+            this.chkSP26.Checked = true;
+            this.chkSP26.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP26.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP26.Location = new System.Drawing.Point(276, 114);
+            this.chkSP26.Name = "chkSP26";
+            this.chkSP26.Size = new System.Drawing.Size(38, 17);
+            this.chkSP26.TabIndex = 30;
+            this.chkSP26.Tag = "26";
+            this.chkSP26.Text = "26";
+            this.chkSP26.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP26.UseVisualStyleBackColor = true;
+            this.chkSP26.Visible = false;
+            // 
+            // chkSP23
+            // 
+            this.chkSP23.AutoSize = true;
+            this.chkSP23.Checked = true;
+            this.chkSP23.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP23.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP23.Location = new System.Drawing.Point(162, 114);
+            this.chkSP23.Name = "chkSP23";
+            this.chkSP23.Size = new System.Drawing.Size(38, 17);
+            this.chkSP23.TabIndex = 27;
+            this.chkSP23.Tag = "23";
+            this.chkSP23.Text = "23";
+            this.chkSP23.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP23.UseVisualStyleBackColor = true;
+            this.chkSP23.Visible = false;
+            // 
+            // chkSP22
+            // 
+            this.chkSP22.AutoSize = true;
+            this.chkSP22.Checked = true;
+            this.chkSP22.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP22.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP22.Location = new System.Drawing.Point(124, 114);
+            this.chkSP22.Name = "chkSP22";
+            this.chkSP22.Size = new System.Drawing.Size(38, 17);
+            this.chkSP22.TabIndex = 26;
+            this.chkSP22.Tag = "22";
+            this.chkSP22.Text = "22";
+            this.chkSP22.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP22.UseVisualStyleBackColor = true;
+            this.chkSP22.Visible = false;
+            // 
+            // chkSP21
+            // 
+            this.chkSP21.AutoSize = true;
+            this.chkSP21.Checked = true;
+            this.chkSP21.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP21.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP21.Location = new System.Drawing.Point(86, 114);
+            this.chkSP21.Name = "chkSP21";
+            this.chkSP21.Size = new System.Drawing.Size(38, 17);
+            this.chkSP21.TabIndex = 25;
+            this.chkSP21.Tag = "21";
+            this.chkSP21.Text = "21";
+            this.chkSP21.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP21.UseVisualStyleBackColor = true;
+            this.chkSP21.Visible = false;
+            // 
+            // chkSP20
+            // 
+            this.chkSP20.AutoSize = true;
+            this.chkSP20.Checked = true;
+            this.chkSP20.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP20.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP20.Location = new System.Drawing.Point(48, 114);
+            this.chkSP20.Name = "chkSP20";
+            this.chkSP20.Size = new System.Drawing.Size(38, 17);
+            this.chkSP20.TabIndex = 24;
+            this.chkSP20.Tag = "20";
+            this.chkSP20.Text = "20";
+            this.chkSP20.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP20.UseVisualStyleBackColor = true;
+            this.chkSP20.Visible = false;
+            // 
+            // chkSP19
+            // 
+            this.chkSP19.AutoSize = true;
+            this.chkSP19.Checked = true;
+            this.chkSP19.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSP19.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chkSP19.Location = new System.Drawing.Point(10, 114);
+            this.chkSP19.Name = "chkSP19";
+            this.chkSP19.Size = new System.Drawing.Size(38, 17);
+            this.chkSP19.TabIndex = 23;
+            this.chkSP19.Tag = "19";
+            this.chkSP19.Text = "19";
+            this.chkSP19.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.chkSP19.UseVisualStyleBackColor = true;
+            this.chkSP19.Visible = false;
             // 
             // txtWidthMM
             // 
@@ -993,7 +1169,7 @@
             // 
             this.olvRolls.AllColumns.Add(this.olvColScrap);
             this.olvRolls.AllColumns.Add(this.olvColRollNo);
-            this.olvRolls.AllColumns.Add(this.olvColSquareMeters);
+            this.olvRolls.AllColumns.Add(this.olvColSquareYards);
             this.olvRolls.AllColumns.Add(this.olvColScrapReason);
             this.olvRolls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -1005,10 +1181,11 @@
             this.olvRolls.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColScrap,
             this.olvColRollNo,
-            this.olvColSquareMeters,
+            this.olvColSquareYards,
             this.olvColScrapReason});
             this.olvRolls.Cursor = System.Windows.Forms.Cursors.Default;
             this.olvRolls.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.olvRolls.HideSelection = false;
             this.olvRolls.Location = new System.Drawing.Point(6, 7);
             this.olvRolls.Name = "olvRolls";
             this.olvRolls.Size = new System.Drawing.Size(572, 582);
@@ -1034,13 +1211,13 @@
             this.olvColRollNo.Text = "Roll No.";
             this.olvColRollNo.Width = 200;
             // 
-            // olvColSquareMeters
+            // olvColSquareYards
             // 
-            this.olvColSquareMeters.AspectName = "SquareMeters";
-            this.olvColSquareMeters.AspectToStringFormat = "{0:N3}";
-            this.olvColSquareMeters.IsEditable = false;
-            this.olvColSquareMeters.Text = "SM";
-            this.olvColSquareMeters.Width = 100;
+            this.olvColSquareYards.AspectName = "Quantity";
+            this.olvColSquareYards.AspectToStringFormat = "{0:N3}";
+            this.olvColSquareYards.IsEditable = false;
+            this.olvColSquareYards.Text = "SY";
+            this.olvColSquareYards.Width = 100;
             // 
             // olvColScrapReason
             // 
@@ -1048,182 +1225,6 @@
             this.olvColScrapReason.IsEditable = false;
             this.olvColScrapReason.Text = "Scr. Reason";
             this.olvColScrapReason.Width = 104;
-            // 
-            // chkSP24
-            // 
-            this.chkSP24.AutoSize = true;
-            this.chkSP24.Checked = true;
-            this.chkSP24.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP24.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP24.Location = new System.Drawing.Point(200, 114);
-            this.chkSP24.Name = "chkSP24";
-            this.chkSP24.Size = new System.Drawing.Size(38, 17);
-            this.chkSP24.TabIndex = 28;
-            this.chkSP24.Tag = "24";
-            this.chkSP24.Text = "24";
-            this.chkSP24.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP24.UseVisualStyleBackColor = true;
-            this.chkSP24.Visible = false;
-            // 
-            // chkSP25
-            // 
-            this.chkSP25.AutoSize = true;
-            this.chkSP25.Checked = true;
-            this.chkSP25.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP25.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP25.Location = new System.Drawing.Point(238, 114);
-            this.chkSP25.Name = "chkSP25";
-            this.chkSP25.Size = new System.Drawing.Size(38, 17);
-            this.chkSP25.TabIndex = 29;
-            this.chkSP25.Tag = "25";
-            this.chkSP25.Text = "25";
-            this.chkSP25.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP25.UseVisualStyleBackColor = true;
-            this.chkSP25.Visible = false;
-            // 
-            // chkSP26
-            // 
-            this.chkSP26.AutoSize = true;
-            this.chkSP26.Checked = true;
-            this.chkSP26.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP26.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP26.Location = new System.Drawing.Point(276, 114);
-            this.chkSP26.Name = "chkSP26";
-            this.chkSP26.Size = new System.Drawing.Size(38, 17);
-            this.chkSP26.TabIndex = 30;
-            this.chkSP26.Tag = "26";
-            this.chkSP26.Text = "26";
-            this.chkSP26.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP26.UseVisualStyleBackColor = true;
-            this.chkSP26.Visible = false;
-            // 
-            // chkSP23
-            // 
-            this.chkSP23.AutoSize = true;
-            this.chkSP23.Checked = true;
-            this.chkSP23.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP23.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP23.Location = new System.Drawing.Point(162, 114);
-            this.chkSP23.Name = "chkSP23";
-            this.chkSP23.Size = new System.Drawing.Size(38, 17);
-            this.chkSP23.TabIndex = 27;
-            this.chkSP23.Tag = "23";
-            this.chkSP23.Text = "23";
-            this.chkSP23.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP23.UseVisualStyleBackColor = true;
-            this.chkSP23.Visible = false;
-            // 
-            // chkSP22
-            // 
-            this.chkSP22.AutoSize = true;
-            this.chkSP22.Checked = true;
-            this.chkSP22.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP22.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP22.Location = new System.Drawing.Point(124, 114);
-            this.chkSP22.Name = "chkSP22";
-            this.chkSP22.Size = new System.Drawing.Size(38, 17);
-            this.chkSP22.TabIndex = 26;
-            this.chkSP22.Tag = "22";
-            this.chkSP22.Text = "22";
-            this.chkSP22.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP22.UseVisualStyleBackColor = true;
-            this.chkSP22.Visible = false;
-            // 
-            // chkSP21
-            // 
-            this.chkSP21.AutoSize = true;
-            this.chkSP21.Checked = true;
-            this.chkSP21.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP21.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP21.Location = new System.Drawing.Point(86, 114);
-            this.chkSP21.Name = "chkSP21";
-            this.chkSP21.Size = new System.Drawing.Size(38, 17);
-            this.chkSP21.TabIndex = 25;
-            this.chkSP21.Tag = "21";
-            this.chkSP21.Text = "21";
-            this.chkSP21.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP21.UseVisualStyleBackColor = true;
-            this.chkSP21.Visible = false;
-            // 
-            // chkSP20
-            // 
-            this.chkSP20.AutoSize = true;
-            this.chkSP20.Checked = true;
-            this.chkSP20.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP20.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP20.Location = new System.Drawing.Point(48, 114);
-            this.chkSP20.Name = "chkSP20";
-            this.chkSP20.Size = new System.Drawing.Size(38, 17);
-            this.chkSP20.TabIndex = 24;
-            this.chkSP20.Tag = "20";
-            this.chkSP20.Text = "20";
-            this.chkSP20.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP20.UseVisualStyleBackColor = true;
-            this.chkSP20.Visible = false;
-            // 
-            // chkSP19
-            // 
-            this.chkSP19.AutoSize = true;
-            this.chkSP19.Checked = true;
-            this.chkSP19.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP19.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP19.Location = new System.Drawing.Point(10, 114);
-            this.chkSP19.Name = "chkSP19";
-            this.chkSP19.Size = new System.Drawing.Size(38, 17);
-            this.chkSP19.TabIndex = 23;
-            this.chkSP19.Tag = "19";
-            this.chkSP19.Text = "19";
-            this.chkSP19.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP19.UseVisualStyleBackColor = true;
-            this.chkSP19.Visible = false;
-            // 
-            // chkSP27
-            // 
-            this.chkSP27.AutoSize = true;
-            this.chkSP27.Checked = true;
-            this.chkSP27.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP27.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP27.Location = new System.Drawing.Point(314, 114);
-            this.chkSP27.Name = "chkSP27";
-            this.chkSP27.Size = new System.Drawing.Size(38, 17);
-            this.chkSP27.TabIndex = 31;
-            this.chkSP27.Tag = "27";
-            this.chkSP27.Text = "27";
-            this.chkSP27.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP27.UseVisualStyleBackColor = true;
-            this.chkSP27.Visible = false;
-            // 
-            // chkSP28
-            // 
-            this.chkSP28.AutoSize = true;
-            this.chkSP28.Checked = true;
-            this.chkSP28.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP28.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP28.Location = new System.Drawing.Point(352, 114);
-            this.chkSP28.Name = "chkSP28";
-            this.chkSP28.Size = new System.Drawing.Size(38, 17);
-            this.chkSP28.TabIndex = 32;
-            this.chkSP28.Tag = "28";
-            this.chkSP28.Text = "28";
-            this.chkSP28.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP28.UseVisualStyleBackColor = true;
-            this.chkSP28.Visible = false;
-            // 
-            // chkSP29
-            // 
-            this.chkSP29.AutoSize = true;
-            this.chkSP29.Checked = true;
-            this.chkSP29.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSP29.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.chkSP29.Location = new System.Drawing.Point(390, 114);
-            this.chkSP29.Name = "chkSP29";
-            this.chkSP29.Size = new System.Drawing.Size(38, 17);
-            this.chkSP29.TabIndex = 33;
-            this.chkSP29.Tag = "29";
-            this.chkSP29.Text = "29";
-            this.chkSP29.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.chkSP29.UseVisualStyleBackColor = true;
-            this.chkSP29.Visible = false;
             // 
             // FrmMainRockline
             // 
@@ -1285,7 +1286,7 @@
         private BrightIdeasSoftware.ObjectListView olvRolls;
         private BrightIdeasSoftware.OLVColumn olvColScrap;
         private BrightIdeasSoftware.OLVColumn olvColRollNo;
-        private BrightIdeasSoftware.OLVColumn olvColSquareMeters;
+        private BrightIdeasSoftware.OLVColumn olvColSquareYards;
         private System.Windows.Forms.CheckBox chkSP11;
         private System.Windows.Forms.CheckBox chkSP10;
         private System.Windows.Forms.CheckBox chkSP9;
