@@ -201,7 +201,7 @@
             this.txtIRMS.Margin = new System.Windows.Forms.Padding(4);
             this.txtIRMS.Name = "txtIRMS";
             this.txtIRMS.ReadOnly = true;
-            this.txtIRMS.Size = new System.Drawing.Size(85, 26);
+            this.txtIRMS.Size = new System.Drawing.Size(171, 26);
             this.txtIRMS.TabIndex = 38;
             this.txtIRMS.TabStop = false;
             // 
@@ -214,7 +214,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(50, 20);
             this.label10.TabIndex = 37;
-            this.label10.Text = "IRMS";
+            this.label10.Text = "Customer Item #";
             // 
             // label8
             // 
