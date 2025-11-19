@@ -25,8 +25,8 @@ namespace RollLabelProdPack
         public PrintColumnButtonRenderer(Image printButtonImage)
         {
             _log = LogManager.GetLogger(this.GetType());
-            if (_log.IsDebugEnabled)
-                _log.Debug("In constructor for PrintColumnButtonRenderer");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In constructor for PrintColumnButtonRenderer");
             _printButtonImage = printButtonImage;
         }
 
@@ -38,8 +38,8 @@ namespace RollLabelProdPack
         /// <returns>The aligned rectangle.</returns>
         protected override Rectangle AlignRectangle(Rectangle outer, Rectangle inner)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In AlignRectangle");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In AlignRectangle");
 
             // Call the base class implementation to perform the alignment
             return base.AlignRectangle(outer, inner);
@@ -53,8 +53,8 @@ namespace RollLabelProdPack
         /// <returns>The modified rectangle with applied cell padding.</returns>
         public override Rectangle ApplyCellPadding(Rectangle r)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In ApplyCellPadding");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In ApplyCellPadding");
 
             // Call the base class implementation to apply the cell padding
             return base.ApplyCellPadding(r);
@@ -69,8 +69,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated aligned rectangle.</returns>
         protected override Rectangle CalculateAlignedRectangle(Graphics g, Rectangle r)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateAlignedRectangle");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateAlignedRectangle");
 
             // Call the base class implementation to calculate the aligned rectangle
             return base.CalculateAlignedRectangle(g, r);
@@ -84,8 +84,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated size of the checkbox.</returns>
         protected override Size CalculateCheckBoxSize(Graphics g)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateCheckBoxSize");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateCheckBoxSize");
 
             // Call the base class implementation to calculate the checkbox size
             return base.CalculateCheckBoxSize(g);
@@ -100,8 +100,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated size of the content.</returns>
         protected override Size CalculateContentSize(Graphics g, Rectangle r)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateContentSize");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateContentSize");
 
             // Call the base class implementation to calculate the content size
             return base.CalculateContentSize(g, r);
@@ -116,8 +116,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated height of the image.</returns>
         protected override int CalculateImageHeight(Graphics g, object imageSelector)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateImageHeight");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateImageHeight");
 
             // Call the base class implementation to calculate the image height
             return base.CalculateImageHeight(g, imageSelector);
@@ -132,8 +132,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated size of the image.</returns>
         protected override Size CalculateImageSize(Graphics g, object imageSelector)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateImageSize");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateImageSize");
 
             // Call the base class implementation to calculate the image size
             return base.CalculateImageSize(g, imageSelector);
@@ -148,8 +148,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated width of the image.</returns>
         protected override int CalculateImageWidth(Graphics g, object imageSelector)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateImageWidth");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateImageWidth");
 
             // Call the base class implementation to calculate the image width
             return base.CalculateImageWidth(g, imageSelector);
@@ -163,8 +163,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated size of the primary check box.</returns>
         protected override Size CalculatePrimaryCheckBoxSize(Graphics g)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculatePrimaryCheckBoxSize");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculatePrimaryCheckBoxSize");
 
             // Call the base class implementation to calculate the primary check box size
             return base.CalculatePrimaryCheckBoxSize(g);
@@ -180,8 +180,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated size of the text.</returns>
         protected override Size CalculateTextSize(Graphics g, string txt, int width)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateTextSize");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateTextSize");
 
             // Call the base class implementation to calculate the text size
             return base.CalculateTextSize(g, txt, width);
@@ -197,8 +197,8 @@ namespace RollLabelProdPack
         /// <returns>The calculated width of the text.</returns>
         protected override int CalculateTextWidth(Graphics g, string txt, int width)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CalculateTextWidth");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CalculateTextWidth");
 
             // Call the base class implementation to calculate the text width
             return base.CalculateTextWidth(g, txt, width);
@@ -213,8 +213,8 @@ namespace RollLabelProdPack
         /// <param name="model">The model object associated with the list view item.</param>
         public override void ConfigureItem(DrawListViewItemEventArgs e, Rectangle itemBounds, object model)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In ConfigureItem");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In ConfigureItem");
 
             // Call the base class implementation to configure the appearance of the list view item
             base.ConfigureItem(e, itemBounds, model);
@@ -229,8 +229,8 @@ namespace RollLabelProdPack
         /// <param name="model">The model object associated with the list view subitem.</param>
         public override void ConfigureSubItem(DrawListViewSubItemEventArgs e, Rectangle cellBounds, object model)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In ConfigureSubItem");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In ConfigureSubItem");
 
             // Call the base class implementation to configure the appearance of the list view subitem
             base.ConfigureSubItem(e, cellBounds, model);
@@ -244,8 +244,8 @@ namespace RollLabelProdPack
         /// <returns>An ObjRef that represents the current object.</returns>
         public override ObjRef CreateObjRef(Type requestedType)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In CreateObjRef");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In CreateObjRef");
 
             // Call the base class implementation to create the ObjRef
             return base.CreateObjRef(requestedType);
@@ -260,8 +260,8 @@ namespace RollLabelProdPack
         /// <param name="image">The <see cref="Image"/> to be drawn.</param>
         protected override void DrawAlignedImage(Graphics g, Rectangle r, Image image)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawAlignedImage");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawAlignedImage");
 
             // Call the base class implementation to draw the aligned image
             base.DrawAlignedImage(g, r, image);
@@ -275,8 +275,8 @@ namespace RollLabelProdPack
         /// <param name="r">The <see cref="Rectangle"/> in which to draw the image and text.</param>
         protected override void DrawAlignedImageAndText(Graphics g, Rectangle r)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawAlignedImageAndText");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawAlignedImageAndText");
 
             // Call the base class implementation to draw the aligned image and text
             base.DrawAlignedImageAndText(g, r);
@@ -290,8 +290,8 @@ namespace RollLabelProdPack
         /// <param name="r">The <see cref="Rectangle"/> in which to draw the background.</param>
         protected override void DrawBackground(Graphics g, Rectangle r)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawBackground");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawBackground");
 
             // Call the base class implementation to draw the background
             base.DrawBackground(g, r);
@@ -306,8 +306,8 @@ namespace RollLabelProdPack
         /// <returns>The width of the checkbox element.</returns>
         protected override int DrawCheckBox(Graphics g, Rectangle r)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawCheckBox");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawCheckBox");
 
             // Call the base class implementation to draw the checkbox
             return base.DrawCheckBox(g, r);
@@ -321,8 +321,8 @@ namespace RollLabelProdPack
         /// <param name="r">The <see cref="Rectangle"/> in which to draw the image and text.</param>
         protected override void DrawImageAndText(Graphics g, Rectangle r)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawImageAndText");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawImageAndText");
 
             // Draw the image using the specified Graphics object and Rectangle
             g.DrawImage(_printButtonImage, r);
@@ -341,8 +341,8 @@ namespace RollLabelProdPack
         /// <returns>The total width of the drawn images.</returns>
         protected override int DrawImages(Graphics g, Rectangle r, ICollection imageSelectors)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawImages");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawImages");
 
             // Call the base class implementation to draw the images
             return base.DrawImages(g, r, imageSelectors);
@@ -357,8 +357,8 @@ namespace RollLabelProdPack
         /// <param name="txt">The text to be drawn.</param>
         public override void DrawText(Graphics g, Rectangle r, string txt)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawText");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawText");
 
             // Call the base class implementation to draw the text
             base.DrawText(g, r, txt);
@@ -373,8 +373,8 @@ namespace RollLabelProdPack
         /// <param name="txt">The text to be drawn.</param>
         protected override void DrawTextGdi(Graphics g, Rectangle r, string txt)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawTextGdi");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawTextGdi");
 
             // Call the base class implementation to draw the text using GDI
             base.DrawTextGdi(g, r, txt);
@@ -389,8 +389,8 @@ namespace RollLabelProdPack
         /// <param name="txt">The text to be drawn.</param>
         protected override void DrawTextGdiPlus(Graphics g, Rectangle r, string txt)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In DrawTextGdiPlus");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In DrawTextGdiPlus");
 
             // Call the base class implementation to draw the text using GDI+
             base.DrawTextGdiPlus(g, r, txt);
@@ -403,8 +403,8 @@ namespace RollLabelProdPack
         /// <returns>The background color of the object.</returns>
         public override Color GetBackgroundColor()
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetBackgroundColor");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetBackgroundColor");
 
             // Call the base class implementation to retrieve the background color
             return base.GetBackgroundColor();
@@ -418,8 +418,8 @@ namespace RollLabelProdPack
         /// <returns>The visual state of the checkbox.</returns>
         protected override CheckBoxState GetCheckBoxState(CheckState checkState)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetCheckBoxState");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetCheckBoxState");
 
             // Call the base class implementation to determine the visual state of the checkbox
             return base.GetCheckBoxState(checkState);
@@ -437,8 +437,8 @@ namespace RollLabelProdPack
         /// <returns>The editing rectangle for the subitem.</returns>
         public override Rectangle GetEditRectangle(Graphics g, Rectangle cellBounds, OLVListItem item, int subItemIndex, Size preferredSize)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetEditRectangle");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetEditRectangle");
 
             // Call the base class implementation to get the default editing rectangle
             return base.GetEditRectangle(g, cellBounds, item, subItemIndex, preferredSize);
@@ -451,8 +451,8 @@ namespace RollLabelProdPack
         /// <returns>The foreground color of the item.</returns>
         public override Color GetForegroundColor()
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetForegroundColor");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetForegroundColor");
 
             // Call the base class implementation to get the default foreground color
             return base.GetForegroundColor();
@@ -465,8 +465,8 @@ namespace RollLabelProdPack
         /// <returns>The image associated with the item.</returns>
         protected override Image GetImage()
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetImage");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetImage");
 
             // Call the base class implementation to get the default image
             return base.GetImage();
@@ -480,8 +480,8 @@ namespace RollLabelProdPack
         /// <returns>The image associated with the specified image selector.</returns>
         protected override Image GetImage(object imageSelector)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetImage (with imageSelector)");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetImage (with imageSelector)");
 
             // Call the base class implementation to get the image based on the image selector
             return base.GetImage(imageSelector);
@@ -494,8 +494,8 @@ namespace RollLabelProdPack
         /// <returns>The image selector associated with the item.</returns>
         protected override object GetImageSelector()
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetImageSelector");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetImageSelector");
 
             // Call the base class implementation to get the image selector
             return base.GetImageSelector();
@@ -508,8 +508,8 @@ namespace RollLabelProdPack
         /// <returns>The background color for a selected item.</returns>
         public override Color GetSelectedBackgroundColor()
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetSelectedBackgroundColor");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetSelectedBackgroundColor");
 
             // Call the base class implementation to get the selected background color
             return base.GetSelectedBackgroundColor();
@@ -522,8 +522,8 @@ namespace RollLabelProdPack
         /// <returns>The foreground color for a selected item.</returns>
         public override Color GetSelectedForegroundColor()
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetSelectedForegroundColor");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetSelectedForegroundColor");
 
             // Call the base class implementation to get the selected foreground color
             return base.GetSelectedForegroundColor();
@@ -537,8 +537,8 @@ namespace RollLabelProdPack
         /// <returns>A service object of the specified type, or null if the service is not available.</returns>
         protected override object GetService(Type service)
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetService");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetService");
 
             // Call the base class implementation to retrieve the service object
             return base.GetService(service);
@@ -551,8 +551,8 @@ namespace RollLabelProdPack
         /// <returns>The text to be displayed in the cell.</returns>
         protected override string GetText()
         {
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetText");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetText");
 
             // Call the base class implementation to retrieve the text
             return base.GetText();
@@ -567,8 +567,8 @@ namespace RollLabelProdPack
         protected override Color GetTextBackgroundColor()
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In GetTextBackgroundColor");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In GetTextBackgroundColor");
 
             // Call the base implementation to get the text background color
             return base.GetTextBackgroundColor();
@@ -587,8 +587,8 @@ namespace RollLabelProdPack
         protected override Rectangle HandleGetEditRectangle(Graphics g, Rectangle cellBounds, OLVListItem item, int subItemIndex, Size preferredSize)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In HandleGetEditRectangle");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In HandleGetEditRectangle");
 
             // Call the base implementation to calculate the edit rectangle
             return base.HandleGetEditRectangle(g, cellBounds, item, subItemIndex, preferredSize);
@@ -604,8 +604,8 @@ namespace RollLabelProdPack
         protected override void HandleHitTest(Graphics g, OlvListViewHitTestInfo hti, int x, int y)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In HandleHitTest");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In HandleHitTest");
 
             // Call the base implementation to perform the hit test operation
             base.HandleHitTest(g, hti, x, y);
@@ -621,8 +621,8 @@ namespace RollLabelProdPack
         public override void HitTest(OlvListViewHitTestInfo hti, int x, int y)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In HitTest");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In HitTest");
 
             // Call the base implementation to perform the hit test operation
             base.HitTest(hti, x, y);
@@ -638,8 +638,8 @@ namespace RollLabelProdPack
         public override bool OptionalRender(Graphics g, Rectangle r)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In OptionalRender");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In OptionalRender");
 
             // Call the base implementation to perform the optional render operation
             return base.OptionalRender(g, r);
@@ -654,8 +654,8 @@ namespace RollLabelProdPack
         public override void Render(Graphics g, Rectangle r)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In Render");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In Render");
 
             // Call the base implementation to perform the rendering
             base.Render(g, r);
@@ -673,8 +673,8 @@ namespace RollLabelProdPack
         public override bool RenderItem(DrawListViewItemEventArgs e, Graphics g, Rectangle itemBounds, object model)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In RenderItem");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In RenderItem");
 
             // Call the base implementation to perform the rendering
             return base.RenderItem(e, g, itemBounds, model);
@@ -692,8 +692,8 @@ namespace RollLabelProdPack
         public override bool RenderSubItem(DrawListViewSubItemEventArgs e, Graphics g, Rectangle cellBounds, object model)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In RenderSubItem");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In RenderSubItem");
 
             // Call the base implementation to perform the rendering
             return base.RenderSubItem(e, g, cellBounds, model);
@@ -710,8 +710,8 @@ namespace RollLabelProdPack
         protected override Rectangle StandardGetEditRectangle(Graphics g, Rectangle cellBounds, Size preferredSize)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In StandardGetEditRectangle");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In StandardGetEditRectangle");
 
             // Call the base implementation to get the standard edit rectangle
             return base.StandardGetEditRectangle(g, cellBounds, preferredSize);
@@ -729,8 +729,8 @@ namespace RollLabelProdPack
         protected override void StandardHitTest(Graphics g, OlvListViewHitTestInfo hti, Rectangle bounds, int x, int y)
         {
             // Log debug information if enabled
-            if (_log.IsDebugEnabled)
-                _log.Debug("In StandardHitTest");
+            //if (_log.IsDebugEnabled)
+            //    _log.Debug("In StandardHitTest");
 
             // Call the base implementation to perform the standard hit testing
             base.StandardHitTest(g, hti, bounds, x, y);
