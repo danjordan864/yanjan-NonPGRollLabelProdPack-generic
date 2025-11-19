@@ -575,6 +575,12 @@ namespace RollLabelProdPack
         {
             try
             {
+                if (e.Column == olvColPrint)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
                 // Handling for the total weight column
                 if (e.Column == olvTotalWeight)
                 {
