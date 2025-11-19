@@ -739,14 +739,24 @@ namespace RollLabelProdPack
             sb.AppendLine();
             sb.Append(@"%END%");
             sb.AppendLine();
-            sb.Append("Supplier Product, Production Date, Item Desc., Order No., Cust. Part No.(IRMS), Qty, Kg, Customer Shipping Lot, SSCC, PMXSSCC, PO Number, # Rolls");
+            sb.Append("ItemNumber,ProductionDate,ItemName,CustomerPartNumber,Quantity,UOM,LotNumber,PurchaseOrderNumber,Weight");
             sb.AppendLine();
+
+            var uom = packLabel.Rolls?.FirstOrDefault()?.UOM ?? string.Empty;
 
             // Add the label data for the specified number of copies
             for (int i = 0; i < packLabel.Copies; i++)
             {
-                sb.AppendFormat("{0},{1},{2},{3},{4}", packLabel.ItemCode, packLabel.ProductionDate.ToShortDateString(), packLabel.ItemName, packLabel.YJNOrder, packLabel.IRMS);
-                sb.AppendFormat(",{0},{1},{2},{3},{4},{5},{6}", qty, totalNetKg, packLabel.LotNo, packLabel.SSCC, packLabel.PMXSSCC, packLabel.PONumber, packLabel.NumRolls);
+                sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
+                    packLabel.ItemCode,
+                    packLabel.ProductionDate.ToShortDateString(),
+                    packLabel.ItemName,
+                    packLabel.IRMS,
+                    qty,
+                    uom,
+                    packLabel.LotNo,
+                    packLabel.PONumber,
+                    totalNetKg);
                 sb.AppendLine();
             }
 
