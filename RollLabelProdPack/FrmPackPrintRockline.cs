@@ -100,6 +100,8 @@ namespace RollLabelProdPack
         /// <param name="e">The event arguments.</param>
         private void OlvBundles_ButtonClick(object sender, CellClickEventArgs e)
         {
+            _log.Debug("Entered OlvBundles_ButtonClick");
+            _log.Debug($"e.Column.AspectName = {e.Column.AspectName}");
             if (e.Column.AspectName == "PrintButtonText")
             {
                 var packLabel = e.Model as PackLabel;
