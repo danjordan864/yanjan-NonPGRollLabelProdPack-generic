@@ -80,7 +80,6 @@ namespace RollLabelProdPack
             olvBundles.SmallImageList = ilPackPrint;
             olvTotalWeight.AspectPutter = delegate (object obj, object newValue) { ((PackLabel)obj).TotalWeight = decimal.Parse(newValue.ToString()); };
 
-            olvColPrint.IsEditable = true;
             olvTotalWeight.IsEditable = true;
 
             // Setup the show rolls hyperlink column
@@ -576,13 +575,8 @@ namespace RollLabelProdPack
         {
             try
             {
-                // Special cell edit handling for the print click column
-                if (e.Column == olvColPrint)
-                {
-                    e.Cancel = true; 
-                }
                 // Handling for the total weight column
-                else if (e.Column == olvTotalWeight)
+                if (e.Column == olvTotalWeight)
                 {
                     if (!chkReprint.Checked)
                     {
