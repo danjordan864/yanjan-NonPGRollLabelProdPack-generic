@@ -256,7 +256,8 @@ namespace RollLabelProdPack
                             SquareMeters = _selectOrder.WidthInMM * 0.001m * Convert.ToDecimal(txtLengthLM.Text),
                             // Quantity in square yards
                             Quantity = Math.Round(_selectOrder.WidthInMM * 0.001m * Convert.ToDecimal(txtLengthLM.Text) * 1.19599m, 2),
-                            PONumber = _selectOrder.PONumber
+                            PONumber = _selectOrder.PONumber,
+                            UOM = "SY"
                         };
 
                         // Check if the roll already exists
@@ -722,7 +723,7 @@ namespace RollLabelProdPack
                         _selectOrder.IRMS,
                         roll.Scrap ? _selectOrder.ScrapItem : roll.ItemCode, 
                         roll.RollNo,
-                        _selectOrder.WidthInMM / 25.4m,
+                        Math.Round(_selectOrder.WidthInMM / 25.4m, 0),
                         _selectOrder.YJNOrder,
                         roll.Quantity,
                         roll.UOM);
