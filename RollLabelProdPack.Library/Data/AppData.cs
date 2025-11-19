@@ -474,7 +474,8 @@ namespace RollLabelProdPack.Library.Data
                             Quantity = row.Field<decimal>("Quantity"),
                             //NetKg = row.Field<decimal>("Kgs"),
                             JumboRoll = string.IsNullOrEmpty(row.Field<string>("RollNo")) ? "" : row.Field<string>("RollNo").Substring(8, 2),
-                            TareKg = row.Field<decimal>("TareKg")
+                            TareKg = row.Field<decimal>("TareKg"),
+                            UOM = row.Field<string>("UOM")
                         }).ToList();
 
                     serviceOutput.ReturnValue = rolls;

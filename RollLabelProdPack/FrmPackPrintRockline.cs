@@ -756,7 +756,7 @@ namespace RollLabelProdPack
                     packLabel.IRMS,
                     qty,
                     uom,
-                    packLabel.LotNo,
+                    packLabel.YJNOrder,
                     packLabel.PONumber,
                     totalNetKg);
                 sb.AppendLine();

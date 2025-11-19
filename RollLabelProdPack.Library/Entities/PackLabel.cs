@@ -496,6 +496,11 @@ namespace RollLabelProdPack.Library.Entities
             }
         }
 
+        public string PrintButtonText
+        {
+            get { return "Print"; }
+        }
+
         // Internal comment: Event raised when a property value changes.
         /// <summary>
         /// Event raised when a property value changes.
