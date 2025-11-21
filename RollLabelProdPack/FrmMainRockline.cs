@@ -712,13 +712,13 @@ namespace RollLabelProdPack
                 sbRollLabel.AppendLine();
                 sbRollLabel.Append(@"%END%");
                 sbRollLabel.AppendLine();
-                sbRollLabel.Append("PurchaseOrder,CustomerPartNumber,ItemNumber,RollNumber,Width,LotNumber,Quantity,UOM");
+                sbRollLabel.Append("PurchaseOrder,CustomerPartNumber,ItemNumber,RollNumber,Width,LotNumber,Quantity,UOM,SSCC");
                 sbRollLabel.AppendLine();
 
                 // Append the roll information to the StringBuilder
                 foreach (var roll in _rolls)
                 {
-                    sbRollLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7}", 
+                    sbRollLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8}", 
                         _selectOrder.PONumber,
                         _selectOrder.IRMS,
                         roll.Scrap ? _selectOrder.ScrapItem : roll.ItemCode, 
@@ -726,7 +726,8 @@ namespace RollLabelProdPack
                         Math.Round(_selectOrder.WidthInMM / 25.4m, 0),
                         _selectOrder.YJNOrder,
                         roll.Quantity,
-                        roll.UOM);
+                        roll.UOM,
+                        roll.SSCC);
                     sbRollLabel.AppendLine();
                 }
 

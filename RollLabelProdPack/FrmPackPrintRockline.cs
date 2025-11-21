@@ -731,7 +731,7 @@ namespace RollLabelProdPack
             var labelPrintLocPack = AppUtility.GetBTTriggerLoc();
             var labelPrintExtension = AppUtility.GetLabelPrintExtension();
             var fileNamePackLabel = Path.Combine(labelPrintLocPack, "PackLabel" + labelPrintExtension);
-            var packLabelPrinter = AppUtility.GetPackPrinterName();
+            var packLabelPrinter = AppUtility.GetRocklinePackPrinterName();
             //var formatFilePathPackLabel = AppUtility.GetPGDefaultPackLabelFormat();
             var formatFilePathPackLabel = AppUtility.GetRocklineDefaultPackLabelFormat();
 

@@ -1277,6 +1277,15 @@ namespace RollLabelProdPack.Library.Utility
         }
 
         /// <summary>
+        /// Retrieves the value of the pack printer name for Rockline from the configuration settings.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetRocklinePackPrinterName()
+        {
+            return ConfigurationManager.AppSettings["RocklinePackPrinterName"];
+        }
+
+        /// <summary>
         /// Retrieves the value of the tub pallet printer name from the configuration settings.
         /// </summary>
         /// <returns>The value of the tub pallet printer name.</returns>
