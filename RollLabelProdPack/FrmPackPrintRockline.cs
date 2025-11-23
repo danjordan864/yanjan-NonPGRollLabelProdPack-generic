@@ -256,7 +256,7 @@ namespace RollLabelProdPack
                     packLabel.PropertyChanged += PackLabel_PropertyChanged;
 
                     // Set the pack label description
-                    packLabel.Description = $"Created: {packLabel.Created.ToString("g")}\r\n{packLabel.ItemCode} - {packLabel.Description} SM: {packLabel.Qty.ToString("#.##")}\r\nSSCC: {packLabel.SSCC}";
+                    packLabel.Description = $"Created: {packLabel.Created.ToString("g")}\r\n{packLabel.ItemCode} - {packLabel.Description} SY: {packLabel.Qty.ToString("#.##")}\r\nSSCC: {packLabel.PMXSSCC}";
 
                     // Get the rolls for the pack label
                     so = AppData.GetPackLabelRolls(packLabel.ID);
@@ -741,7 +741,8 @@ namespace RollLabelProdPack
             sb.AppendLine();
             sb.Append(@"%END%");
             sb.AppendLine();
-            sb.Append("ItemNumber,ProductionDate,ItemName,CustomerPartNumber,Quantity,UOM,LotNumber,PurchaseOrderNumber,Weight");
+            // ItemNumber,ProductionDate,ItemName,CustomerPartNumber,Quantity,UOM,LotNumber,PurchaseOrderNumber,Weight,SSCC
+            sb.Append("ItemNumber,ProductionDate,ItemName,CustomerPartNumber,Quantity,UOM,LotNumber,PurchaseOrderNumber,Weight,SSCC");
             sb.AppendLine();
 
             var uom = packLabel.Rolls?.FirstOrDefault()?.UOM ?? string.Empty;
@@ -749,7 +750,7 @@ namespace RollLabelProdPack
             // Add the label data for the specified number of copies
             for (int i = 0; i < packLabel.Copies; i++)
             {
-                sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
+                sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}",
                     packLabel.ItemCode,
                     packLabel.ProductionDate.ToShortDateString(),
                     packLabel.ItemName,
@@ -758,7 +759,8 @@ namespace RollLabelProdPack
                     uom,
                     packLabel.YJNOrder,
                     packLabel.PONumber,
-                    totalNetKg);
+                    totalNetKg,
+                    packLabel.PMXSSCC);
                 sb.AppendLine();
             }
 
