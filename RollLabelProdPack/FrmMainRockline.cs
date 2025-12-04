@@ -536,7 +536,9 @@ namespace RollLabelProdPack
                     // Add inventory receipt lines for standard production rolls
                     foreach (var roll in stdProduction)
                     {
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, roll.ItemCode, Convert.ToDouble(roll.SquareMeters), prodBatchNo, roll.Hold ? holdStatus : _selectOrder.OutputLoc,
+                        var roundedQuantity = Math.Round(roll.Quantity, 2);
+
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, roll.ItemCode, Convert.ToDouble(roundedQuantity), prodBatchNo, roll.Hold ? holdStatus : _selectOrder.OutputLoc,
                             roll.Hold ? holdStatus : defaultStatus, roll.RollNo, roll.LUID, roll.SSCC, defaultUom, _selectOrder.YJNOrder, false, 0, _selectOrder.Shift, _selectOrder.Employee);
                     }
 
@@ -546,7 +548,9 @@ namespace RollLabelProdPack
                     // Add inventory receipt lines for scrap production rolls
                     foreach (var roll in scrapProd)
                     {
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.SquareMeters), prodBatchNo, _selectOrder.OutputLoc, scrapStatus,
+                        var roundedQuantity = Math.Round(roll.Quantity, 2);
+
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roundedQuantity), prodBatchNo, _selectOrder.OutputLoc, scrapStatus,
                             roll.RollNo, roll.LUID, roll.SSCC, defaultUom, _selectOrder.YJNOrder, true, _selectOrder.ScrapLine, _selectOrder.Shift, _selectOrder.Employee, roll.ScrapReason);
                     }
 
