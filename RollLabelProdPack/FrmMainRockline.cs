@@ -1025,8 +1025,12 @@ namespace RollLabelProdPack
                 {
                     foreach (var roll in _rolls)
                     {
+                        // Use Quantity for Rockline rolls, SquareMeters for others
+                        var quantity = roll.Quantity > 0 ? roll.Quantity : roll.SquareMeters;
+                        var roundedQuantity = Math.Round(quantity, 2);
+
                         // Add a scrap issue line to the inventory issue document for each roll
-                        invIssue.AddScrapIssueLine(roll.ItemCode, Convert.ToDouble(roll.SquareMeters), roll.StorLocCode, roll.QualityStatus, roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, _selectOrder.YJNOrder, scrapGLOffset, roll.ScrapReason, _selectOrder.Shift);
+                        invIssue.AddScrapIssueLine(roll.ItemCode, Convert.ToDouble(roundedQuantity), roll.StorLocCode, roll.QualityStatus, roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, _selectOrder.YJNOrder, scrapGLOffset, roll.ScrapReason, _selectOrder.Shift);
                     }
 
                     // Save the inventory issue document
@@ -1054,8 +1058,12 @@ namespace RollLabelProdPack
                             roll.SSCC = luid_sscc.Value;
                         }
 
+                        // Use Quantity for Rockline rolls, SquareMeters for others
+                        var quantity = roll.Quantity > 0 ? roll.Quantity : roll.SquareMeters;
+                        var roundedQuantity = Math.Round(quantity, 2);
+
                         // Add a line to the inventory receipt document for each roll
-                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roll.SquareMeters), roll.RollNo.Last(), scrapLocCode, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, "Kgs", _selectOrder.YJNOrder, true, _selectOrder.ScrapLine, _selectOrder.Shift, _selectOrder.Employee, roll.ScrapReason, scrapGLOffset);
+                        invReceipt.AddLine(_selectOrder.SAPDocEntry, _selectOrder.ScrapItem, Convert.ToDouble(roundedQuantity), roll.RollNo.Last(), scrapLocCode, "RELEASED", roll.RollNo, roll.LUID, roll.SSCC, roll.UOM, _selectOrder.YJNOrder, true, _selectOrder.ScrapLine, _selectOrder.Shift, _selectOrder.Employee, roll.ScrapReason, scrapGLOffset);
 
                         // Save the inventory receipt document
                         if (invReceipt.Save() == false)

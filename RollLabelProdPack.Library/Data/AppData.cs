@@ -638,13 +638,16 @@ namespace RollLabelProdPack.Library.Data
                            YJNOrder = row.Field<string>("YJNOrderNo"),
                            //Kgs = row.Field<decimal>("Kgs"),
                            Quantity = row.Table.Columns.Contains("Quantity") ? row.Field<decimal>("Quantity") : 0m,
-                           SquareMeters = row.Table.Columns.Contains("SqaureMeters") ? row.Field<decimal>("SquareMeters") : 0m,
+                           SquareMeters = row.Table.Columns.Contains("SquareMeters") ? row.Field<decimal>("SquareMeters") : 0m,
                            JumboRoll = row.Field<string>("RollNo").Substring(8, 2),
                            StorLocCode = row.Field<string>("StorLocCode"),
                            QualityStatus = row.Field<string>("QualityStatus"),
                            UOM = row.Field<string>("UOM"),
                            PONumber = row.Field<string>("PONumber")
-                       }).ToList();
+                       })
+                       .GroupBy(r => r.RollNo)  // Group by RollNo to remove duplicates
+                       .Select(g => g.First())   // Take the first occurrence of each roll
+                       .ToList();
 
                     serviceOutput.ReturnValue = rolls;
                     serviceOutput.SuccessFlag = true;
