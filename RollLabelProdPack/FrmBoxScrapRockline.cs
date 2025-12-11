@@ -290,7 +290,7 @@ namespace RollLabelProdPack
                 sbMixLabel.AppendLine();
 
                 // Add the label field values
-                sbMixLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", _selectOrder.ScrapItem, _selectOrder.ScrapItemName, "", _selectOrder.YJNOrder, "", sscc, Convert.ToDecimal(txtWeightKgs.Text));
+                sbMixLabel.AppendFormat("{0},{1},{2},{3},{4},{5},{6}", "SCRAP", _selectOrder.ScrapItemName, "", _selectOrder.YJNOrder, "", sscc, Convert.ToDecimal(txtWeightKgs.Text));
 
                 // Create the label file and write the label content
                 using (StreamWriter sw = File.CreateText(fileNameRollLabels))
