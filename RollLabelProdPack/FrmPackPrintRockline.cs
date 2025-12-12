@@ -742,7 +742,7 @@ namespace RollLabelProdPack
             sb.Append(@"%END%");
             sb.AppendLine();
             // ItemNumber,ProductionDate,ItemName,CustomerPartNumber,Quantity,UOM,LotNumber,PurchaseOrderNumber,Weight,SSCC
-            sb.Append("ItemNumber,ProductionDate,ItemName,CustomerPartNumber,Quantity,UOM,LotNumber,PurchaseOrderNumber,Weight,SSCC");
+            sb.Append("ItemNumber,ProductionDate,ItemName,CustomerPartNumber,Quantity,UOM,LotNumber,PurchaseOrderNumber,Weight,SSCC,PGSSCC");
             sb.AppendLine();
 
             var uom = packLabel.Rolls?.FirstOrDefault()?.UOM ?? string.Empty;
@@ -750,7 +750,7 @@ namespace RollLabelProdPack
             // Add the label data for the specified number of copies
             for (int i = 0; i < packLabel.Copies; i++)
             {
-                sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}",
+                sb.AppendFormat("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
                     packLabel.ItemCode,
                     packLabel.ProductionDate.ToShortDateString(),
                     packLabel.ItemName,
@@ -760,7 +760,8 @@ namespace RollLabelProdPack
                     packLabel.YJNOrder,
                     packLabel.PONumber,
                     totalNetKg,
-                    packLabel.PMXSSCC);
+                    packLabel.PMXSSCC,
+                    packLabel.SSCC);
                 sb.AppendLine();
             }
 
