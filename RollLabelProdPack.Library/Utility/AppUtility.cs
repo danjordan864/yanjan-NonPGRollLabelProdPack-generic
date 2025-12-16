@@ -1394,6 +1394,36 @@ namespace RollLabelProdPack.Library.Utility
         }
 
         /// <summary>
+        /// Retrieves the generic default roll label format from the configuration settings.
+        /// Used as fallback for customers without specific label format.
+        /// </summary>
+        /// <returns>The generic default roll label format file path</returns>
+        public static string GetGenericDefaultRollLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["GenericDefaultRollLabelFormat"];
+        }
+
+        /// <summary>
+        /// Retrieves the generic default bundle label format from the configuration settings.
+        /// Used as fallback for customers without specific label format.
+        /// </summary>
+        /// <returns>The generic default bundle label format file path</returns>
+        public static string GetGenericDefaultBundleLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["GenericDefaultBundleLabelFormat"];
+        }
+
+        /// <summary>
+        /// Retrieves the generic default core label format from the configuration settings.
+        /// Used as fallback for customers without specific label format.
+        /// </summary>
+        /// <returns>The generic default core label format file path</returns>
+        public static string GetGenericDefaultCoreLabelFormat()
+        {
+            return ConfigurationManager.AppSettings["GenericDefaultCoreLabelFormat"];
+        }
+
+        /// <summary>
         /// Retrieves the default label file for the P&G tub/case label format from the configuration settings.
         /// </summary>
         /// <returns>The default label file for the P&G tub/case label format.</returns>

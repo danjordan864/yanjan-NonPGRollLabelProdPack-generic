@@ -226,6 +226,16 @@ namespace RollLabelProdPack.Library.Entities
         public string PONumber { get; set; }
 
         /// <summary>
+        /// Gets or sets the Unit of Measure (SM, SY, KGS, etc.)
+        /// </summary>
+        public string UOM { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Customer Card Code (e.g., C1007, C1020)
+        /// </summary>
+        public string CardCode { get; set; }
+
+        /// <summary>
         /// Returns a string representation of the <see cref="RollLabelData"/> object.
         /// </summary>
         /// <returns>A string representation of the object.</returns>
